@@ -1,0 +1,88 @@
+wileyonlinelibrary.com/journal/desc 1o f1 4
+https://doi.org/10.1111/desc.13403
+
+2o f1 4 ANDREU ET AL .
+Research Highlights
+∙This study investigated the effects of a mindfulness-based intervention in children
+from a low socioeconomic status school on neural correlates of EFs.
+∙Children performed a Go/Nogo task while electroencephalographic activity was
+recorded and completed questionnaires before and after a MBI or an active control
+program.
+∙Improvements in EFs assessed by questionnaires together with an increased Nogo-
+P3 activity associated with successful inhibition in children who received the MBI
+were found.
+∙The results could contribute to understand how mindfulness practice can promote
+the development of inhibitory control in children from vulnerable populations.
+1 INTRODUCTION
+Socioeconomic status (SES), a measure of one’s overall status and posi-
+tion in society, strongly influences an individual’s experiences from
+childhood and through adult life. Growing up in a family with a low
+SES background is associated with substantially worse health and
+impaired psychological well-being, and decreased cognitive and emo-
+tional development throughout the lifespan, being considered as a
+risk factor for a healthy development (Hackman et al., 2010 ). Com-
+pared with children and adolescents from higher-SES backgrounds,
+children and adolescents from low-SES backgrounds show higher rates
+of depression, anxiety, attention problems, and conduct disorders, and
+a higher prevalence of internalizing and externalizing behaviors, all of
+which increase with the duration of living in poverty (Hackman et al.,
+2010 ). In addition, childhood SES influences cognitive development:
+SES is positively correlated with intelligence and academic achieve-
+ment from early childhood and through adolescence (Farah et al., 2006 ;
+Hackman & Farah, 2009 ).
+Childhood SES affects some neurocognitive systems more than
+others: studies that assessed multiple neurocognitive systems found
+moderate effects of SES on executive functions (EFs) — particu-
+larly on working memory and inhibitory control (Hackman & Farah,
+2009 ; Hackman et al., 2010 ; John et al., 2019 ). SES-related differ-
+ences in the EFs of working memory and inhibitory control have been
+noted in children as young as 6 −14 months of age (Hackman et al.,
+2015 ). SES- related differences in executive attentional systems have
+been reported in 6-year-old children, and SES-related disparities in
+various tasks of executive function have been described at multi-
+ple developmental stages through early adolescence (Hackman et al.,
+2015 ).
+EFs refer to a group of cognitive control abilities that organize,
+sequence, and regulate behavior (Diamond, 2013 ; Schonert-Reichl
+et al., 2015 ). One core EF is inhibitory control, which refers to the
+capacity to control one’s attention, behavior, thoughts, and/or emo-
+tions to handle a strong internal predisposition and respond in a willful
+and non-reactive way (Diamond, 2013 ). More broadly, self-regulation
+involves the use of inhibitory control and is highly related witheffortful control (EC), a temperamental predisposition for better or
+worse self-regulation (Checa et al., 2014 ; Diamond, 2013 ). Children
+with poor EFs (particularly inhibitory control) have been shown to have
+poorer outcomes in adulthood such as having worse health, impaired
+self-regulation (Rueda et al., 2005 ), lower prosocial behaviors (Aguilar-
+Pardo et al., 2013 ), are less happy, commit more crimes, and develop
+several EFs disorders (Diamond & Lee, 2011 ; Moffitt et al., 2011 ). In
+fact, EFs are critical for every aspect of life, including success in school,
+academic abilities, positive friendships, mental and physical health, and
+overall quality of life (Diamond & Lee, 2011 ). Thus, improving EFs early
+in life is crucial (Diamond & Lee, 2011 ). EFs are malleable from an early
+age, and children with the weakest EFs show the most significant bene-
+fits from any intervention to train EFs (Diamond, 2013 ; Diamond & Lee,
+2011 ). Importantly, school-based interventions improve EFs (Diamond,
+2012 ;L i e w , 2011 ; Meltzer, 2018 ).
+The school is an active critical agent of development and a trans-
+formative context (Erikson, 1987 ; Mills, 2008 ). One of the functions
+of schooling is to reduce social inequalities by providing all children
+with academic and social and emotional skills to diminish gaps in SES
+and overcome them (Downey et al., 2004 ; von Hippel, et al., 2018 ).
+Schools in the 21st century play a key role in the development of differ-
+ent cognitive and social and emotional abilities (Mind & Life Education
+Research Network, 2012 ), and the comprehensive mission of schools is
+to educate students to be knowledgeable, responsible, socially skilled,
+healthy, caring, and contributing citizens. Given the large amount of
+time that youth spend in school, this is an ideal context to implement
+universal prevention programs that address core elements of social,
+emotional, and cognitive development (Hale et al., 2014 ), including the
+promotion of students’ EFs.
+School-based social and emotional learning (SEL) interventions have
+been found to improve EFs and to be cost-effective in the long term
+(Belfield et al., 2015 ; Heckman & Mosso, 2014 ). Research has shown
+that SEL interventions that incorporate mindfulness attention prac-
+tices lead to improvements in students’ EFs (Schonert-Reichl et al.,
+2015 ). Mindfulness is broadly defined as “self-regulation of atten-
+tion to the conscious awareness of one’s immediate experiences while
+adopting an attitude of curiosity, openness, and acceptance” (Bishop,
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

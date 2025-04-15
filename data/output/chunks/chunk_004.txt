@@ -1,0 +1,54 @@
+elibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+4o f1 4 ANDREU ET AL .
+FIGURE 1 Flow chart for participants in the study. This includes enrollment, allocation and analysis of the participants. Reasons for exclusion
+are mentioned.
+sample for all analysis presented in this report consisted of 24 children
+in the mindfulness group and 22 children in the active control group,
+after participant elimination. As recommended in the literature, only
+correct trials were analyzed for Go/Nogo EEG activity, and to ensure
+an appropriate signal to noise ratio, a minimum of 15 artifact-free trials
+per condition was set as a criterion for inclusion in the analysis (Hus-
+ter et al., 2013 ; Rietdijk et al., 2014 ). Therefore, the main reasons for
+excluding participants were a high task error rate and/or a high number
+of trials with large artifacts that cannot be corrected by the Indepen-
+dent Component Analysis (ICA) procedure, leaving too few correct
+trials (less than 15) for analysis (please see Behavioral and EEG Data
+Analysis section for the complete procedure of data analysis). A dia-
+gram of the participant flow through the study is shown in Figure 1.A
+summary of demographic information for the subsample used in this
+study can be seen in Table 1. No significant pre-test differences were
+identified between groups (all p>0.05).
+2.2 Procedure
+After the collection of baseline data, randomization to study condition
+was done via a coin flip that assigned two of the four classrooms (one
+from 4th and one from 5th grade) to receive the MBI and two to receive
+the program that focused on the promotion of social skills (active con-
+trol group). At pre-test, all procedures were explained to participants,
+and informed consent/assent was obtained before. Before and after
+interventions, EEG and questionnaire data were collected. For EEG
+data, participants were tested individually during school hours using aBiosemi EEG system mounted in a private and quiet room on school
+premises. Participants were asked to come to their testing sessions
+with clean, dry hair and not to use any hair products or conditioner.
+The same procedure was repeated after the intervention period (post
+time). EEG signals were recorded using a Biosemi Active-Two ampli-
+fier system and 32 scalp Ag/AgCl electrodes mounted in an elastic cap
+according to the 10–20 system. Four additional electrodes were fixed
+on the left and right mastoids and below and above the left eye (VEOG).
+All signals were digitized with a sampling rate of 2048 Hz and 24-
+bit A/D conversion. For questionnaires, the children self-reports were
+administered by researchers during school hours. Teachers of each
+classroom supervised the administration, which took approximately 45
+min to complete each assessment. Also, the headteachers completed
+the EF reports of each child in their classrooms. The headteacher took
+approximately 15 min to complete each child report at both pre-test
+and post-test and received a total of 380 dollars in compensation for
+their time.
+2.3 Mindfulness-based intervention and control
+intervention
+2.3.1 Mindfulness-based intervention: Growingup
+breathing program
+The experimental group received the mindfulness-based program
+GrowingUp Breathing (García-Rubio & Luna-Jarillo, 2017 ; García-
+Rubio & Luna-Jarillo, 2019 ). GrowingUp Breathing is a manualized
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

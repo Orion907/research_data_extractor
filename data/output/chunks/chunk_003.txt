@@ -1,0 +1,107 @@
+elibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+ANDREU ET AL . 3o f1 4
+2004 , p. 174). Mindfulness-based interventions (MBIs) are sustained
+and systematic training in formal and informal practices of mindful-
+ness meditation to improve mindfulness skills. MBIt’s participants learn
+a more adaptive way to relate to their feelings, thoughts, and emo-
+tions supporting the development of greater attentional, emotional
+and behavioral self-regulation, as well as positive prosocial qualities
+such as kindness and compassion (Crane et al., 2017 ). In the last decade,
+interest in mindfulness-based interventions applied in educational set-
+tings have had a rapid expansion, accompanied by the exponential
+growth of empirical research documenting the benefits of mindfulness
+practices in schools (for a review, see Weare, 2019 ).
+Theoretically, MBIs in schools have an impact on increasing both EFs
+and mindfulness skills (Andreu & García-Rubio, 2019 ;L a w l o r , 2016 ;
+Lyons & DeLange, 2016 ; Mendelson, et al., 2010 ; Mind and Life Educa-
+tion Research Network, 2012 ; Waters, et al., 2014 ) .I nt h es a m el i n e ,
+mindfulness skills in children have been positively related with EFs,
+particularly inhibitory control (Riggs et al., 2015 ). Furthermore, recent
+systematic reviews and meta-analyses have found positive effects of
+MBIs on EFs in children and adolescents (Dunning et al., 2018 ;M a k
+et al., 2018 ; Maynard et al., 2017 ). For example, teacher-reported
+improvements in adolescents EFs have been shown with a school-
+based mindfulness intervention (Lam & Seiden, 2020 ). However, Felver
+et al. ( 2015 ) warned that most of the studies in the field did not use rig-
+orous experimental designs: lacked active control groups, used a single
+informant (typically only children), used a single methodology (typi-
+cally self-reports), and did not use multi-level measurements to assess
+outcomes (neural, cognitive, behavioral). Specially significant was the
+shortage of studies designed to elucidate the impact of MBIs in school
+on the neural correlates of core cognitive functions in development,
+such as EFs.
+The use of electroencephalography (EEG) to evaluate the neuronal
+correlates of EFs is well established in adults and children. EEG and the
+event-related potentials (ERPs) methodology provide several advan-
+tages for the neurocognitive research on EFs (Huster et al., 2013 ;
+Kaunhoven & Dorjee, 2017 ; Sanger & Dorjee, 2015 ). The Go/Nogo
+task, one of the most classic paradigms used to investigate EFs in the
+laboratory, has been particularly relevant for the study of neural corre-
+lates of inhibitory control. Behavioral indices in a Go/Nogo task include
+the omission errors in Go trials and the commission errors in Nogo
+trials, which require inhibitory control ability, as well as the reaction
+times (RTs) to different types of trials. One proposed ERPs neural cor-
+relate of inhibitory control that reflect changes in brain activity needed
+to inhibit response in a Go/Nogo task is the P3 component (Huster
+et al., 2013 ). Indeed, the P3 is thought to reflect represent a tempo-
+rally precise neural marker of the response inhibition process (Albert
+et al., 2013 ; Dykstra et al., 2020 ; Sánchez-Carmona et al., 2016 ;W e s -
+sel & Aron, 2015 ). Differential amplitudes of P3 are described both
+on several EF disorders in adults and children (Luijten et al., 2014 ;
+Lopez-Martin et al., 2015 ).
+Several studies have employed experimental tasks to measure the
+impact of mindfulness trainings in children (e.g., Felver et al., 2014 ;
+Napoli et al., 2005 ; Schonert-Reichl et al., 2015 ), yet only a few have
+used EEG or ERP methodology. Siripornpanich et al. ( 2018 ) assessed
+children who have been studied in two schools with different typesof school curriculum: mindfulness-based curriculum (i.e., mindfulness
+practices for all levels of education) versus usual curriculum. Chil-
+dren who received the mindfulness education curriculum showed
+lower theta power and smaller theta/beta ratio compared to control
+children, suggesting enhanced maturation of brain areas related to
+cognitive control and self-regulation. However, in the absence of a
+randomization process, and the lack of baseline levels of children in
+the two groups, the possibility that these differences existed previ-
+ously between groups or were due to other elements of the curricula
+could not be excluded. In another study with adolescents, the ampli-
+tude of the P3b component was measured during an affective oddball
+task, before and after mindfulness training. The P3b amplitude in the
+control group decreased between testing sessions but it remained
+unchanged in the mindfulness group, suggesting a maintained sensitiv-
+ity to emotional stimuli in mindfulness-trained students (Sanger et al.,
+2018 ).
+Thus, as previous studies are done in adolescents, to our knowledge
+there are no published studies who have specifically used ERP meth-
+ods in children to evaluate possible effects of MBIs in schools on EFs
+or other cognitive processes. The main aim of the present study was
+to assess the impact of a school-based mindfulness intervention on the
+neural correlates of EFs, specifically inhibitory control, in children. Via
+a randomized controlled trial, we examined the effectiveness of an MBI
+in 4th and 5th grade children attending a school identified as vulnerable
+due to its low SES. We measured behavioral and EEG neural responses
+on a Go/Nogo task to evaluate inhibitory control. We expected lower
+error rates and decreased reaction times together with an increase
+in P3 amplitude (particularly in No-Go trials) in the MBI intervention
+group compared to the control group. Also, we measured the impact of
+the MBI on children’s mindfulness skills via self-report and EFs’ via self-
+and teachers-reports. We expected improvements in mindfulness skills
+and EFs in children in the MBI group compared to children in the active
+control intervention.
+2 METHOD
+2.1 Participants
+Prior to participant recruitment, the Ethics Committee of the Pon-
+tificia Universidad Católica de Chile approved the study. The school
+in which the study took place was selected based on a low-SES and
+vulnerable context. According to the Chilean Index of Scholar Vulner-
+ability, the school was rated with an index of 74%, which corresponds
+to a medium-high risk of vulnerability. The aim of the study was pre-
+sented to teachers, students, and students from four 4th and 5th grade
+classrooms were recruited (age range 9–11 years old).
+The total sample for the global study was N=133 (67 in the mindful-
+ness group). From this initial group, 68 children were chosen at random
+(N=68; 34 from the mindfulness group) to become part of this EEG
+study, and were subsequently evaluated with EEG. The results of the
+pre-post EEG and questionnaires of this sample are presented here.
+Of the 68 children who were evaluated with EEG, 46 remained in the
+final sample, and the data of 22 children were discarded. Thus, the final
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

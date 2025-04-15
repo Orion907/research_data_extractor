@@ -1,0 +1,82 @@
+elibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+10 of 14 ANDREU ET AL .
+TABLE 3 Descriptive statistics and differences in change scores between intervention groups.
+Mindfulness group Control groupBetween-group
+differences
+Pretest Posttest Pretest PosttestMindfulness vs.
+control pre-post
+M SD M SD M SD M SD F η2
+Children self-reports
+CAMM- mindfulness 3.34 0.95 3.55 0.93 3.34 0.91 2.90 0.90 5.10 * 0.11
+EATQ- effortful control 3.39 0.41 3.62 0.47 3.22 0.35 3.10 0.43 6.14 * 0.12
+Teacher reports
+BRIEF- executive function 1.61 0.36 1.35 0.34 1.52 0.43 1.54 0.47 5.64* 0.12
+BRIEF- behavioral regulation 1.67 0.45 1.34 0.35 1.48 0.49 1.48 0.53 5.63* 0.12
+BRIEF—cognitive regulation 1.59 0.37 1.44 0.44 1.66 0.56 1.68 0.49 1.69 0.04
+BRIEF—emotional regulation 1.56 0.39 1.28 0.29 1.43 0.39 1.47 0.47 8.02* 0.16
+*p<0.05.
+3.3.3 Attendance, acceptability, and personal
+practice
+Because the sessions were regularly scheduled in the curriculum dur-
+ing the academic schedule, there was a high attendance rate for both
+programs. For the mindfulness intervention group, 50% of children
+attended all mindfulness sessions, 33% missed one session, 12% missed
+two sessions, and 5% missed three sessions. For the active control
+group (SFL), 67% of children attended all SFL sessions, 22% missed
+one session, 5% missed two sessions, and 5% missed three sessions.
+There were no differences in the attendance rate between groups
+(t(41)=−1.160, p=0.253). The acceptability was high in both the
+mindfulness group ( M=8.45, SD=2.78), and the active control group
+(M=8.54, SD=2.63). Also, personal practice was moderately high in
+the mindfulness group ( M=6.69, SD=3.95), and the control group
+(M=7.04, SD=3.40). There were no differences between groups
+in acceptability ( t(44)=−0.109, p=0.914) and personal practice
+(t(42)=−0.328, p=0.744).
+4 DISCUSSION
+In this study, we examined the effects of a mindfulness-based inter-
+vention in children in a high-risk context on inhibitory control and
+its underlying neural mechanisms. Compared to an active control
+group, children that received the MBI showed less error rates in the
+Go/Nogo task for all trial types. No differences in reaction times
+were found between groups. Additionally, children in the mindfulness
+group showed increased EC, global EFs, emotion and behavioral regu-
+lation after the intervention, evidenced by child self-report and teacher
+reports. Furthermore, EEG results revealed significant differences in
+the P3 amplitude; with children in the mindfulness group showing an
+increased Nogo-P3 amplitude and children in the control group show-
+ing a slight decrease in P3 amplitude over time. Taken together, thisis one of the first studies to provide empirical evidence that an MBI
+in a vulnerable school context increases children’s EFs, attention, and
+inhibitory control. Importantly, the effects were evidenced by both
+behavioral and neural indices, showing that frontocentral P3 amplitude
+may underlie this effect. Following recent recommendations (Felver
+et al., 2015 ), the use of an active control group allowed us to better con-
+trol for non-specific effects and particularly, this study used as an active
+control a very well evaluated social skills intervention that is widely
+used in vulnerable schools in Chile, making it a very strict comparison.
+Behaviorally, children that participated in the MBI showed a gen-
+eral lower error rate in the Go/Nogo task compared to control children.
+Interestingly, this was true for all task trials and times, including pre-
+test. The Go/Nogo task we used (Albert et al., 2013 ) allowed us to
+analyze attention-related effects with frequent versus infrequent go
+trials and inhibition-related effects with infrequent go trials versus
+nogo trials (infrequent go and nogo trials have the same proportion).
+As the effects were observed in all task trials, this result may reflect
+increased global attention rather than a specific effect of inhibitory
+control. This result is very interesting since previous evidence shows
+that mindfulness trains attention in adults but also in children (Zen-
+ner et al., 2014 ) and attention is entirely associated with executive
+functioning (Checa et al., 2014 ; Diamond, 2013 ). Moreover, according
+to child self-report questionnaires EC (which include attentional con-
+trol) increased in the mindfulness group over time compared to control
+group, which is in line with behavioral task interpretation of results.
+However, it cannot be stated that it is a consequence of the interven-
+tion per se, since there was an overall group effect and there were
+previous differences between groups in the case of frequent-go errors.
+Regarding EEG results, we expected increased amplitudes of P3 in
+the mindfulness group over time, particularly in Nogo-P3 which has
+been proposed as a reliable neural index of motor inhibition (Albert
+et al., 2013 ; Dykstra et al., 2020 ; Sánchez-Carmona et al., 2016 ;W e s -
+sel & Aron, 2015 ). Our electrophysiological results closely matched the
+behavioral results: children in the mindfulness training group showed
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

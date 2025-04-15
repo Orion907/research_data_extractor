@@ -1,0 +1,51 @@
+elibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+8o f1 4 ANDREU ET AL .
+(a) (b)
+(c) (d)
+(e) (f)
+FIGURE 2 Panel A and B show the scalp topographical map and the grand-average waveform for P3 independent component—ERP,
+respectively. Panel C, D, E, and F show the mean waveforms for each trial, group and time in Cz.
+data ( χ2 [769]=13,548, p=1.000) and for teacher reports data ( χ2
+[1749]=6370, p=1.000), indicating that the missing data did not show
+a significant pattern and we could consider that data were missing at
+random.
+We examined the baseline differences between groups (i.e., mind-
+fulness and control group) for dependent variables of children’s self-
+reports and teachers’ reports by t-test. Repeated-measures ANOVAs
+were used with Group (mindfulness vs. active control group) and Time
+(pre, post) in all analyses as factors. The Greenhouse–Geisser (GG)
+epsilon correction was applied to adjust the degrees of freedom of the
+F ratios where necessary, and post hoc comparisons were also made in
+order to determine the significance of pair-wise contrasts applying the
+Bonferroni procedure (alpha 0.05). For all analyses, the level of signifi-
+cance employed was 0.05. Effect sizes were computed using the partial
+eta-square ( ƞ2p). For interpreting effect sizes, Cohen’s ( 1988 ) cutoff
+criteria were followed: ƞ2p=0.01 as small effect size, ƞ2p=0.06 as
+medium effect size, and ƞ2p=0.14 as large effect size.
+3 RESULTS
+3.1 ERP data
+The ICA applied on the previous computed ERPs revealed a fronto-
+central P3 component between 377 and 434 ms after stimulus onset.Figure 2shows its topography and waveforms for both times and
+groups and all different trials of the Go/Nogo task. No significant
+baseline difference in Nogo P3 amplitude was found ( t(44)=0.757,
+p=0.453). A 2 ×2 ANOVA with factors of Time (pre, post) and Group
+(mindfulness group, active control group) assessed possible changes
+across time in mean amplitudes of the frontocentral P3 on Nogo tri-
+als (Figure 2). There was a marginally significant main effect of time
+(F(1, 44)=4.176, p=0.047, ƞ2p=0.087), and no significant main effect
+of group ( F(1, 44)=0.141, p=0.709). Importantly, the time-by-group
+interaction was significant ( F(1, 44)=5.287, p=0.026, ƞ2p=0.107).
+Results showed an important increment of the Nogo-P3 amplitude in
+the mindfulness group over time, and a slight decrease from pre to
+post in the active control group. No other significant interactions were
+found (Figure 2).
+3.2 Behavioral data
+Performance on the Go/Nogo task is shown in Table 2. For the Go trials
+(frequent and infrequent-go), it shows means of error rates (omission
+errors in percentages), and means RTs. For the Nogo trials, it shows
+means of error rates (commission errors in percentage). Preliminary
+analyses were conducted to examine pre-intervention group differ-
+ences in behavioral data. There were no significant pre-intervention
+group differences in error rates and RTs (all p>0.05), except for errors
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

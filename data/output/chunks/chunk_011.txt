@@ -1,0 +1,108 @@
+elibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+ANDREU ET AL . 11 of 14
+increased P3 amplitude on Nogo trials, compared to children in the
+active control condition, who showed a minor decreased amplitude
+over time. A previous study with the same Go/Nogo task indicated
+that the frontocentral P3 showed larger amplitudes for Nogo than
+for infrequent Go trials, suggesting that Nogo P3 is the ERP activ-
+ity most associated with inhibitory control (Albert et al., 2013 ). Our
+results showed, for the first time, a specific mindfulness-related effect
+in this inhibition-related neural activity in youth, which would indi-
+cate increased inhibitory control in children after an MBI. Increased
+inhibitory control in children after a MBI was shown previously only
+with behavioral or self-reported data (Mak et al., 2018 ; Schonert-
+Reichl et al., 2015 ). In adolescents, previous EEG studies have shown
+changes in P3b amplitudes after MBI but using tasks that measure
+different cognitive/affective processes which are not comparable to a
+pure inhibitory control task such as Go/Nogo (Sanger & Dorjee, 2015 ;
+Sanger et al., 2018 ). Given the importance of inhibitory control in chil-
+dren and specially in our particular population of high-risk children, we
+considered that our results are extremely relevant.
+Questionnaires data from multiple informants (children and teach-
+ers) supports our behavioral and EEG results. Self-reported results
+from children showed increased EC in the mindfulness-training group
+compared with control group over time and a significant intervention
+effect on mindfulness, showing a slight increase in mindfulness for the
+intervention group and a significant decrease in mindfulness in the
+control group. Although it may be counterintuitive to see a drop of
+mindfulness in the control group, these findings may be interpreted
+within the context of the cognitive changes that occur during the devel-
+opmental period of early adolescence—ages 9–13 years. Specifically,
+early adolescence in particular has been described as a time in the life
+cycle in which there is heightened self-consciousness due to increased
+competence in cognitive and social cognitive abilities (Schonert-Reichl,
+1994 ) and information processing. Developmental changes may lead to
+increased attention and reflection on the self, which may then direct
+the early adolescent to adopt a more critical view of the self (Eccles &
+Roeser, 2009 ) and a subsequent drop in present-moment awareness
+as well as judgmental and non-accepting responses to thoughts and
+feelings. Hence, this drop in mindfulness in the control group may be
+reflective of the typical developmental trajectory of early adolescents.
+The mindfulness intervention may have staved off this typical decline
+in dispositional mindfulness for students in the intervention group.
+Assessments from teachers showed increased behavioral regulation,
+emotion regulation, and global executive functioning in children of the
+mindfulness group compared to controls over time. Collectively, the
+results suggested increased EFs, particularly inhibitory and attentional
+control in vulnerable children after the mindfulness-based interven-
+tion. Previous studies have shown improved EFs in children after MBIs
+in schools (Mak et al., 2018 ; Schonert-Reichl et al., 2015 ). Execu-
+tive functioning has been distinguished in “hot and cool”: top-down
+processes that operate in emotionally significant situations versus
+affectively neutral contexts (Zelazo & Carlson, 2012 ). It is interesting to
+see that the concept of hot EF suggests that motivationally significant
+contexts demand different top-down processes than neutral contexts.
+Following this distinction, the electrophysiological results observedin the Go/Nogo task clearly correspond to cool EF while the results
+reported by teachers may be associated with hot EF, where children
+were evaluated in emotionally challenging situations (particularly with
+inhibition and emotional regulation subscales of the BRIEF). This may
+explain the absence of behavioral outcomes in the Go/Nogo task, sug-
+gesting that brain-related effects were not sufficient to see changes in
+behavioral cold EFs, but instead translated into changes in hot EFs. If
+this is true, our results point toward brain changes in the cool EF sys-
+tem that may support behavioral changes in hot EF, important for daily
+life situations and crucial in high-risk contexts for children.
+The present study used a longitudinal design with an active con-
+trol group, which allows us to draw conclusions about causality and
+control the non-specific effects, confirming that the reported effects
+are related to the training of mindfulness per se. Additionally, the use
+of multiple levels of measurements (questionnaires, behavioral tasks,
+electrophysiological recordings) and several informants (children and
+teachers) allow us to draw stronger conclusions. Despite this, our study
+is limited since only one school was part of the study making difficult
+to generalize the results. The sample size is a common challenge and
+limitation of the field of EEG studies with children, where a high num-
+ber of participants are expected to be eliminated due to eye and/or
+head movements that cannot be corrected. Therefore, it is likely that
+the most restless children are not included in the final samples of EEG
+studies. Future work should replicate our study with an increased num-
+ber of participants and schools. Also, longer interventions would be
+useful to determine the time-line effects of mindfulness on EFs in high-
+risk contexts. Lastly, we did not have a follow-up measurement due
+to the difficulties of collecting EEG data and did not include parents,
+teachers, and the school community in the interventions, limiting the
+sustainability of the improvements obtained.
+To conclude, children from vulnerable contexts who participate
+in a school-based mindfulness intervention displayed improved exec-
+utive functioning, inhibitory control and attention at the reported
+and behavioral level, which was accompanied by increased Nogo P3
+amplitude, compared to an active control group. Together, our results
+showed that mindfulness trainings in schools improve EFs and partic-
+ularly inhibitory control in high-risk children, providing them crucial
+abilities for a healthier development and preventing future problems.
+We hope this research will help advance the science and practice
+of school mindfulness-based preventive interventions that will help
+vulnerable children flourish.
+ACKNOWLEDGMENTS
+A special appreciation is expressed to the children who participated in
+the study, as well as to their parents, teachers and all the school com-
+munity; all of whom made this study possible. Also, a special thanks to
+all research assistants for their valuable help in the different phases
+of this project. This study was funded by the Mind and Life Europe
+Institute by a Varela Awards given to CIA and CGR [Grant #2016-
+EVarela-Garcia Rubio, Carlos and Andreu, Catherine]. This work was
+supported by the Fund for Innovation and Competitiveness (FIC) of the
+Chilean Ministry of Economy, Development and Tourism, through the
+Millennium Scientific Initiative, Grant [IS 130005—MIDAP to CIA] and
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

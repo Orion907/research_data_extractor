@@ -1,0 +1,1238 @@
+Received: 26 April 2022 Revised: 28 October 2022 Accepted: 12 April 2023
+DOI: 10.1111/desc.13403
+RESEARCH ARTICLE
+The effectiveness of a school mindfulness-based intervention
+on the neural correlates of inhibitory control in children at risk:
+A randomized control trial
+Catherine I. Andreu1,2Carlos García-Rubio3,4María Melcón3
+Kimberly A. Schonert-Reichl5Jacobo Albert3
+1Millennium Institute for Research in
+Depression and Personality (MIDAP),
+Santiago, Chile
+2Polibienestar Institute, University of Valencia,
+Valencia, Spain
+3Faculty of Psychology, Autonomous
+University of Madrid, Madrid, Spain
+4Nirakara Lab, Complutense University of
+Madrid, Madrid, Spain
+5Department of Psychology, University of
+Illinois at Chicago, Chicago, USA
+Correspondence
+Catherine Andreu, Polibienestar Institute,
+University of Valencia, Valencia, Spain.
+Email: catherine.andreu@uv.es
+Carlos García-Rubio, Faculty of Psychology,
+Autonomous University of Madrid, Madrid,
+Spain.
+Email: garciarubio.carlos@gmail.com
+Funding information
+Fund for Innovation and Competitiveness:
+Millennium Scientific Initiative, Grant [IS
+130005—MIDAP]; Spanish Ministry of
+Education, Culture, and Sport, Grant/Award
+Number: FPU13/ 01677; Mind and Life Europe
+Institute: Varela Awards [Grant
+#2016-EVarela Garcia Rubio, Carlos and
+Andreu, Catherine]Abstract
+Interest in the applications of mindfulness practice in education is growing in the sci-
+entific community. Recent research has shown that mindfulness practice in schools
+may be beneficial for executive functions (EFs) which are abilities crucial for healthy
+development. The study of the effects of mindfulness practices on children’s neural cor-
+relates of EFs, particularly inhibitory control, may provide relevant information about
+the impact and mechanisms of mindfulness-based interventions (MBIs) in children. The
+aim of the present study was to investigate the effects of a MBI in elementary school
+children on the neural correlates of inhibitory control via a randomized controlled
+trial. Children from two 4th grade classrooms and two 5th grade classrooms located
+in a school identified as having low socioeconomic status in Santiago de Chile were
+randomly assigned to either receive a MBI or serve as active controls and receive a
+social skills program. Both before and after the interventions, electroencephalographic
+activity was recorded during a modified version of the Go/Nogo task in a subsample
+of children in each group. Additionally, teachers completed questionnaires of stu-
+dents’ EFs and students completed self-report measures. Results revealed increases
+in EFs assessed by questionnaires together with improved P3 amplitude associated
+with successful response inhibition in children who received the MBI compared to
+active controls. These results contribute to the understanding of the ways in which
+mindfulness practices can promote the development of inhibitory control together
+with EF improvement, factors identified as critical for children’s social and emotional
+development and positive mental health.
+KEYWORDS
+children, EEG, executive function, high-risk, inhibitory control, mindfulness
+This is an open access article under the terms of the Creative Commons Attribution-NonCommercial-NoDerivs License, which permits use and distribution in any
+medium, provided the original work is properly cited, the use is non-commercial and no modifications or adaptations are made.
+© 2023 The Authors. Developmental Science published by John Wiley & Sons Ltd.
+Developmental Science. 2023;26:e13403. wileyonlinelibrary.com/journal/desc 1o f1 4
+https://doi.org/10.1111/desc.13403
+
+2o f1 4 ANDREU ET AL .
+Research Highlights
+∙This study investigated the effects of a mindfulness-based intervention in children
+from a low socioeconomic status school on neural correlates of EFs.
+∙Children performed a Go/Nogo task while electroencephalographic activity was
+recorded and completed questionnaires before and after a MBI or an active control
+program.
+∙Improvements in EFs assessed by questionnaires together with an increased Nogo-
+P3 activity associated with successful inhibition in children who received the MBI
+were found.
+∙The results could contribute to understand how mindfulness practice can promote
+the development of inhibitory control in children from vulnerable populations.
+1 INTRODUCTION
+Socioeconomic status (SES), a measure of one’s overall status and posi-
+tion in society, strongly influences an individual’s experiences from
+childhood and through adult life. Growing up in a family with a low
+SES background is associated with substantially worse health and
+impaired psychological well-being, and decreased cognitive and emo-
+tional development throughout the lifespan, being considered as a
+risk factor for a healthy development (Hackman et al., 2010 ). Com-
+pared with children and adolescents from higher-SES backgrounds,
+children and adolescents from low-SES backgrounds show higher rates
+of depression, anxiety, attention problems, and conduct disorders, and
+a higher prevalence of internalizing and externalizing behaviors, all of
+which increase with the duration of living in poverty (Hackman et al.,
+2010 ). In addition, childhood SES influences cognitive development:
+SES is positively correlated with intelligence and academic achieve-
+ment from early childhood and through adolescence (Farah et al., 2006 ;
+Hackman & Farah, 2009 ).
+Childhood SES affects some neurocognitive systems more than
+others: studies that assessed multiple neurocognitive systems found
+moderate effects of SES on executive functions (EFs) — particu-
+larly on working memory and inhibitory control (Hackman & Farah,
+2009 ; Hackman et al., 2010 ; John et al., 2019 ). SES-related differ-
+ences in the EFs of working memory and inhibitory control have been
+noted in children as young as 6 −14 months of age (Hackman et al.,
+2015 ). SES- related differences in executive attentional systems have
+been reported in 6-year-old children, and SES-related disparities in
+various tasks of executive function have been described at multi-
+ple developmental stages through early adolescence (Hackman et al.,
+2015 ).
+EFs refer to a group of cognitive control abilities that organize,
+sequence, and regulate behavior (Diamond, 2013 ; Schonert-Reichl
+et al., 2015 ). One core EF is inhibitory control, which refers to the
+capacity to control one’s attention, behavior, thoughts, and/or emo-
+tions to handle a strong internal predisposition and respond in a willful
+and non-reactive way (Diamond, 2013 ). More broadly, self-regulation
+involves the use of inhibitory control and is highly related witheffortful control (EC), a temperamental predisposition for better or
+worse self-regulation (Checa et al., 2014 ; Diamond, 2013 ). Children
+with poor EFs (particularly inhibitory control) have been shown to have
+poorer outcomes in adulthood such as having worse health, impaired
+self-regulation (Rueda et al., 2005 ), lower prosocial behaviors (Aguilar-
+Pardo et al., 2013 ), are less happy, commit more crimes, and develop
+several EFs disorders (Diamond & Lee, 2011 ; Moffitt et al., 2011 ). In
+fact, EFs are critical for every aspect of life, including success in school,
+academic abilities, positive friendships, mental and physical health, and
+overall quality of life (Diamond & Lee, 2011 ). Thus, improving EFs early
+in life is crucial (Diamond & Lee, 2011 ). EFs are malleable from an early
+age, and children with the weakest EFs show the most significant bene-
+fits from any intervention to train EFs (Diamond, 2013 ; Diamond & Lee,
+2011 ). Importantly, school-based interventions improve EFs (Diamond,
+2012 ;L i e w , 2011 ; Meltzer, 2018 ).
+The school is an active critical agent of development and a trans-
+formative context (Erikson, 1987 ; Mills, 2008 ). One of the functions
+of schooling is to reduce social inequalities by providing all children
+with academic and social and emotional skills to diminish gaps in SES
+and overcome them (Downey et al., 2004 ; von Hippel, et al., 2018 ).
+Schools in the 21st century play a key role in the development of differ-
+ent cognitive and social and emotional abilities (Mind & Life Education
+Research Network, 2012 ), and the comprehensive mission of schools is
+to educate students to be knowledgeable, responsible, socially skilled,
+healthy, caring, and contributing citizens. Given the large amount of
+time that youth spend in school, this is an ideal context to implement
+universal prevention programs that address core elements of social,
+emotional, and cognitive development (Hale et al., 2014 ), including the
+promotion of students’ EFs.
+School-based social and emotional learning (SEL) interventions have
+been found to improve EFs and to be cost-effective in the long term
+(Belfield et al., 2015 ; Heckman & Mosso, 2014 ). Research has shown
+that SEL interventions that incorporate mindfulness attention prac-
+tices lead to improvements in students’ EFs (Schonert-Reichl et al.,
+2015 ). Mindfulness is broadly defined as “self-regulation of atten-
+tion to the conscious awareness of one’s immediate experiences while
+adopting an attitude of curiosity, openness, and acceptance” (Bishop,
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+ANDREU ET AL . 3o f1 4
+2004 , p. 174). Mindfulness-based interventions (MBIs) are sustained
+and systematic training in formal and informal practices of mindful-
+ness meditation to improve mindfulness skills. MBIt’s participants learn
+a more adaptive way to relate to their feelings, thoughts, and emo-
+tions supporting the development of greater attentional, emotional
+and behavioral self-regulation, as well as positive prosocial qualities
+such as kindness and compassion (Crane et al., 2017 ). In the last decade,
+interest in mindfulness-based interventions applied in educational set-
+tings have had a rapid expansion, accompanied by the exponential
+growth of empirical research documenting the benefits of mindfulness
+practices in schools (for a review, see Weare, 2019 ).
+Theoretically, MBIs in schools have an impact on increasing both EFs
+and mindfulness skills (Andreu & García-Rubio, 2019 ;L a w l o r , 2016 ;
+Lyons & DeLange, 2016 ; Mendelson, et al., 2010 ; Mind and Life Educa-
+tion Research Network, 2012 ; Waters, et al., 2014 ) .I nt h es a m el i n e ,
+mindfulness skills in children have been positively related with EFs,
+particularly inhibitory control (Riggs et al., 2015 ). Furthermore, recent
+systematic reviews and meta-analyses have found positive effects of
+MBIs on EFs in children and adolescents (Dunning et al., 2018 ;M a k
+et al., 2018 ; Maynard et al., 2017 ). For example, teacher-reported
+improvements in adolescents EFs have been shown with a school-
+based mindfulness intervention (Lam & Seiden, 2020 ). However, Felver
+et al. ( 2015 ) warned that most of the studies in the field did not use rig-
+orous experimental designs: lacked active control groups, used a single
+informant (typically only children), used a single methodology (typi-
+cally self-reports), and did not use multi-level measurements to assess
+outcomes (neural, cognitive, behavioral). Specially significant was the
+shortage of studies designed to elucidate the impact of MBIs in school
+on the neural correlates of core cognitive functions in development,
+such as EFs.
+The use of electroencephalography (EEG) to evaluate the neuronal
+correlates of EFs is well established in adults and children. EEG and the
+event-related potentials (ERPs) methodology provide several advan-
+tages for the neurocognitive research on EFs (Huster et al., 2013 ;
+Kaunhoven & Dorjee, 2017 ; Sanger & Dorjee, 2015 ). The Go/Nogo
+task, one of the most classic paradigms used to investigate EFs in the
+laboratory, has been particularly relevant for the study of neural corre-
+lates of inhibitory control. Behavioral indices in a Go/Nogo task include
+the omission errors in Go trials and the commission errors in Nogo
+trials, which require inhibitory control ability, as well as the reaction
+times (RTs) to different types of trials. One proposed ERPs neural cor-
+relate of inhibitory control that reflect changes in brain activity needed
+to inhibit response in a Go/Nogo task is the P3 component (Huster
+et al., 2013 ). Indeed, the P3 is thought to reflect represent a tempo-
+rally precise neural marker of the response inhibition process (Albert
+et al., 2013 ; Dykstra et al., 2020 ; Sánchez-Carmona et al., 2016 ;W e s -
+sel & Aron, 2015 ). Differential amplitudes of P3 are described both
+on several EF disorders in adults and children (Luijten et al., 2014 ;
+Lopez-Martin et al., 2015 ).
+Several studies have employed experimental tasks to measure the
+impact of mindfulness trainings in children (e.g., Felver et al., 2014 ;
+Napoli et al., 2005 ; Schonert-Reichl et al., 2015 ), yet only a few have
+used EEG or ERP methodology. Siripornpanich et al. ( 2018 ) assessed
+children who have been studied in two schools with different typesof school curriculum: mindfulness-based curriculum (i.e., mindfulness
+practices for all levels of education) versus usual curriculum. Chil-
+dren who received the mindfulness education curriculum showed
+lower theta power and smaller theta/beta ratio compared to control
+children, suggesting enhanced maturation of brain areas related to
+cognitive control and self-regulation. However, in the absence of a
+randomization process, and the lack of baseline levels of children in
+the two groups, the possibility that these differences existed previ-
+ously between groups or were due to other elements of the curricula
+could not be excluded. In another study with adolescents, the ampli-
+tude of the P3b component was measured during an affective oddball
+task, before and after mindfulness training. The P3b amplitude in the
+control group decreased between testing sessions but it remained
+unchanged in the mindfulness group, suggesting a maintained sensitiv-
+ity to emotional stimuli in mindfulness-trained students (Sanger et al.,
+2018 ).
+Thus, as previous studies are done in adolescents, to our knowledge
+there are no published studies who have specifically used ERP meth-
+ods in children to evaluate possible effects of MBIs in schools on EFs
+or other cognitive processes. The main aim of the present study was
+to assess the impact of a school-based mindfulness intervention on the
+neural correlates of EFs, specifically inhibitory control, in children. Via
+a randomized controlled trial, we examined the effectiveness of an MBI
+in 4th and 5th grade children attending a school identified as vulnerable
+due to its low SES. We measured behavioral and EEG neural responses
+on a Go/Nogo task to evaluate inhibitory control. We expected lower
+error rates and decreased reaction times together with an increase
+in P3 amplitude (particularly in No-Go trials) in the MBI intervention
+group compared to the control group. Also, we measured the impact of
+the MBI on children’s mindfulness skills via self-report and EFs’ via self-
+and teachers-reports. We expected improvements in mindfulness skills
+and EFs in children in the MBI group compared to children in the active
+control intervention.
+2 METHOD
+2.1 Participants
+Prior to participant recruitment, the Ethics Committee of the Pon-
+tificia Universidad Católica de Chile approved the study. The school
+in which the study took place was selected based on a low-SES and
+vulnerable context. According to the Chilean Index of Scholar Vulner-
+ability, the school was rated with an index of 74%, which corresponds
+to a medium-high risk of vulnerability. The aim of the study was pre-
+sented to teachers, students, and students from four 4th and 5th grade
+classrooms were recruited (age range 9–11 years old).
+The total sample for the global study was N=133 (67 in the mindful-
+ness group). From this initial group, 68 children were chosen at random
+(N=68; 34 from the mindfulness group) to become part of this EEG
+study, and were subsequently evaluated with EEG. The results of the
+pre-post EEG and questionnaires of this sample are presented here.
+Of the 68 children who were evaluated with EEG, 46 remained in the
+final sample, and the data of 22 children were discarded. Thus, the final
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+4o f1 4 ANDREU ET AL .
+FIGURE 1 Flow chart for participants in the study. This includes enrollment, allocation and analysis of the participants. Reasons for exclusion
+are mentioned.
+sample for all analysis presented in this report consisted of 24 children
+in the mindfulness group and 22 children in the active control group,
+after participant elimination. As recommended in the literature, only
+correct trials were analyzed for Go/Nogo EEG activity, and to ensure
+an appropriate signal to noise ratio, a minimum of 15 artifact-free trials
+per condition was set as a criterion for inclusion in the analysis (Hus-
+ter et al., 2013 ; Rietdijk et al., 2014 ). Therefore, the main reasons for
+excluding participants were a high task error rate and/or a high number
+of trials with large artifacts that cannot be corrected by the Indepen-
+dent Component Analysis (ICA) procedure, leaving too few correct
+trials (less than 15) for analysis (please see Behavioral and EEG Data
+Analysis section for the complete procedure of data analysis). A dia-
+gram of the participant flow through the study is shown in Figure 1.A
+summary of demographic information for the subsample used in this
+study can be seen in Table 1. No significant pre-test differences were
+identified between groups (all p>0.05).
+2.2 Procedure
+After the collection of baseline data, randomization to study condition
+was done via a coin flip that assigned two of the four classrooms (one
+from 4th and one from 5th grade) to receive the MBI and two to receive
+the program that focused on the promotion of social skills (active con-
+trol group). At pre-test, all procedures were explained to participants,
+and informed consent/assent was obtained before. Before and after
+interventions, EEG and questionnaire data were collected. For EEG
+data, participants were tested individually during school hours using aBiosemi EEG system mounted in a private and quiet room on school
+premises. Participants were asked to come to their testing sessions
+with clean, dry hair and not to use any hair products or conditioner.
+The same procedure was repeated after the intervention period (post
+time). EEG signals were recorded using a Biosemi Active-Two ampli-
+fier system and 32 scalp Ag/AgCl electrodes mounted in an elastic cap
+according to the 10–20 system. Four additional electrodes were fixed
+on the left and right mastoids and below and above the left eye (VEOG).
+All signals were digitized with a sampling rate of 2048 Hz and 24-
+bit A/D conversion. For questionnaires, the children self-reports were
+administered by researchers during school hours. Teachers of each
+classroom supervised the administration, which took approximately 45
+min to complete each assessment. Also, the headteachers completed
+the EF reports of each child in their classrooms. The headteacher took
+approximately 15 min to complete each child report at both pre-test
+and post-test and received a total of 380 dollars in compensation for
+their time.
+2.3 Mindfulness-based intervention and control
+intervention
+2.3.1 Mindfulness-based intervention: Growingup
+breathing program
+The experimental group received the mindfulness-based program
+GrowingUp Breathing (García-Rubio & Luna-Jarillo, 2017 ; García-
+Rubio & Luna-Jarillo, 2019 ). GrowingUp Breathing is a manualized
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+ANDREU ET AL . 5o f1 4
+TABLE 1 Summary of demographic information for both groups.
+VariableMindfulness group
+(n=24)Control group
+(n=22)
+Age M=9.9; SD=0.71 M=9.7; SD=0.70
+Gender (%)
+Females 62.5 63.6
+Males 37.5 36.4
+Family structure (%)
+2 members 14.3 5.5
+3 members 28.6 22.2
+4 members 33.3 61.1
+5 members 9.5 5.6
+>5 members 14.3 5.6
+Family month income (%)
+<200 USD 0 11.8
+200–400 USD 40.9 41.2
+400–680 USD 45.5 41.2
+680–1000 USD 13.6 5.8
+secular mindfulness-based intervention for children ages 7–12 years
+and is specifically designed to be implemented in a school context. The
+general aim of the program is to foster the children’s development.
+Specifically, the aims of the GrowingUp Breathing program are to (1)
+increase mindfulness skills, (2) increase attention and self-regulation
+processes (EF and emotion regulation), and (3) cultivate prosocial
+(e.g., kindness, compassion) dispositions. The methodology of the pro-
+gram is experiential, interactive, participatory, and student-centered.
+It combines traditional third-person knowledge-based learning with
+first-person experiential learning through mindfulness practices.
+The GrowingUp Breathing program consists of nine 50-min ses-
+sions, with one session being implemented each week. The nine
+sessions are divided into three modules (Attention, Self-Regulation,
+and Kindness modules), plus an integration and summary session.
+Attentional training allows the improvement of self-regulation pro-
+cesses, which increase the probability of reflexive, non-reactive, and
+prosocial behaviors. In the Attention Module (3.5 sessions), children
+learn what mindfulness is, how the attention works, and how to bring
+it back when it wanders (attentional regulation). The core practices of
+this module are mindfulness of Breathing, mindfulness of sounds, mind-
+ful movement, body scan, and breathing space. In the Self-Regulation
+Module (3.5 sessions), children learn self-regulation skills (decenter-
+ing and de-identification) to manage unpleasant feelings, thoughts,
+and emotions. Children learn to act reflexively and not impulsively.
+In this module, the core practices are mindful eating, mindfulness of
+thoughts and emotions, and breathing space (react vs. respond in dif-
+ficult times). In the Kindness Module (1.5 sessions), children explore
+how to take care of oneself and others. The core practices in this
+module are loving-kindness and self-compassion meditation. Executive
+functions are trained throughout the entire program, mainly through
+formal meditation practices that are designed to train the contents ofeach module. In a previous qualitative study, children from the same
+at-risk context report how the program helped them to have better
+self-regulation (Andreu et al., 2021 ).
+Other essential elements of the GrowingUp Breathing interven-
+tion are the theoretical lessons, exercises, games, and weekly practice.
+Weekly practices are divided into three different types of practice.
+First, teachers receive mindfulness-mp3 audios to use it two times per
+week before the next session with the children. Second, children carry
+out Breathing Space Practice three times per day during school time.
+Finally, between sessions, children are suggested to carry out different
+practices (“challenges”) related to the content of the session.
+Finally, a fundamental core practice for the learning process in
+the GrowingUp Breathing program is the inquiry process. The inquiry
+process is a central component in the pedagogy and methodology of
+MBIs, and it is the catalyst that encourages reflection and exploration
+through instructor-student-group dialogue. Through mindful teach-
+ing (calm, clear, and kind), the instructor promotes an emotionally
+supportive classroom climate, which encourages students to engage
+in mindfulness practices and to share and reflect in the group. The
+program was taught by an experienced psychologist and mindfulness
+instructor and was provided universally to children as part of their
+standard classroom instruction during regular school hours. Details of
+each session of the program (objectives, themes, core practices, and
+weekly practices) can be found in the Table S1.
+2.3.2 Active control group: Skills-for life program
+Children of the active control group received an adapted version of the
+Skills-for Life (SFL) Program (Ministry of Education of Chile, 2018 ). SFL
+is Chile’s government-funded universal prevention program developed
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+6o f1 4 ANDREU ET AL .
+for the promotion of social-emotional competencies and academic out-
+comes, prevention of mental health problems, and improvement of
+positive coexistence in the educational community. SFL is run by a
+division (National Association of School Assistance and Scholarship
+JUNAEB; Junta Nacional de Auxilio Escolar y Becas) of the National
+Department of Education in Chile, and it is the largest school-based
+mental health program in Chile providing services to more than one
+million students in Chile over the past decade (Guzmán et al., 2015 ).
+The program is specially designed to be implemented in schools with a
+population with high socio-economic vulnerability and high psychoso-
+cial risk levels. The SFL Program has been shown to decrease the
+risk factors associated with school and social maladjustment and to
+improve studentst’ autonomy, socio-emotional skills, behavior, and aca-
+demic outcomes (Delgado et al., 2006 ; Guzmán et al., 2015 ; Leiva et al.,
+2016 ; Murphy et al., 2014 ).
+For this study, two expert psychologists trained in the SFL Pro-
+gram adapted the program to be implemented with children aged
+9–11 years. The curriculum was applied during nine weekly sessions,
+50 min per each, in parallel to the mindfulness-based intervention.
+The methodology of the program was experiential, interactive, partic-
+ipatory, and student-centered. The objective of the program was the
+promotion of social-emotional skills other than mindfulness and the
+improvement of the classroom climate. Through different dynamics
+(e.g., role-playings) and games (e.g., collective mandala), the students
+reflected in each class on a specific topic and developed emotional
+and social skills useful for their school and family context. The themes
+of the nine sessions were: Group Cohesion, Self-concept, Self-esteem,
+Treating others well, Cyberbullying, Emotional recognition, Emotional
+expression, Conflict resolution (dialogue) and Summary and Integra-
+tion. Details of the intervention can be found in the Table S2.
+2.4 Measures
+2.4.1 Go/Nogo task
+A previous Go/Nogo task was adapted for this study (Albert et al.,
+2013 ). Stimuli consisted of three capital letters (“N,” “M,” and “W”) col-
+ored in yellow so they clearly highlighted from the black background on
+which they were superimposed. Children participants were instructed
+to press a button, as fast and accurate as possible, whenever the let-
+ters “M” or “N” were presented, and to withhold pressing when the
+letter presented was “W.” They were asked to look continuously at
+the center of the screen in order to control eye-movement interfer-
+ence. The Go/Nogo task consisted of two blocks of 150 trials, with rest
+time between blocks. Each trial began with the presentation of the let-
+ter (400 ms), followed by a black screen (700 or 900 ms). Both letter
+and fixation cross were superimposed at the center of the black back-
+ground. The letters “M” (infrequent-Go) and “W” (infrequent-Nogo)
+were presented with the same probability of occurrence (20%) in order
+to equalize both types of trials with respect to novelty processing. The
+letter “N” (frequent-Go) was presented in the rest of the trials (60%)
+to increase the subjects’ tendency to respond. The three types of trials(frequent-Go, infrequent- Go, and infrequent-Nogo) were presented
+in semi-random order (i.e., avoiding the consecutive presentation of
+two infrequent-trials). Before the beginning of the experiment, partic-
+ipants completed a practice block of 12 trials (4 infrequent-Nogo) to
+ensure task instruction understanding. The task took about 10 min to
+complete, including resting time. After the Go/Nogo task participant
+completed an Eriksen flanker task adapted for children but results are
+not reported here.
+2.4.2 Questionnaires
+Child and Adolescent Mindfulness Measure (CAMM)
+Dispositional mindfulness was measured by the Child and Adoles-
+cent Mindfulness Measure (CAMM; Greco et al., 2011 ). The CAMM
+assesses mindfulness as the “lack of present-moment awareness as
+well as judgmental and non-accepting responses to thoughts and feel-
+ings” (Greco et al., 2011 , p. 609). It comprises 10 items (e.g., “I get upset
+with myself for having feelings that do not make sense” or “get upset
+with myself for having certain thoughts’’) in a 5-point Likert scale rang-
+ing from 0 (”never true“) to 4 (”always true"). After recoding the scores
+on inverse items, higher scores on the CAMM indicate higher mind-
+fulness skills. In this study, Spanish validation of the CAMM was used
+(García-Rubio et al., 2019 ), showing adequate reliability ( α=0.84).
+Early Adolescent Temperament Questionnaire-Revised (EATQ-R)
+EC were self-reported by children using The Early Adolescent Temper-
+ament Questionnaire-Revised (Ellis & Rothbart, 2001 ). The EATQ-R is
+a revised and updated version of the EATQ (Capaldi & Rothbart, 1992 )
+to assess more precisely aspects of self-regulation. EATQ-R consists
+of 11 scales. In this study, the higher-order factor EC was calculated
+with the attentional control and inhibitory control subscales. EC is
+a very close construct to EF (Snyder et al., 2015 ) and is defined as
+“the ability to inhibit a dominant response to perform a subdominant
+response” (Rothbart & Bates, 2006 ; p. 137), involving the recruitment
+of attentional and behavioral processes to modulate affective reactiv-
+ity (Rueda, et al., 2005 ). Each item was measured on a five-point Likert
+scale ranging from 1 (almost never true) to 5 (almost always true).
+Higher scores reflect higher abilities. In the sample of this study, the
+reliability of the EC was α=0.64.
+Behavior Rating Inventory of Executive Function, second
+edition—Teacher form (BRIEF2-Teacher form)
+EFs were measured using the BRIEF2-Teacher Form (Gioia et al., 2015 ;
+Maldonado et al., 2017 ). The BRIEF2- Teacher Form is a teacher report
+that measures the EF of children and adolescents aged 5–18 years.
+Specifically, the BRIEF-2 – Teacher Form evaluates everyday children
+and adolescents’ observable behaviors associated with EF in school
+environments. It comprises 63 items in which respondents record their
+answers via a Likert type format with N (“Never”), S (“Sometimes”),
+or O (“Often”), reflecting the frequency to which the child being eval-
+uated performs an indicated behavior. The scale assesses the Global
+Executive Composite (Executive Function, EF), which is composed of
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+ANDREU ET AL . 7o f1 4
+three composite indexes and nine subscales: Behavior Regulation Index
+(BRI; comprised of the Inhibit and Self-Monitor subscales), Emotion
+Regulation Index (ERI; comprised of the Shift and Emotional Control
+subscales), and Cognitive Regulation Index (CRI; comprised of the Initi-
+ate, Working Memory, Plan/Organize, Task-Monitor, and Organization
+of Materials subscales). The Global Executive Composite, the Behav-
+ior Regulation, the Emotion Regulation, and the Cognitive Regulation
+Indexes were analyzed. The Behavioral Regulation Index indicates the
+teacher’s perception of the child’s level of difficulty in regulating and
+supervising their behaviors effectively. The Emotion Regulation Index
+reports the teacher’s perception of the child’s ability in regulating and
+modulating emotional responses, especially in response to changing
+situations. The Cognitive Regulation Index reflects the child’s abil-
+ity to control and manage cognitive processes and to problem solve
+effectively. Higher scores indicate greater problems in EF and lower
+scores reflect better EFs. The BRIEF2 – Teacher Form is widely used
+and has shown adequate validity and reliability properties ( α=0.88–
+0.98) (Gioia et al., 2015 ; Maldonado et al., 2017 ). BRIEF2 – Teacher
+Form has demonstrated a significant correlation with the ADHD-RS-
+IV, CBCL-TRF, BASC-2 TRS, and Conners 3-T(S) measures, which are
+widely used to assess children’s attention, self-regulation and mental
+health (for a review, see Hendrickson & McCrimmon, 2018 ). In the sam-
+ple of this study, the reliability of the BRIEF-2 – Teacher Form was
+excellent ( α=0.97).
+Attendance, acceptability, and personal practice
+Participants’ attendance rate to the program was determined by con-
+trolling the number of sessions that each student missed (i.e., none, one,
+two, three, or more sessions). Also, children assessed acceptability and
+satisfaction with the programs at the end of them. Each student rated
+3 items on a 0–10 Likert scale (i.e., Did you like the mindfulness/skills
+for life program?; Would you recommend a mindfulness/skills for life
+program to a friend?; Did you find helpful the mindfulness/skills for life
+program?; 0 =Never; 10 =Always). In addition, the personal practice
+was assessed asking the children about if they had been used the prac-
+tices and exercises taught throughout the programs: Have you used
+in your day-to-day in and outside the school (e.g., home) what you
+learned on the mindfulness/skills for life program; Have you used inter-
+sessions the different practices learned on the mindfulness/skills for
+life program?; 0 =Never; 10=Always).
+2.5 Data analysis
+2.5.1 Behavioral and EEG data analysis
+For EEG, after acquisition, data were segmented in epochs of 1 s
+(200 ms before and 800 ms after stimulus onset) and only trials
+with valid responses were analyzed (correct go trials with responses
+between 150 and 1100 ms after onset, correct nogo trials without
+response). Data were low-pass filtered below 35 Hz and re-referenced
+to the average mastoids. Artifact rejection was based on a three-step
+procedure. First, we used Independent Component Analysis (ICA) toremove eye-blinks or muscular activity, since it uses spatial filtering
+and preserves ERP contributions, in contrast to other methods such
+as filtering or regression (Jung, Makeig, Humphries, et al., 2000 ; Jung,
+Makeig, Westerfield, et al., 2000 ). Then, noisy channels were interpo-
+lated using data of adjacent electrodes (mean ±SD of interpolated
+electrodes per participant and time: 2.2 ±1.9). Finally, trials in which
+the EEG signal exceeded ±150 mV after baseline correction ( −200 to
+0 ms) were automatically excluded. Only participants with at least 15
+error-free trials per condition were analyzed, yielding a final sample
+of 46 participants (see Participants section for a detailed description;
+the number of trials did not differ between groups in any condition at
+either pre or post-test, all ps>0.05). ERP waves were computed for
+each condition (Go frequent, Go infrequent and Nogo), participant (46),
+and time (pre and post). Then, ERP data across participants was decom-
+posed by ICA (3 conditions ×46 participants ×2 times ERPs for each
+electrode). The resulting independent components were explored by
+means of visual inspection, identifying a meaningful component as P3
+based on its scalp topography and time course. For the analysis, the
+average of amplitude of the P3 maximum amplitude time point ±10 ms
+was used.
+Repeated-measures ANOVAs were used with Group (mindfulness-
+training vs. active control group) and Time (pre, post) in all analyses
+as factors. For behavioral data, percentage error rates (both omis-
+sions and commissions: no responses in Go trials and button presses
+in Nogo trials, respectively) and mean reaction times (RTs) for the
+correct frequent and infrequent-go trials were analyzed. Repeated-
+measures ANOVAs on each behavioral measure were carried out using
+Trial type (frequent-Go, infrequent-Go, infrequent-Nogo), Group and
+Time as factors. To examine the effects of mindfulness training on Nogo
+P3, we conducted repeated-measures ANOVA, with Group and Time as
+factors. The Greenhouse–Geisser (GG) epsilon correction was applied
+to adjust the degrees of freedom of the F ratios where necessary,
+and post hoc comparisons were also made in order to determine the
+significance of pair-wise contrasts applying the Bonferroni procedure
+(alpha 0.05). For all analyses, the level of significance employed was
+0.05. Effect sizes were computed using the partial eta-square ( ƞ2p). For
+interpreting effect sizes, Cohen’s ( 1988 ) cutoff criteria were followed:
+ƞ2p=0.01 as small effect size, ƞ2p=0.06 as medium effect size, and
+ƞ2p=0.14 as large effect size.
+2.5.2 Questionnaires data analysis
+Relative to self-reports completed by children, there was no attrition
+from pre to post-interventions (Nexp =24; Ncon=22). With regard
+to questionnaires completed by teachers, questionnaires for three chil-
+dren were not completed at post-intervention (i.e., the questionnaires
+of two children from the mindfulness group and one child from the con-
+trol group were not completed). Hence, we decided to exclude these
+participants from the teacher reports analysis (Nexp =22; Ncon=21).
+We used the SPSS Missing Value Analysis package to estimate the
+patterns of missing data for children and teachers. Little’s MCAR
+test (Little & Rubin, 1989 ) was not significant for child self-report
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+8o f1 4 ANDREU ET AL .
+(a) (b)
+(c) (d)
+(e) (f)
+FIGURE 2 Panel A and B show the scalp topographical map and the grand-average waveform for P3 independent component—ERP,
+respectively. Panel C, D, E, and F show the mean waveforms for each trial, group and time in Cz.
+data ( χ2 [769]=13,548, p=1.000) and for teacher reports data ( χ2
+[1749]=6370, p=1.000), indicating that the missing data did not show
+a significant pattern and we could consider that data were missing at
+random.
+We examined the baseline differences between groups (i.e., mind-
+fulness and control group) for dependent variables of children’s self-
+reports and teachers’ reports by t-test. Repeated-measures ANOVAs
+were used with Group (mindfulness vs. active control group) and Time
+(pre, post) in all analyses as factors. The Greenhouse–Geisser (GG)
+epsilon correction was applied to adjust the degrees of freedom of the
+F ratios where necessary, and post hoc comparisons were also made in
+order to determine the significance of pair-wise contrasts applying the
+Bonferroni procedure (alpha 0.05). For all analyses, the level of signifi-
+cance employed was 0.05. Effect sizes were computed using the partial
+eta-square ( ƞ2p). For interpreting effect sizes, Cohen’s ( 1988 ) cutoff
+criteria were followed: ƞ2p=0.01 as small effect size, ƞ2p=0.06 as
+medium effect size, and ƞ2p=0.14 as large effect size.
+3 RESULTS
+3.1 ERP data
+The ICA applied on the previous computed ERPs revealed a fronto-
+central P3 component between 377 and 434 ms after stimulus onset.Figure 2shows its topography and waveforms for both times and
+groups and all different trials of the Go/Nogo task. No significant
+baseline difference in Nogo P3 amplitude was found ( t(44)=0.757,
+p=0.453). A 2 ×2 ANOVA with factors of Time (pre, post) and Group
+(mindfulness group, active control group) assessed possible changes
+across time in mean amplitudes of the frontocentral P3 on Nogo tri-
+als (Figure 2). There was a marginally significant main effect of time
+(F(1, 44)=4.176, p=0.047, ƞ2p=0.087), and no significant main effect
+of group ( F(1, 44)=0.141, p=0.709). Importantly, the time-by-group
+interaction was significant ( F(1, 44)=5.287, p=0.026, ƞ2p=0.107).
+Results showed an important increment of the Nogo-P3 amplitude in
+the mindfulness group over time, and a slight decrease from pre to
+post in the active control group. No other significant interactions were
+found (Figure 2).
+3.2 Behavioral data
+Performance on the Go/Nogo task is shown in Table 2. For the Go trials
+(frequent and infrequent-go), it shows means of error rates (omission
+errors in percentages), and means RTs. For the Nogo trials, it shows
+means of error rates (commission errors in percentage). Preliminary
+analyses were conducted to examine pre-intervention group differ-
+ences in behavioral data. There were no significant pre-intervention
+group differences in error rates and RTs (all p>0.05), except for errors
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+ANDREU ET AL . 9o f1 4
+TABLE 2 Performance on the Go/Nogo task.
+Mindfulness Control
+Pre Post Pre Post
+Go frequent
+Error 6.29 (4.40) 8.72 (7.60) 9.90 (6.50) 14.02 (12.70)
+RT 384.35 (43.78) 361.67 (43.53) 382.75 (49.53) 362.35 (43.79)
+Go infrequent
+Error 8.44 (6.01) 10.52 (8.07) 11.99 (8.11) 16.52 (13.08)
+RT 395.17 (56.67) 365.85 (48.10) 386.80 (56.37) 373.37 (55.79)
+Nogo infrequent
+Error 57.30 (12.63) 49.72 (14.76) 56.39 (15.00) 52.23 (10.64)
+Data shown represent means of error rates (omission errors in percentages), mean reaction times for the Go trials (frequent and infrequent-go), and m eans
+of error rates (commission errors in percentage) for the Nogo trials. Standard deviations in parentheses.
+in frequent-go trials ( t(44)=2.219, p=0.032), where the control group
+showed higher error rate.
+With respect to percentage error rates, a significant main effect
+of trial type was observed ( F(2,88)=379.6, p<0.001, ƞ2p=0.896).
+Percentage error rates were higher for Nogo trials (i.e., commis-
+sion errors) than for frequent- and infrequent- Go trials (omis-
+sion errors), as expected. Also, group difference ( F(1,44)=4.356,
+p=0.043, ƞ2p=0.09) and time-by-trial type interaction were sig-
+nificant ( F(2,88)=10.712, p<0.001, ƞ2p=0.196), indicated higher
+error rates among students in the active control group compared
+to students in the mindfulness group. Moreover, the analysis indi-
+cated that students in both groups improved their performance,
+particularly with regard to commission errors within time. No other
+significant effects or interactions were found regarding to error
+rates.
+Regarding RTs, a significant main effect of Go-trial type (frequent
+and infrequent) was found ( F(1,44)=9.277, p=0.004, ƞ2p=0.174).
+In general, correct responses to infrequent-go trials were larger
+(higher reaction times) than correct responses to frequent-go trials
+(slower reaction times). Additionally, a main effect of Time was found
+(F(1,44)=20.9, p<0.001, ƞ2p=0.322), showing a general decrease in
+frequent- and infrequent-go RTs at post-test compared to pre-test. No
+other significant effect or interaction was found.
+In summary, the mindfulness group, relative to the active control
+group, did not change after the intervention in the reaction times in the
+Go trials. However, in general, the percentage of errors in the control
+group was higher than in the mindfulness group.
+3.3 Questionnaires
+3.3.1 Baseline comparisons
+Preliminary analyses were conducted to examine pre-intervention
+group differences across gender, age, and all of the dependent vari-
+ables in the study. There were no significant group differences atbaseline on socio-demographic characteristics: gender ( χ2 [1]=0.006,
+p=0.936), and age ( t(44)=0.903, p=0.371). There were no significant
+pre-intervention group differences in children’s self-reports on mind-
+fulness ( t(43)=0.007, p=0.994) and effortful control ( t(44)=1.462,
+p=0.151). There were no significant pre-intervention group dif-
+ferences on teacherst’ reports of children’s EF as assessed via the
+BRIEF Global Index ( t(41)=0.697, p=0.489), behavioral regula-
+tion ( t(41)=1.314, p=0.196), cognitive regulation ( t(41)=−0.496,
+p=0.623) and emotion regulation indexes ( t(41)=1.120, p=0.269).
+3.3.2 Intervention effects
+Pretest and posttest means and standard deviations as well as differ-
+ences in change scores for all dependent variables (i.e., mindfulness, EC,
+EF, behavioral regulation, emotion regulation, and cognitive regulation)
+by intervention group are reported in Table 3.
+With regard to child self-reports, the results for mindfulness indi-
+cated a significant change from pretest to posttest, F(1, 43)=5.101,
+p=0.029, ƞ2p=0.11, indicating differences between the mindfulness
+and control group, with a decrease in mindfulness scores in the control
+group. Also, the results regarding EC were significant in the expected
+direction, F(1, 44)=6.144, p=0.017, ƞ2p=0.12. That is, the mindful-
+ness group showed a higher increment of EC from pretest to posttest
+compared to the control group.
+Regarding teachers reports, results showed an improvement from
+pretest to posttest in total EF of children in the mindfulness group
+compared to children in the control group, F(1, 41)=5.64, p=0.022,
+ƞ2p=0.12. Specifically, children in the mindfulness group showed
+improvements in behavioral regulation from pretest to posttest, F(1,
+41)=5.63, p=0.022, ƞ2p=0.12, and on the emotion regulation index,
+F(1, 41)=8.02, p=0.007, ƞ2p=0.16, with no change in the cogni-
+tive regulation index, F(1,41)=1.69, p=0.201, ƞ2p=0.040. Overall,
+whereas teachers reported an increase of EF from pretest to posttest
+of children in mindfulness group, no change of EFs was observed in the
+control group.
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+10 of 14 ANDREU ET AL .
+TABLE 3 Descriptive statistics and differences in change scores between intervention groups.
+Mindfulness group Control groupBetween-group
+differences
+Pretest Posttest Pretest PosttestMindfulness vs.
+control pre-post
+M SD M SD M SD M SD F η2
+Children self-reports
+CAMM- mindfulness 3.34 0.95 3.55 0.93 3.34 0.91 2.90 0.90 5.10 * 0.11
+EATQ- effortful control 3.39 0.41 3.62 0.47 3.22 0.35 3.10 0.43 6.14 * 0.12
+Teacher reports
+BRIEF- executive function 1.61 0.36 1.35 0.34 1.52 0.43 1.54 0.47 5.64* 0.12
+BRIEF- behavioral regulation 1.67 0.45 1.34 0.35 1.48 0.49 1.48 0.53 5.63* 0.12
+BRIEF—cognitive regulation 1.59 0.37 1.44 0.44 1.66 0.56 1.68 0.49 1.69 0.04
+BRIEF—emotional regulation 1.56 0.39 1.28 0.29 1.43 0.39 1.47 0.47 8.02* 0.16
+*p<0.05.
+3.3.3 Attendance, acceptability, and personal
+practice
+Because the sessions were regularly scheduled in the curriculum dur-
+ing the academic schedule, there was a high attendance rate for both
+programs. For the mindfulness intervention group, 50% of children
+attended all mindfulness sessions, 33% missed one session, 12% missed
+two sessions, and 5% missed three sessions. For the active control
+group (SFL), 67% of children attended all SFL sessions, 22% missed
+one session, 5% missed two sessions, and 5% missed three sessions.
+There were no differences in the attendance rate between groups
+(t(41)=−1.160, p=0.253). The acceptability was high in both the
+mindfulness group ( M=8.45, SD=2.78), and the active control group
+(M=8.54, SD=2.63). Also, personal practice was moderately high in
+the mindfulness group ( M=6.69, SD=3.95), and the control group
+(M=7.04, SD=3.40). There were no differences between groups
+in acceptability ( t(44)=−0.109, p=0.914) and personal practice
+(t(42)=−0.328, p=0.744).
+4 DISCUSSION
+In this study, we examined the effects of a mindfulness-based inter-
+vention in children in a high-risk context on inhibitory control and
+its underlying neural mechanisms. Compared to an active control
+group, children that received the MBI showed less error rates in the
+Go/Nogo task for all trial types. No differences in reaction times
+were found between groups. Additionally, children in the mindfulness
+group showed increased EC, global EFs, emotion and behavioral regu-
+lation after the intervention, evidenced by child self-report and teacher
+reports. Furthermore, EEG results revealed significant differences in
+the P3 amplitude; with children in the mindfulness group showing an
+increased Nogo-P3 amplitude and children in the control group show-
+ing a slight decrease in P3 amplitude over time. Taken together, thisis one of the first studies to provide empirical evidence that an MBI
+in a vulnerable school context increases children’s EFs, attention, and
+inhibitory control. Importantly, the effects were evidenced by both
+behavioral and neural indices, showing that frontocentral P3 amplitude
+may underlie this effect. Following recent recommendations (Felver
+et al., 2015 ), the use of an active control group allowed us to better con-
+trol for non-specific effects and particularly, this study used as an active
+control a very well evaluated social skills intervention that is widely
+used in vulnerable schools in Chile, making it a very strict comparison.
+Behaviorally, children that participated in the MBI showed a gen-
+eral lower error rate in the Go/Nogo task compared to control children.
+Interestingly, this was true for all task trials and times, including pre-
+test. The Go/Nogo task we used (Albert et al., 2013 ) allowed us to
+analyze attention-related effects with frequent versus infrequent go
+trials and inhibition-related effects with infrequent go trials versus
+nogo trials (infrequent go and nogo trials have the same proportion).
+As the effects were observed in all task trials, this result may reflect
+increased global attention rather than a specific effect of inhibitory
+control. This result is very interesting since previous evidence shows
+that mindfulness trains attention in adults but also in children (Zen-
+ner et al., 2014 ) and attention is entirely associated with executive
+functioning (Checa et al., 2014 ; Diamond, 2013 ). Moreover, according
+to child self-report questionnaires EC (which include attentional con-
+trol) increased in the mindfulness group over time compared to control
+group, which is in line with behavioral task interpretation of results.
+However, it cannot be stated that it is a consequence of the interven-
+tion per se, since there was an overall group effect and there were
+previous differences between groups in the case of frequent-go errors.
+Regarding EEG results, we expected increased amplitudes of P3 in
+the mindfulness group over time, particularly in Nogo-P3 which has
+been proposed as a reliable neural index of motor inhibition (Albert
+et al., 2013 ; Dykstra et al., 2020 ; Sánchez-Carmona et al., 2016 ;W e s -
+sel & Aron, 2015 ). Our electrophysiological results closely matched the
+behavioral results: children in the mindfulness training group showed
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+ANDREU ET AL . 11 of 14
+increased P3 amplitude on Nogo trials, compared to children in the
+active control condition, who showed a minor decreased amplitude
+over time. A previous study with the same Go/Nogo task indicated
+that the frontocentral P3 showed larger amplitudes for Nogo than
+for infrequent Go trials, suggesting that Nogo P3 is the ERP activ-
+ity most associated with inhibitory control (Albert et al., 2013 ). Our
+results showed, for the first time, a specific mindfulness-related effect
+in this inhibition-related neural activity in youth, which would indi-
+cate increased inhibitory control in children after an MBI. Increased
+inhibitory control in children after a MBI was shown previously only
+with behavioral or self-reported data (Mak et al., 2018 ; Schonert-
+Reichl et al., 2015 ). In adolescents, previous EEG studies have shown
+changes in P3b amplitudes after MBI but using tasks that measure
+different cognitive/affective processes which are not comparable to a
+pure inhibitory control task such as Go/Nogo (Sanger & Dorjee, 2015 ;
+Sanger et al., 2018 ). Given the importance of inhibitory control in chil-
+dren and specially in our particular population of high-risk children, we
+considered that our results are extremely relevant.
+Questionnaires data from multiple informants (children and teach-
+ers) supports our behavioral and EEG results. Self-reported results
+from children showed increased EC in the mindfulness-training group
+compared with control group over time and a significant intervention
+effect on mindfulness, showing a slight increase in mindfulness for the
+intervention group and a significant decrease in mindfulness in the
+control group. Although it may be counterintuitive to see a drop of
+mindfulness in the control group, these findings may be interpreted
+within the context of the cognitive changes that occur during the devel-
+opmental period of early adolescence—ages 9–13 years. Specifically,
+early adolescence in particular has been described as a time in the life
+cycle in which there is heightened self-consciousness due to increased
+competence in cognitive and social cognitive abilities (Schonert-Reichl,
+1994 ) and information processing. Developmental changes may lead to
+increased attention and reflection on the self, which may then direct
+the early adolescent to adopt a more critical view of the self (Eccles &
+Roeser, 2009 ) and a subsequent drop in present-moment awareness
+as well as judgmental and non-accepting responses to thoughts and
+feelings. Hence, this drop in mindfulness in the control group may be
+reflective of the typical developmental trajectory of early adolescents.
+The mindfulness intervention may have staved off this typical decline
+in dispositional mindfulness for students in the intervention group.
+Assessments from teachers showed increased behavioral regulation,
+emotion regulation, and global executive functioning in children of the
+mindfulness group compared to controls over time. Collectively, the
+results suggested increased EFs, particularly inhibitory and attentional
+control in vulnerable children after the mindfulness-based interven-
+tion. Previous studies have shown improved EFs in children after MBIs
+in schools (Mak et al., 2018 ; Schonert-Reichl et al., 2015 ). Execu-
+tive functioning has been distinguished in “hot and cool”: top-down
+processes that operate in emotionally significant situations versus
+affectively neutral contexts (Zelazo & Carlson, 2012 ). It is interesting to
+see that the concept of hot EF suggests that motivationally significant
+contexts demand different top-down processes than neutral contexts.
+Following this distinction, the electrophysiological results observedin the Go/Nogo task clearly correspond to cool EF while the results
+reported by teachers may be associated with hot EF, where children
+were evaluated in emotionally challenging situations (particularly with
+inhibition and emotional regulation subscales of the BRIEF). This may
+explain the absence of behavioral outcomes in the Go/Nogo task, sug-
+gesting that brain-related effects were not sufficient to see changes in
+behavioral cold EFs, but instead translated into changes in hot EFs. If
+this is true, our results point toward brain changes in the cool EF sys-
+tem that may support behavioral changes in hot EF, important for daily
+life situations and crucial in high-risk contexts for children.
+The present study used a longitudinal design with an active con-
+trol group, which allows us to draw conclusions about causality and
+control the non-specific effects, confirming that the reported effects
+are related to the training of mindfulness per se. Additionally, the use
+of multiple levels of measurements (questionnaires, behavioral tasks,
+electrophysiological recordings) and several informants (children and
+teachers) allow us to draw stronger conclusions. Despite this, our study
+is limited since only one school was part of the study making difficult
+to generalize the results. The sample size is a common challenge and
+limitation of the field of EEG studies with children, where a high num-
+ber of participants are expected to be eliminated due to eye and/or
+head movements that cannot be corrected. Therefore, it is likely that
+the most restless children are not included in the final samples of EEG
+studies. Future work should replicate our study with an increased num-
+ber of participants and schools. Also, longer interventions would be
+useful to determine the time-line effects of mindfulness on EFs in high-
+risk contexts. Lastly, we did not have a follow-up measurement due
+to the difficulties of collecting EEG data and did not include parents,
+teachers, and the school community in the interventions, limiting the
+sustainability of the improvements obtained.
+To conclude, children from vulnerable contexts who participate
+in a school-based mindfulness intervention displayed improved exec-
+utive functioning, inhibitory control and attention at the reported
+and behavioral level, which was accompanied by increased Nogo P3
+amplitude, compared to an active control group. Together, our results
+showed that mindfulness trainings in schools improve EFs and partic-
+ularly inhibitory control in high-risk children, providing them crucial
+abilities for a healthier development and preventing future problems.
+We hope this research will help advance the science and practice
+of school mindfulness-based preventive interventions that will help
+vulnerable children flourish.
+ACKNOWLEDGMENTS
+A special appreciation is expressed to the children who participated in
+the study, as well as to their parents, teachers and all the school com-
+munity; all of whom made this study possible. Also, a special thanks to
+all research assistants for their valuable help in the different phases
+of this project. This study was funded by the Mind and Life Europe
+Institute by a Varela Awards given to CIA and CGR [Grant #2016-
+EVarela-Garcia Rubio, Carlos and Andreu, Catherine]. This work was
+supported by the Fund for Innovation and Competitiveness (FIC) of the
+Chilean Ministry of Economy, Development and Tourism, through the
+Millennium Scientific Initiative, Grant [IS 130005—MIDAP to CIA] and
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+12 of 14 ANDREU ET AL .
+by a grant from the Spanish Ministry of Education, Culture, and Sport
+[FPU13/ 01677] to CGR.
+CONFLICT OF INTEREST STATEMENT
+The authors declare no conflict of interest.
+DATA AVAILABILITY STATEMENT
+The data that support the findings of this study are available from the
+corresponding author upon reasonable request.
+ETHICS APPROVAL STATEMENT
+Ethics Committee of the Pontificia Universidad Católica de Chile
+approved the study.
+ORCID
+Catherine I. Andreu https://orcid.org/0000-0003-2402-0252
+Jacobo Albert https://orcid.org/0000-0001-6538-9801
+REFERENCES
+Aguilar-Pardo, D., Martínez-Arias, R., & Colmenares, F. (2013). The role of
+inhibition in young children’s altruistic behaviour. Cognitive Processing ,
+14(3), 301–307. https://doi.org/10.1007/s10339-013-0552-6
+Albert, J., López-Martín, S., Hinojosa, J. A., & Carretié, L. (2013). Spatiotem-
+poral characterization of response inhibition. NeuroImage ,76, 272–281.
+https://doi.org/10.1016/j.neuroimage.2013.03.011
+Andreu, C. I., & García-Rubio, C. (2019). How does mindfulness work
+in schools? An integrative model of the outcomes and the mecha-
+nisms of change of mindfulness-based interventions in the classroom.
+In C. Steinebach & Á. I. Langer (Eds.), Enhancing resilience in youth
+– Mindfulness-based interventions in positive environment (pp.139–157).
+Springer. https://doi.org/10.1007/978-3-030-25513-8_9
+Andreu, C. I., Araya-Véliz, C., & García-Rubio, C. (2021). Benefits of a
+mindfulness-based intervention at school from the perspective of at-risk
+children. Mindfulness ,12, 1611–1623. https://doi.org/10.1007/s12671-
+021-01624-6
+Belfield, C., Bowden, A. B., Klapp, A., Levin, H., Shand, R., & Zander, S. (2015).
+The economic value of social and emotional learning. Journal of Benefit-
+Cost Analysis ,6(3), 508–544. https://doi.org/10.1017/bca.2015.55
+Bishop, S. R. (2004). Mindfulness: A proposed operational definition. Clin-
+ical Psychology: Science and Practice ,11(3), 230–241. https://doi.org/10.
+1093/clipsy/bph077
+Capaldi, D. M., & Rothbart, M. K. (1992). Development and validation of an
+early adolescent temperament measure. The Journal of Early Adolescence ,
+12(2), 153–173. https://doi.org/10.1177/0272431692012002002
+Checa, P., Castellanos, M. C., Abundis-Gutierrrez, A., & Rosario Rueda, M.
+(2014). Development of neural mechanisms of conflict and error pro-
+cessing during childhood: implications for self-regulation. Frontiers in
+Psychology ,5, 1–13. https://doi.org/10.3389/fpsyg.2014.00326
+Cohen, J. (1988). Statistical power for the behavioral sciences (2nd edn.).
+Erlbaum.
+Crane, R. S., Brewer, J., Feldman, C., Kabat-Zinn, J., Santorelli, S., Williams, J.
+M. G., & Kuyken, W. (2017). What defines mindfulness-based programs?
+The warp and the weft. Psychological Medicine ,47(6), 990–999. https://
+doi.org/10.1017/s0033291716003317
+Delgado, I., Zúñiga, V., & Jadue, L. (2006). Estudio comparativo de escolares que
+participaron del Programa Habilidades Para la Vida y SIMCE cuarto básico
+2005: resumen ejecutivo . Junta Nacional de Auxilio Escolar y Becas.
+Diamond, A. (2012). Activities and programs that improve children’s execu-
+tive functions. Current Directions in Psychological Science ,21(5), 335–341.
+https://doi.org/10.1177/0963721412453722Diamond, A. (2013). Executive functions. Annual Review of Psychology ,64(1),
+135–168. https://doi.org/10.1146/annurev-psych-113011-143750
+Diamond, A., & Lee, K. (2011). Interventions shown to aid executive function
+development in children 4 to 12 years old. Science ,333(6045), 959–964.
+https://doi.org/10.1126/science.1204529
+Downey, D. B., von Hippel, P. T., & Broh, B. A. (2004). Are schools the
+great equalizer? cognitive inequality during the summer months and the
+school year. American Sociological Review ,69(5), 613–635. https://doi.
+org/10.1177/000312240406900501
+Dunning, D. L., Griffiths, K., Kuyken, W., Crane, C., Foulkes, L., Parker, J.,
+& Dalgleish, T. (2018). Research review: The effects of mindfulness-
+based interventions on cognition and mental health in children and
+adolescents–a meta-analysis of randomized controlled trials. Journal
+of Child Psychology and Psychiatry ,60(3), 244–258. https://doi.org/10.
+1111/jcpp.12980
+Dykstra, T., Waller, D. A., Hazeltine, E., & Wessel, J. R. (2020). Leveling the
+field for a fairer race between going and stopping: neural evidence for
+the race model of motor inhibition from a new version of the stop signal
+task. Journal of cognitive neuroscience ,32(4), 590–602. https://doi.org/10.
+1162/jocn_a_01503
+Eccles, J. S., & Roeser, R. W. (2009). Schools, academic motivation, and
+stage-environment fit. In R. M. Lerner & L. Steinberg (Eds.), Handbook of
+adolescent psychology: Individual bases of adolescent development (pp. 404–
+434). John Wiley & Sons Inc. https://doi.org/10.1002/9780470479193.
+adlpsy001013
+Ellis, L. K., & Rothbart, M. (2001). Early Adolescent Temperament
+Questionnaire–Revised. PsycTESTS Dataset. https://doi.org/10.1037/
+t07624-000
+Erickson, F. (1987). Transformation and school success: The politics and
+culture of educational achievement. Anthropology & Education Quarterly ,
+18(4), 335–356. https://doi.org/10.1525/aeq.1987.18.4.04X0023w
+Farah, M. J., Shera, D. M., Savage, J. H., Betancourt, L., Giannetta, J. M.,
+Brodsky, N. L., Malmud, E. K., & Hurt, H. (2006). Childhood poverty:
+Specific associations with neurocognitive development. Brain Research ,
+1110 (1), 166–174. https://doi.org/10.1016/j.brainres.2006.06.072
+Felver, J. C., Celis-de Hoyos, C. E., Tezanos, K., & Singh, N. N. (2015). A sys-
+tematic review of mindfulness-based interventions for youth in school
+settings. Mindfulness ,7(1), 34–45. https://doi.org/10.1007/s12671-015-
+0389-4
+Felver, J. C., Tipsord, J. M., Morris, M. J., Racer, K. H., & Dishion, T. J. (2014).
+The effects of mindfulness-based intervention on children’s attention
+regulation. Journal of Attention Disorders ,21(10), 872–881. https://doi.
+org/10.1177/1087054714548032
+García-Rubio, C., & Luna-Jarillo, T. (2017). El programa Crecer Respirando.
+In J. García-Campayo, M. Demarzo, & M. M. Alarcón (Eds.), Bienestar
+emocional y mindfulness en la educación (pp. 259–273). Alianza Editorial.
+García-Rubio, C., & Luna-Jarillo, T. (2019). Crecer Respirando: Manual de
+intervención (Edición de 2019) (unpublished manuscript).
+García-Rubio, C., Rodríguez-Carvajal, R., Langer, A. I., Paniagua, D.,
+Steinebach, P., Andreu, C. I., Vara, M. D., & Cebolla, A. (2019). Validation
+of the Spanish version of the child and adolescent mindfulness measure
+(CAMM) with samples of Spanish and Chilean children and adolescents.
+Mindfulness ,10(8), 1502–1517. https://doi.org/10.1007/s12671-019-
+01108-8
+Gioia, G. A., Isquith, P. K., Guy, S. C., & Kenworthy, L. (2015). Behavior rating
+inventory of executive functions-2 .P A R .
+Greco, L. A., Baer, R. A., & Smith, G. T. (2011). Assessing mindfulness
+in children and adolescents: Development and validation of the child
+and adolescent mindfulness measure (CAMM). Psychological Assessment ,
+23(3), 606–614. https://doi.org/10.1037/a0022819
+Guzmán, J., Kessler, R. C., Squicciarini, A. M., George, M., Baer, L.,
+Canenguez, K. M., Abel, M. R., McCarthy, A., Jellinek, M. S., & Murphy,
+J. M. (2015). Evidence for the effectiveness of a national school-based
+mental health program in Chile. Journal of the American Academy of Child
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+ANDREU ET AL . 13 of 14
+& Adolescent Psychiatry ,54(10), 799–807.e1. https://doi.org/10.1016/j.
+jaac.2015.07.005
+Hackman, D. A., & Farah, M. J. (2009). Socioeconomic status and the devel-
+oping brain. Trends in Cognitive Sciences ,13(2), 65–73. https://doi.org/10.
+1016/j.tics.2008.11.003
+Hackman, D. A., Farah, M. J., & Meaney, M. J. (2010). Socioeconomic sta-
+tus and the brain: mechanistic insights from human and animal research.
+Nature Reviews Neuroscience ,11(9), 651–659. https://doi.org/10.1038/
+nrn2897
+Hackman, D. A., Gallop, R., Evans, G. W., & Farah, M. J. (2015). Socioeconomic
+status and executive function: developmental trajectories and medi-
+ation. Developmental Science ,18(5), 686–702. https://doi.org/10.1111/
+desc.12246
+Hale, D. R., Fitzgerald-Yau, N., & Viner, R. M. (2014). A systematic review
+of effective interventions for reducing multiple health risk behaviors in
+adolescence. American Journal of Public Health ,104(5), e19–e41. https://
+doi.org/10.2105/ajph.2014.301874
+Heckman, J. J., & Mosso, S. (2014). The economics of human development
+and social mobility. Annual Review of Economics ,6(1), 689–733. https://
+doi.org/10.1146/annurev-economics-080213-040753
+Hendrickson, N. K., & McCrimmon, A. W. (2018). Test review: Behavior
+rating inventory of executive function®, 2nd ed. (BRIEF®2) by Gioia, G.
+A., Isquith, P. K., Guy, S. C., & Kenworthy, L. Canadian Journal of School
+Psychology , 34(1), 73–78. https://doi.org/10.1177/0829573518797
+762
+Huster, R. J., Enriquez-Geppert, S., Lavallee, C. F., Falkenstein, M., &
+Herrmann, C. S. (2013). Electroencephalography of response inhibition
+tasks: Functional networks and cognitive contributions. International
+Journal of Psychophysiology ,87(3), 217–233. https://doi.org/10.1016/j.
+ijpsycho.2012.08.001
+John, A. M., Finch, K., & Tarullo, A. R. (2019). Socioeconomic status and neu-
+ral processing of a go/no-go task in preschoolers: An assessment of the
+P3b. Developmental Cognitive Neuroscience ,38, 100677. https://doi.org/
+10.1016/j.dcn.2019.100677
+Jung, T. P., Makeig, S., Humphries, C., Lee, T. W., McKeown, M. J., Iragui, V.,
+& Sejnowski, T. J. (2000). Removing electroencephalographic artifacts
+by blind source separation. Psychophysiology ,37(2), 163–178. https://doi.
+org/10.1111/1469-8986.3720163
+Jung, T. P., Makeig, S., Westerfield, M., Townsend, J., Courchesne, E.,
+& Sejnowski, T. J. (2000). Removal of eye activity artifacts from
+visual event-related potentials in normal and clinical subjects. Clinical
+neurophysiology ,111(10), 1745–1758. https://doi.org/10.1016/S1388-
+2457(00)00386-2
+Kaunhoven, R. J., & Dorjee, D. (2017). How does mindfulness modulate
+self-regulation in pre-adolescent children? An integrative neurocogni-
+tive review. Neuroscience & Biobehavioral Reviews ,74, 163–184. https://
+doi.org/10.1016/j.neubiorev.2017.01.007
+Lam, K., & Seiden, D. (2020). Effects of a Brief Mindfulness Curriculum on
+Self-reported Executive Functioning and Emotion Regulation in Hong
+Kong Adolescents. Mindfulness ,11, 627–642. https://doi.org/10.1007/
+s12671-019-01257-w
+Lawlor, M. S. (2016). Mindfulness and social emotional learning (SEL): A con-
+ceptual framework. In K. Schonert-Reichl & R. Roeser (Eds.), Handbook of
+mindfulness in education (pp. 65–80). Springer. https://doi.org/10.1007/
+978-1-4939-3506-2_5
+Leiva, L., George, M., Squicciarini, A. M., Simonsohn, A., & Guzmán, J.
+(2016). Intervención preventiva de salud mental escolar en adoles-
+centes: Desafíos para un programa público en comunidades educa-
+tivas. Universitas Psychologica ,14(4), 1285. https://doi.org/10.11144/
+javeriana.upsy14-4.ipsm
+Liew, J. (2011). Effortful control, executive functions, and education: bring-
+ing self-regulatory and social-emotional competencies to the table.
+Child Development Perspectives ,6(2), 105–111. https://doi.org/10.1111/
+j.1750-8606.2011.00196.xLittle, R. J. A., & Rubin, D. B. (1989). The analysis of social science data
+with missing values. Sociological Methods and Research ,18(2-3), 292–326.
+https://doi.org/10.1177/0049124189018002004
+López-Martín, S., Albert, J., Fernández-Jaén, A., & Carretié, L.
+(2015). Emotional response inhibition in children with attention-
+deficit/hyperactivity disorder: neural and behavioural data.
+Psychological Medicine ,45(10), 2057–2071. https://doi.org/10.1017/
+s0033291714003195
+Luijten, M., Machielsen, M., Veltman, D., Hester, R., de Haan, L., & Franken,
+I. (2014). Systematic review of ERP and fMRI studies investigating
+inhibitory control and error processing in people with substance depen-
+dence and behavioural addictions. Journal of Psychiatry & Neuroscience ,
+39(3), 149–169. https://doi.org/10.1503/jpn.130052
+Lyons, K. E., & DeLange, J. (2016). Mindfulness matters in the classroom:
+the effects of mindfulness training on brain development and behavior in
+children and adolescents. In K. Schonert-Reichl & R. Roeser (Eds.), Hand-
+book of mindfulness in education (pp . 271–283 ). Springer. https://doi.org/
+10.1007/978-1-4939-3506-2_17
+Mak, C., Whittingham, K., Cunnington, R., & Boyd, R. N. (2018). Efficacy of
+mindfulness-based interventions for attention and executive function in
+children and adolescents—a systematic review. Mindfulness ,9, 59–78.
+https://doi.org/10.1007/s12671-017-0770-6
+Maldonado, M. J., Fournier, C., Martínez, R., González, J., Espejo-Saavedra, J.
+M., & Santamaría, P. (2017). BRIEF-2. Evaluación Conductual de la Función
+Ejecutiva [BRIEF-2. Behavioral assessment of the executive functioning] .T E A
+Ediciones.
+Maynard, B. R., Solis, M. R., Miller, V. L., & Brendel, K. E. (2017). Mindfulness-
+based interventions for improving cognition, academic achievement,
+behavior, and socioemotional functioning of primary and secondary
+school students. Campbell Systematic Reviews ,13(1), 1–144. https://doi.
+org/10.4073/csr.2017.5
+Meltzer, L. (Ed.) (2018). Executive function in education: From theory to
+practice . Guilford Publications.
+Mendelson, T., Greenberg, M. T., Dariotis, J. K., Gould, L. F., Rhoades, B. L.,
+& Leaf, P. J. (2010). Feasibility and preliminary outcomes of a school-
+based mindfulness intervention for urban youth. Journal of Abnormal
+Child Psychology ,38(7), 985–994. https://doi.org/10.1007/s10802-010-
+9418-x
+Mills, C. (2008). Reproduction and transformation of inequalities in school-
+ing: the transformative potential of the theoretical constructs of Bour-
+dieu. British Journal of Sociology of Education ,29(1), 79–89. https://doi.
+org/10.1080/01425690701737481
+Mind & Life Education Research Network. (2012). Contemplative practices
+and mental training: Prospects for American education. Child Develop-
+ment Perspectives ,6(2), 146–153. https://doi.org/10.1111/j.1750-8606.
+2012.00240.x
+Ministry of Education of Chile, 2018. Programa Habilidades Para la
+Vida. https://www.junaeb.cl/wp-content/uploads/2012/12/Libro-HPV-
+Edici%C3%B3n-2020_.pdf
+Moffitt, T. E., Arseneault, L., Belsky, D., Dickson, N., Hancox, R. J., Harrington,
+H., Houts, R., Poulton, R., Roberts, B. W., Ross, S., Sears, M. R., Thomson,
+W. M., & Caspi, A. (2011). A gradient of childhood self-control pre-
+dicts health, wealth, and public safety. Proceedings of the National
+Academy of Sciences ,108(7), 2693–2698. https://doi.org/10.1073/pnas.
+1010076108
+Murphy, J. M., Guzmán, J., McCarthy, A. E., Squicciarini, A. M., George, M.,
+Canenguez, K. M., Dunn, E. C., Baer, L., Simonsohn, A., Smoller, J. W., &
+Jellinek, M. S. (2014). Mental health predicts better academic outcomes:
+A longitudinal study of elementary school students in Chile. Child Psy-
+chiatry & Human Development ,46(2), 245–256. https://doi.org/10.1007/
+s10578-014-0464-4
+Napoli, M., Krech, P. R., & Holley, L. C. (2005). Mindfulness training for
+elementary school students. Journal of Applied School Psychology ,21(1),
+99–125. https://doi.org/10.1300/j370v21n01_05
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+14 of 14 ANDREU ET AL .
+Rietdijk, W. J., Franken, I. H., & Thurik, A. R. (2014). Internal consistency of
+event-related potentials associated with cognitive control: N2/P3 and
+ERN/Pe. PloS one ,9(7), e102672. https://doi.org/10.1371/journal.pone.
+0102672
+Riggs, N. R., Black, D. S., & Ritt-Olson, A. (2015). Associations between
+dispositional mindfulness and executive function in early adolescence.
+Journal of Child and Family Studies ,24, 2745–2751. https://doi.org/10.
+1007/s10826-014-0077-3
+Rothbart, M., & Bates, J. (2006). Temperament. In N. Eisenberg (Ed.).
+Handbook of child psychology (99–166). Wiley.
+Rueda, M. R., Posner, M. I., & Rothbart, M. K. (2005). The develop-
+ment of executive attention: Contributions to the emergence of self-
+regulation. Developmental Neuropsychology ,28(2), 573–594. https://doi.
+org/10.1207/s15326942dn2802_2
+Sánchez-Carmona, A. J., Albert, J., & Hinojosa, J. A. (2016). Neural and
+behavioral correlates of selective stopping: Evidence for a different
+strategy adoption. Neuroimage ,139, 279–293. https://doi.org/10.1016/
+j.neuroimage.2016.06.043
+Sanger, K. L., & Dorjee, D. (2015). Mindfulness training for adolescents:
+A neurodevelopmental perspective on investigating modifications in
+attention and emotion regulation using event-related brain potentials.
+Cognitive, Affective, & Behavioral Neuroscience ,15(3), 696–711. https://
+doi.org/10.3758/s13415-015-0354-7
+Sanger, K. L., Thierry, G., & Dorjee, D. (2018). Effects of school-based mind-
+fulness training on emotion processing and well-being in adolescents:
+evidence from event-related potentials. Developmental Science ,21(5),
+e12646. https://doi.org/10.1111/desc.12646
+Schonert-Reichl, K. A. (1994). Gender differences in egocentrism and
+depressive symptomatology. Journal of Early Adolescence ,14(1), 49–65.
+https://doi.org/10.1177/0272431694014001004
+Schonert-Reichl, K. A., Oberle, E., Lawlor, M. S., Abbott, D., Thomson, K.,
+Oberlander, T. F., & Diamond, A. (2015). Enhancing cognitive and social–
+emotional development through a simple-to-administer mindfulness-
+based school program for elementary school children: A randomized
+controlled trial. Developmental Psychology ,51(1), 52–66. https://doi.org/
+10.1037/a0038454
+Siripornpanich, V., Sampoon, K., Chaithirayanon, S., Kotchabhakdi, N.,
+& Chutabhakdikul, N. (2018). Enhancing brain maturation through a
+mindfulness-based education in elementary school children: A quantita-
+tive EEG study. Mindfulness ,9(6), 1877–1884. https://doi.org/10.1007/
+s12671-018-0930-3
+Snyder, H. R., Gulley, L. D., Bijttebier, P., Hartman, C. A., Oldehinkel, A.
+J., Mezulis, A., Young, J. F., & Hankin, B. L. (2015). Adolescent emo-
+tionality and effortful control: Core latent constructs and links topsychopathology and functioning. Journal of Personality and Social Psy-
+chology ,109(6), 1132–1149. https://doi.org/10.1037/pspp0000047
+Von Hippel, P. T., Workman, J., & Downey, D. B. (2018). Inequality in read-
+ing and math skills forms mainly before kindergarten: A replication,
+and partial correction, of “Are Schools the Great Equalizer?” Sociology
+of Education ,91(4), 323–357. https://doi.org/10.1177/0038040718801
+760
+Waters, L., Barsky, A., Ridd, A., & Allen, K. (2014). Contemplative educa-
+tion: A systematic, evidence-based review of the effect of meditation
+interventions in schools. Educational Psychology Review ,27(1), 103–134.
+https://doi.org/10.1007/s10648-014-9258-2
+Weare, K. (2019). Mindfulness and contemplative approaches in education.
+Current Opinion in Psychology ,28, 321–326. https://doi.org/10.1016/j.
+copsyc.2019.06.001
+Wessel, J. R., & Aron, A. R. (2015). It’s not too late: The onset of the fron-
+tocentral P3 indexes successful response inhibition in the stop-signal
+paradigm. Psychophysiology ,52(4), 472–480. https://doi.org/10.1111/
+psyp.12374
+Zenner, C., Herrnleben-Kurz, S., & Walach, H. (2014). Mindfulness-based
+interventions in schools – a systematic review and meta-analysis.
+Frontiers in Psychology ,5, 603. https://doi.org/10.3389/fpsyg.2014.006
+03
+Zelazo, P. D., & Carlson, S. M. (2012). Hot and cool executive function
+in childhood and adolescence: development and plasticity. Child Devel-
+opment Perspectives ,6, 354–360. https://doi.org/10.1111/j.1750-8606.
+2012.00246.x
+SUPPORTING INFORMATION
+Additional supporting information can be found online in the Support-
+ing Information section at the end of this article.
+How to cite this article: Andreu, C. I., García-Rubio, C.,
+Melcón, M., Schonert-Reichl, K. A., & Albert, J. (2023). The
+effectiveness of a school mindfulness-based intervention on
+the neural correlates of inhibitory control in children at risk: A
+randomized control trial. Developmental Science ,26,e13403.
+https://doi.org/10.1111/desc.13403
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
