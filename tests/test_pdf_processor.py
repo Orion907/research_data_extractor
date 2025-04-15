@@ -5,11 +5,14 @@ import os
 import sys
 import logging
 
+# Add the project root directory to Python path
+sys.path.insert(0, os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
+
 # Add the src directory to the Python path to allow imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Import functions from your project
-from src.pdf_processing.pdf_processor import extract_text_from_pdf
+from src.pdf_processor.pdf_processor import extract_text_from_pdf
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
