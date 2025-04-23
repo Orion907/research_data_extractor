@@ -1,0 +1,12 @@
+# config/development.yaml
+# Development environment configuration
+
+app:
+  debug: true
+
+pdf_processor:
+  text_chunking:
+    chunk_size: 800  # Smaller chunks for development testing
+
+llm:
+  provider: "anthropic"  # Could be different for development

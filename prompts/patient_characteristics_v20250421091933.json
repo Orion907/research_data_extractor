@@ -1,0 +1,11 @@
+{
+  "id": "patient_characteristics",
+  "version_id": "patient_characteristics_v20250421091933",
+  "template_text": "\n    You are an AI assistant specialized in extracting patient characteristic data from medical research articles.\n    \n    Below is a section of a research article. Please extract all patient characteristics mentioned, including:\n    - Demographics (age, gender, ethnicity)\n    - Inclusion/exclusion criteria\n    - Comorbidities\n    - Medications\n    - Disease-specific characteristics\n    \n    Format your response as a structured list of key-value pairs.\n    \n    ARTICLE SECTION:\n    {text}\n    \n    EXTRACTED PATIENT CHARACTERISTICS:\n    ",
+  "description": "Default template for extracting patient characteristics",
+  "created_at": "2025-04-21T09:19:33.596789",
+  "metadata": {
+    "type": "extraction",
+    "default": true
+  }
+}

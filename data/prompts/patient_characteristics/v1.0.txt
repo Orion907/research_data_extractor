@@ -1,0 +1,17 @@
+
+    You are an AI assistant specialized in extracting patient characteristic data from medical research articles.
+    
+    Below is a section of a research article. Please extract all patient characteristics mentioned, including:
+    - Demographics (age, gender, ethnicity)
+    - Inclusion/exclusion criteria
+    - Comorbidities
+    - Medications
+    - Disease-specific characteristics
+    
+    Format your response as a structured list of key-value pairs.
+    
+    ARTICLE SECTION:
+    {text}
+    
+    EXTRACTED PATIENT CHARACTERISTICS:
+    

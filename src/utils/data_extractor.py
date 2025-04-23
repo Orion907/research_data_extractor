@@ -1,3 +1,4 @@
+# src/utils/data_extractor.py
 """
 Module for extracting structured data from text using LLMs
 """
@@ -19,11 +20,13 @@ class DataExtractor:
         Initialize the extractor
         
         Args:
-            provider (str): LLM provider to use ('openai' or 'anthropic')
+            provider (str): LLM provider to use ('openai', 'anthropic', or 'mock')
             api_key (str, optional): API key for the service
             model_name (str, optional): Model name to use
         """
         self.client = ClientFactory.create_client(provider, api_key, model_name)
+        # Don't create an instance of PromptTemplate
+        # self.prompt_template = PromptTemplate()  # This is likely the problematic line
         logger.info(f"Initialized DataExtractor with {provider} provider")
     
     def extract_patient_characteristics(self, text_chunk):
@@ -36,6 +39,7 @@ class DataExtractor:
         Returns:
             dict: Extracted patient characteristics
         """
+        # Use the static method directly
         prompt = PromptTemplate.get_extraction_prompt(text_chunk)
         
         logger.info("Sending text chunk to LLM for extraction")
