@@ -1,0 +1,100 @@
+elibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+6o f1 4 ANDREU ET AL .
+for the promotion of social-emotional competencies and academic out-
+comes, prevention of mental health problems, and improvement of
+positive coexistence in the educational community. SFL is run by a
+division (National Association of School Assistance and Scholarship
+JUNAEB; Junta Nacional de Auxilio Escolar y Becas) of the National
+Department of Education in Chile, and it is the largest school-based
+mental health program in Chile providing services to more than one
+million students in Chile over the past decade (Guzmán et al., 2015 ).
+The program is specially designed to be implemented in schools with a
+population with high socio-economic vulnerability and high psychoso-
+cial risk levels. The SFL Program has been shown to decrease the
+risk factors associated with school and social maladjustment and to
+improve studentst’ autonomy, socio-emotional skills, behavior, and aca-
+demic outcomes (Delgado et al., 2006 ; Guzmán et al., 2015 ; Leiva et al.,
+2016 ; Murphy et al., 2014 ).
+For this study, two expert psychologists trained in the SFL Pro-
+gram adapted the program to be implemented with children aged
+9–11 years. The curriculum was applied during nine weekly sessions,
+50 min per each, in parallel to the mindfulness-based intervention.
+The methodology of the program was experiential, interactive, partic-
+ipatory, and student-centered. The objective of the program was the
+promotion of social-emotional skills other than mindfulness and the
+improvement of the classroom climate. Through different dynamics
+(e.g., role-playings) and games (e.g., collective mandala), the students
+reflected in each class on a specific topic and developed emotional
+and social skills useful for their school and family context. The themes
+of the nine sessions were: Group Cohesion, Self-concept, Self-esteem,
+Treating others well, Cyberbullying, Emotional recognition, Emotional
+expression, Conflict resolution (dialogue) and Summary and Integra-
+tion. Details of the intervention can be found in the Table S2.
+2.4 Measures
+2.4.1 Go/Nogo task
+A previous Go/Nogo task was adapted for this study (Albert et al.,
+2013 ). Stimuli consisted of three capital letters (“N,” “M,” and “W”) col-
+ored in yellow so they clearly highlighted from the black background on
+which they were superimposed. Children participants were instructed
+to press a button, as fast and accurate as possible, whenever the let-
+ters “M” or “N” were presented, and to withhold pressing when the
+letter presented was “W.” They were asked to look continuously at
+the center of the screen in order to control eye-movement interfer-
+ence. The Go/Nogo task consisted of two blocks of 150 trials, with rest
+time between blocks. Each trial began with the presentation of the let-
+ter (400 ms), followed by a black screen (700 or 900 ms). Both letter
+and fixation cross were superimposed at the center of the black back-
+ground. The letters “M” (infrequent-Go) and “W” (infrequent-Nogo)
+were presented with the same probability of occurrence (20%) in order
+to equalize both types of trials with respect to novelty processing. The
+letter “N” (frequent-Go) was presented in the rest of the trials (60%)
+to increase the subjects’ tendency to respond. The three types of trials(frequent-Go, infrequent- Go, and infrequent-Nogo) were presented
+in semi-random order (i.e., avoiding the consecutive presentation of
+two infrequent-trials). Before the beginning of the experiment, partic-
+ipants completed a practice block of 12 trials (4 infrequent-Nogo) to
+ensure task instruction understanding. The task took about 10 min to
+complete, including resting time. After the Go/Nogo task participant
+completed an Eriksen flanker task adapted for children but results are
+not reported here.
+2.4.2 Questionnaires
+Child and Adolescent Mindfulness Measure (CAMM)
+Dispositional mindfulness was measured by the Child and Adoles-
+cent Mindfulness Measure (CAMM; Greco et al., 2011 ). The CAMM
+assesses mindfulness as the “lack of present-moment awareness as
+well as judgmental and non-accepting responses to thoughts and feel-
+ings” (Greco et al., 2011 , p. 609). It comprises 10 items (e.g., “I get upset
+with myself for having feelings that do not make sense” or “get upset
+with myself for having certain thoughts’’) in a 5-point Likert scale rang-
+ing from 0 (”never true“) to 4 (”always true"). After recoding the scores
+on inverse items, higher scores on the CAMM indicate higher mind-
+fulness skills. In this study, Spanish validation of the CAMM was used
+(García-Rubio et al., 2019 ), showing adequate reliability ( α=0.84).
+Early Adolescent Temperament Questionnaire-Revised (EATQ-R)
+EC were self-reported by children using The Early Adolescent Temper-
+ament Questionnaire-Revised (Ellis & Rothbart, 2001 ). The EATQ-R is
+a revised and updated version of the EATQ (Capaldi & Rothbart, 1992 )
+to assess more precisely aspects of self-regulation. EATQ-R consists
+of 11 scales. In this study, the higher-order factor EC was calculated
+with the attentional control and inhibitory control subscales. EC is
+a very close construct to EF (Snyder et al., 2015 ) and is defined as
+“the ability to inhibit a dominant response to perform a subdominant
+response” (Rothbart & Bates, 2006 ; p. 137), involving the recruitment
+of attentional and behavioral processes to modulate affective reactiv-
+ity (Rueda, et al., 2005 ). Each item was measured on a five-point Likert
+scale ranging from 1 (almost never true) to 5 (almost always true).
+Higher scores reflect higher abilities. In the sample of this study, the
+reliability of the EC was α=0.64.
+Behavior Rating Inventory of Executive Function, second
+edition—Teacher form (BRIEF2-Teacher form)
+EFs were measured using the BRIEF2-Teacher Form (Gioia et al., 2015 ;
+Maldonado et al., 2017 ). The BRIEF2- Teacher Form is a teacher report
+that measures the EF of children and adolescents aged 5–18 years.
+Specifically, the BRIEF-2 – Teacher Form evaluates everyday children
+and adolescents’ observable behaviors associated with EF in school
+environments. It comprises 63 items in which respondents record their
+answers via a Likert type format with N (“Never”), S (“Sometimes”),
+or O (“Often”), reflecting the frequency to which the child being eval-
+uated performs an indicated behavior. The scale assesses the Global
+Executive Composite (Executive Function, EF), which is composed of
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

@@ -1,0 +1,33 @@
+# config/default.yaml
+# Default configuration for Research Data Extractor
+
+# Application settings
+app:
+  name: "Research Data Extractor"
+  version: "0.1.0"
+  debug: false
+
+# PDF processing settings
+pdf_processor:
+  keep_page_breaks: true
+  text_chunking:
+    chunk_size: 1000
+    overlap: 150
+    respect_paragraphs: true
+
+# LLM API settings
+llm:
+  provider: "anthropic"  # Options: "openai" or "anthropic"
+  default_model: "claude-3-sonnet-20240229"
+  temperature: 0.0
+  max_tokens: 4096
+
+# Data extraction settings
+extraction:
+  template_id: "patient_characteristics"
+  merge_results: true
+
+# Output settings
+output:
+  format: "csv"  # Options: "csv" or "xlsx"
+  directory: "data/output"

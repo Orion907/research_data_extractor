@@ -1,0 +1,12 @@
+# config/production.yaml
+# Production environment configuration
+
+app:
+  debug: false
+
+pdf_processor:
+  text_chunking:
+    chunk_size: 1200  # Larger chunks for production efficiency
+
+output:
+  directory: "/var/data/research_extractor/output"  # Production path

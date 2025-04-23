@@ -1,0 +1,49 @@
+[
+  {
+    "template_id": "test_template_1",
+    "version_id": "test_template_1_v20240421123456",
+    "source_file": "test_file.pdf",
+    "characteristics_found": 10,
+    "start_time": "2025-04-21T09:19:33.498510",
+    "end_time": "2025-04-21T09:19:33.498510",
+    "duration_seconds": 0.0,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "test": true
+    },
+    "logged_at": "2025-04-21T09:19:33.498510"
+  },
+  {
+    "template_id": "test_template_2",
+    "version_id": "test_template_2_v20240421123456",
+    "source_file": "test_file2.pdf",
+    "characteristics_found": 5,
+    "start_time": "2025-04-21T09:19:33.505510",
+    "end_time": "2025-04-21T09:19:33.505510",
+    "duration_seconds": 0.0,
+    "success": false,
+    "error": "Test error",
+    "metadata": {
+      "test": true
+    },
+    "logged_at": "2025-04-21T09:19:33.505510"
+  },
+  {
+    "template_id": "diabetes_extraction",
+    "version_id": "latest",
+    "source_file": "sample_diabetes_study.pdf",
+    "characteristics_found": 8,
+    "start_time": "2025-04-21T09:19:33.602788",
+    "end_time": "2025-04-21T09:19:33.602788",
+    "duration_seconds": 0.0,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": "mock-model",
+      "text_chunk_length": 422
+    },
+    "logged_at": "2025-04-21T09:19:33.602788"
+  }
+]
