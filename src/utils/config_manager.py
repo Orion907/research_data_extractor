@@ -1,3 +1,4 @@
+# src/utils/config_manager.py (update)
 """
 Module for managing application configuration
 """
@@ -25,10 +26,12 @@ class ConfigManager:
         # Set default config directory if not provided
         if config_dir is None:
             # Get project root directory (assuming this file is in src/utils)
-            project_root = Path(__file__).parent.parent.parent
+            project_root = Path(__file__).parent.parent.parent.absolute()
             config_dir = project_root / "config"
+        else:
+            config_dir = Path(config_dir).absolute()
         
-        self.config_dir = Path(config_dir)
+        self.config_dir = config_dir
         
         # Set environment from env parameter or from environment variable
         self.env = env or os.environ.get("APP_ENV", "development")
@@ -40,6 +43,7 @@ class ConfigManager:
         self._load_config()
         
         logger.info(f"Configuration loaded for environment: {self.env}")
+        logger.debug(f"Configuration directory: {self.config_dir}")
     
     def _load_config(self):
         """
@@ -49,12 +53,13 @@ class ConfigManager:
         default_config_path = self.config_dir / "default.yaml"
         
         try:
-            with open(default_config_path, 'r') as file:
-                self.config = yaml.safe_load(file) or {}
-            logger.info(f"Loaded default configuration from {default_config_path}")
-        except FileNotFoundError:
-            logger.warning(f"Default configuration file not found: {default_config_path}")
-            self.config = {}
+            if default_config_path.exists():
+                with open(default_config_path, 'r') as file:
+                    self.config = yaml.safe_load(file) or {}
+                logger.info(f"Loaded default configuration from {default_config_path}")
+            else:
+                logger.warning(f"Default configuration file not found: {default_config_path}")
+                self.config = {}
         except yaml.YAMLError as e:
             logger.error(f"Error parsing default YAML configuration: {str(e)}")
             self.config = {}
@@ -70,6 +75,8 @@ class ConfigManager:
                 # Merge environment config with default config
                 self._deep_merge(self.config, env_config)
                 logger.info(f"Loaded environment configuration from {env_config_path}")
+            else:
+                logger.debug(f"Environment configuration file not found: {env_config_path}")
         except yaml.YAMLError as e:
             logger.error(f"Error parsing environment YAML configuration: {str(e)}")
     
@@ -119,3 +126,35 @@ class ConfigManager:
             dict: The entire configuration dictionary
         """
         return self.config.copy()
+    
+    def get_path(self, key, relative_to_project_root=True, create=False):
+        """
+        Get a path from the configuration, resolving it relative to project root if needed
+        
+        Args:
+            key (str): Configuration key in dot notation
+            relative_to_project_root (bool): Whether to resolve the path relative to project root
+            create (bool): Whether to create the directory if it doesn't exist
+            
+        Returns:
+            Path: The resolved path
+        """
+        path_str = self.get(key)
+        if not path_str:
+            return None
+            
+        path = Path(path_str)
+        
+        if relative_to_project_root and not path.is_absolute():
+            # Resolve relative to project root
+            project_root = Path(__file__).parent.parent.parent.absolute()
+            path = project_root / path
+            
+        if create and not path.exists():
+            try:
+                path.mkdir(parents=True, exist_ok=True)
+                logger.debug(f"Created directory: {path}")
+            except Exception as e:
+                logger.error(f"Failed to create directory {path}: {str(e)}")
+                
+        return path
