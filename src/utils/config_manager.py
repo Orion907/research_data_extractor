@@ -1,4 +1,4 @@
-# src/utils/config_manager.py (update)
+# src/utils/config_manager.py
 """
 Module for managing application configuration
 """

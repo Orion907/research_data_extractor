@@ -7,9 +7,12 @@ from .prompt_templates import PromptTemplate
 from .prompt_manager import PromptManager
 from .analytics import PromptAnalytics
 from .config_manager import ConfigManager
+from .unified_analytics import Analytics
 
 # Create a global configuration instance
 config = ConfigManager()
+PromptAnalytics = Analytics
+AnalyticsTracker = Analytics
 
 # Make these classes directly importable 
-__all__ = ['DataExtractor', 'PromptTemplate', 'PromptManager', 'PromptAnalytics', 'ConfigManager', 'config']
+__all__ = ['DataExtractor', 'PromptTemplate', 'PromptManager', 'Analytics', 'PromptAnalytics', 'AnalyticsTracker', 'ConfigManager', 'config']
