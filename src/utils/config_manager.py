@@ -6,14 +6,19 @@ import os
 import yaml
 import logging
 from pathlib import Path
+import re
 
 # Configure logging
 logger = logging.getLogger(__name__)
 
 class ConfigManager:
     """
-    Manages application configuration loaded from YAML files
+    Manages application configuration loaded from YAML files with environment variable overrides,
+    validation, and runtime reloading.
     """
+    
+    # Regular expression for environment variable substitution
+    ENV_VAR_PATTERN = re.compile(r'\${([A-Za-z0-9_]+)(?::([^}]*))?}')
     
     def __init__(self, config_dir=None, env=None):
         """
@@ -39,6 +44,9 @@ class ConfigManager:
         # Initialize empty configuration dictionary
         self.config = {}
         
+        # Schema validation dictionary (to be populated by validate_schema)
+        self.schema = {}
+        
         # Load configuration
         self._load_config()
         
@@ -47,7 +55,7 @@ class ConfigManager:
     
     def _load_config(self):
         """
-        Load configuration from YAML files
+        Load configuration from YAML files and apply environment variable overrides
         """
         # Load default configuration
         default_config_path = self.config_dir / "default.yaml"
@@ -79,6 +87,51 @@ class ConfigManager:
                 logger.debug(f"Environment configuration file not found: {env_config_path}")
         except yaml.YAMLError as e:
             logger.error(f"Error parsing environment YAML configuration: {str(e)}")
+            
+        # Process environment variable substitutions
+        self._process_env_vars(self.config)
+    
+    def _process_env_vars(self, config_dict):
+        """
+        Process environment variable substitutions in the config dictionary
+        
+        Args:
+            config_dict (dict): Configuration dictionary to process
+        """
+        for key, value in config_dict.items():
+            if isinstance(value, dict):
+                # Recursively process nested dictionaries
+                self._process_env_vars(value)
+            elif isinstance(value, str):
+                # Process string values for environment variable substitutions
+                config_dict[key] = self._replace_env_vars(value)
+    
+    def _replace_env_vars(self, value):
+        """
+        Replace environment variables in a string value
+        
+        Args:
+            value (str): String value to process
+            
+        Returns:
+            str: Processed string with environment variables replaced
+        """
+        def replace_var(match):
+            var_name = match.group(1)
+            default_value = match.group(2)
+            
+            # Get the environment variable or use the default value
+            env_value = os.environ.get(var_name)
+            if env_value is not None:
+                return env_value
+            elif default_value is not None:
+                return default_value
+            else:
+                # Keep the original if environment variable not found and no default
+                return match.group(0)
+        
+        # Replace all environment variables in the string
+        return self.ENV_VAR_PATTERN.sub(replace_var, value)
     
     def _deep_merge(self, dict1, dict2):
         """
@@ -96,13 +149,59 @@ class ConfigManager:
                 # Overwrite value in dict1
                 dict1[key] = value
     
-    def get(self, key, default=None):
+    def validate_schema(self, schema):
         """
-        Get a configuration value
+        Set a validation schema for configuration values
+        
+        Args:
+            schema (dict): Dictionary defining the expected types and constraints
+                           for configuration values
+        """
+        self.schema = schema
+        
+        # Validate the current configuration
+        self._validate_config(self.config, self.schema)
+    
+    def _validate_config(self, config, schema, path=""):
+        """
+        Validate configuration against schema
+        
+        Args:
+            config (dict): Configuration to validate
+            schema (dict): Schema to validate against
+            path (str): Current path in the config (for error reporting)
+            
+        Raises:
+            ValueError: If validation fails
+        """
+        for key, value_schema in schema.items():
+            full_path = f"{path}.{key}" if path else key
+            
+            if key not in config:
+                if value_schema.get("required", False):
+                    raise ValueError(f"Missing required configuration value: {full_path}")
+                continue
+            
+            value = config[key]
+            
+            # Check type
+            expected_type = value_schema.get("type")
+            if expected_type and not isinstance(value, expected_type):
+                raise ValueError(f"Invalid type for {full_path}: expected {expected_type.__name__}, got {type(value).__name__}")
+            
+            # Validate nested schema
+            nested_schema = value_schema.get("schema")
+            if nested_schema and isinstance(value, dict):
+                self._validate_config(value, nested_schema, full_path)
+    
+    def get(self, key, default=None, value_type=None):
+        """
+        Get a configuration value with optional type conversion
         
         Args:
             key (str): Configuration key in dot notation (e.g., 'app.debug')
             default: Default value to return if key is not found
+            value_type (type, optional): Type to convert the value to
             
         Returns:
             The configuration value, or the default if not found
@@ -114,9 +213,37 @@ class ConfigManager:
         try:
             for k in keys:
                 value = value[k]
+                
+            # Convert value type if specified
+            if value_type is not None:
+                try:
+                    value = value_type(value)
+                except (ValueError, TypeError):
+                    logger.warning(f"Failed to convert {key} to {value_type.__name__}")
+                    return default
+                    
             return value
         except (KeyError, TypeError):
             return default
+    
+    def get_int(self, key, default=None):
+        """Get configuration value as integer"""
+        return self.get(key, default, int)
+    
+    def get_float(self, key, default=None):
+        """Get configuration value as float"""
+        return self.get(key, default, float)
+    
+    def get_bool(self, key, default=None):
+        """Get configuration value as boolean"""
+        return self.get(key, default, bool)
+    
+    def get_list(self, key, default=None):
+        """Get configuration value as list"""
+        value = self.get(key, default)
+        if isinstance(value, list):
+            return value
+        return default
     
     def get_all(self):
         """
@@ -158,3 +285,54 @@ class ConfigManager:
                 logger.error(f"Failed to create directory {path}: {str(e)}")
                 
         return path
+    
+    def reload(self):
+        """
+        Reload configuration from files
+        
+        Returns:
+            bool: True if reload was successful, False otherwise
+        """
+        try:
+            old_config = self.config.copy()
+            self._load_config()
+            
+            # Validate against schema if set
+            if self.schema:
+                try:
+                    self._validate_config(self.config, self.schema)
+                except ValueError as e:
+                    # Restore old configuration if validation fails
+                    self.config = old_config
+                    logger.error(f"Configuration validation failed after reload: {str(e)}")
+                    return False
+                    
+            logger.info("Configuration reloaded successfully")
+            return True
+        except Exception as e:
+            logger.error(f"Error reloading configuration: {str(e)}")
+            return False
+    
+    def set(self, key, value):
+        """
+        Set a configuration value at runtime
+        
+        Args:
+            key (str): Configuration key in dot notation
+            value: Value to set
+            
+        Returns:
+            bool: True if set was successful, False otherwise
+        """
+        keys = key.split('.')
+        config = self.config
+        
+        # Navigate to the parent dictionary
+        for k in keys[:-1]:
+            if k not in config or not isinstance(config[k], dict):
+                config[k] = {}
+            config = config[k]
+        
+        # Set the value
+        config[keys[-1]] = value
+        return True

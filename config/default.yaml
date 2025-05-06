@@ -6,6 +6,20 @@ app:
   name: "Research Data Extractor"
   version: "0.1.0"
   debug: false
+  logging:
+    level: "INFO"
+    file: "logs/app.log"
+    format: "%(asctime)s - %(levelname)s - %(message)s"
+
+# Input/Output settings
+input:
+  directory: "data/input"
+  sample_file: "sample_research_article.pdf"
+
+output:
+  format: "csv"  # Options: "csv" or "xlsx"
+  directory: "data/output"
+  file: "patient_data.csv"
 
 # PDF processing settings
 pdf_processor:
@@ -17,17 +31,27 @@ pdf_processor:
 
 # LLM API settings
 llm:
-  provider: "anthropic"  # Options: "openai" or "anthropic"
+  provider: "anthropic"  # Options: "openai", "anthropic", or "mock"
   default_model: "claude-3-sonnet-20240229"
   temperature: 0.0
   max_tokens: 4096
+  api_keys:
+    anthropic: "${ANTHROPIC_API_KEY}"
+    openai: "${OPENAI_API_KEY}"
 
 # Data extraction settings
 extraction:
   template_id: "patient_characteristics"
   merge_results: true
+  max_chunks: 3  # Maximum number of chunks to process for testing
 
-# Output settings
-output:
-  format: "csv"  # Options: "csv" or "xlsx"
-  directory: "data/output"
+# Analytics settings
+analytics:
+  enabled: true
+  directory: "analytics"
+
+# Batch processing settings
+batch:
+  max_concurrent: 2
+  retry_attempts: 3
+  timeout_seconds: 300
