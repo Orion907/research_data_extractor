@@ -1,11 +1,13 @@
-# src/utils/data_extractor.py
+# src/utils/data_extractor.py - Modifications to integrate ResultsManager
 """
 Module for extracting structured data from text using LLMs
 """
 import json
 import logging
+from datetime import datetime
 from ..llm.client_factory import ClientFactory
 from .prompt_templates import PromptTemplate
+from .results_manager import ResultsManager  # Import the ResultsManager
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -15,7 +17,7 @@ class DataExtractor:
     Extracts structured data from text using LLM APIs
     """
     
-    def __init__(self, provider="anthropic", api_key=None, model_name=None):
+    def __init__(self, provider="anthropic", api_key=None, model_name=None, results_dir=None):
         """
         Initialize the extractor
         
@@ -23,24 +25,36 @@ class DataExtractor:
             provider (str): LLM provider to use ('openai', 'anthropic', or 'mock')
             api_key (str, optional): API key for the service
             model_name (str, optional): Model name to use
+            results_dir (str, optional): Directory to store results
         """
         self.client = ClientFactory.create_client(provider, api_key, model_name)
-        # Don't create an instance of PromptTemplate
-        # self.prompt_template = PromptTemplate()  # This is likely the problematic line
+        self.provider = provider
+        self.model_name = model_name or self.client.model_name
+        # Add a results manager
+        self.results_manager = ResultsManager(results_dir)
         logger.info(f"Initialized DataExtractor with {provider} provider")
     
-    def extract_patient_characteristics(self, text_chunk):
+    def extract_patient_characteristics(self, text_chunk, template_id=None, source_file=None):
         """
         Extract patient characteristics from a text chunk
         
         Args:
             text_chunk (str): The text chunk to analyze
+            template_id (str, optional): ID of the prompt template to use
+            source_file (str, optional): Path to the source PDF file
             
         Returns:
             dict: Extracted patient characteristics
         """
+        # Record start time for analytics
+        start_time = datetime.now()
+        
         # Use the static method directly
         prompt = PromptTemplate.get_extraction_prompt(text_chunk)
+        if template_id:
+            # Here we'd use a specific template if provided
+            # For now, just use the default
+            pass
         
         logger.info("Sending text chunk to LLM for extraction")
         completion = self.client.generate_completion(prompt)
@@ -56,24 +70,56 @@ class DataExtractor:
                 if json_start >= 0 and json_end > json_start:
                     json_str = completion[json_start:json_end]
                     data = json.loads(json_str)
-                    return data
+                    result_data = data
+                    success = True
+                else:
+                    result_data = {"raw_extraction": completion}
+                    success = False
+            else:
+                # Parse as key-value pairs if not JSON
+                result_data = {}
+                lines = completion.strip().split('\n')
+                
+                for line in lines:
+                    line = line.strip()
+                    if ':' in line:
+                        key, value = line.split(':', 1)
+                        result_data[key.strip()] = value.strip()
+                success = len(result_data) > 0
             
-            # If not JSON, parse as key-value pairs
-            result = {}
-            lines = completion.strip().split('\n')
+            # Calculate end time for analytics
+            end_time = datetime.now()
             
-            for line in lines:
-                line = line.strip()
-                if ':' in line:
-                    key, value = line.split(':', 1)
-                    result[key.strip()] = value.strip()
+            # Save the result if source_file is provided
+            if source_file and self.results_manager:
+                # Create model info
+                model_info = {
+                    "provider": self.provider,
+                    "model_name": self.model_name
+                }
+                
+                # Save the result
+                result_id = self.results_manager.save_extraction_result(
+                    result=result_data,
+                    source_file=source_file,
+                    model_info=model_info,
+                    prompt_id=template_id,
+                    metadata={
+                        "text_chunk_length": len(text_chunk),
+                        "extraction_time_ms": (end_time - start_time).total_seconds() * 1000,
+                        "success": success
+                    }
+                )
+                logger.info(f"Saved extraction result with ID: {result_id}")
             
-            return result
+            return result_data
             
         except Exception as e:
             logger.warning(f"Failed to parse LLM response into structured data: {str(e)}")
             # Return the raw completion if parsing fails
             return {"raw_extraction": completion}
+    
+    # Rest of the class remains the same...
     
     def extract_from_chunks(self, chunks, merge=True):
         """

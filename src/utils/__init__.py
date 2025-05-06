@@ -1,4 +1,4 @@
-# src/utils/__init__.py (updated to include validator)
+# src/utils/__init__.py (update)
 """
 Utility modules for the research data extraction project
 """
@@ -8,7 +8,8 @@ from .prompt_manager import PromptManager
 from .analytics import PromptAnalytics
 from .config_manager import ConfigManager
 from .unified_analytics import Analytics
-from .data_validator import DataValidator  # Add the new validator
+from .results_manager import ResultsManager  # Add this import
+from .batch_processor import BatchProcessor  # Add this import too
 
 # Create a global configuration instance
 config = ConfigManager()
@@ -16,14 +17,6 @@ PromptAnalytics = Analytics
 AnalyticsTracker = Analytics
 
 # Make these classes directly importable 
-__all__ = [
-    'DataExtractor', 
-    'PromptTemplate', 
-    'PromptManager', 
-    'Analytics', 
-    'PromptAnalytics', 
-    'AnalyticsTracker', 
-    'ConfigManager', 
-    'config',
-    'DataValidator'  # Add the new validator
-]
+__all__ = ['DataExtractor', 'PromptTemplate', 'PromptManager', 
+           'Analytics', 'PromptAnalytics', 'AnalyticsTracker', 'ConfigManager', 
+           'config', 'ResultsManager', 'BatchProcessor']
