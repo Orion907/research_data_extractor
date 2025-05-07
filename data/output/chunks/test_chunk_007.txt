@@ -1,0 +1,101 @@
+overned by the applicable Creative Commons License
+
+ANDREU ET AL . 7o f1 4
+three composite indexes and nine subscales: Behavior Regulation Index
+(BRI; comprised of the Inhibit and Self-Monitor subscales), Emotion
+Regulation Index (ERI; comprised of the Shift and Emotional Control
+subscales), and Cognitive Regulation Index (CRI; comprised of the Initi-
+ate, Working Memory, Plan/Organize, Task-Monitor, and Organization
+of Materials subscales). The Global Executive Composite, the Behav-
+ior Regulation, the Emotion Regulation, and the Cognitive Regulation
+Indexes were analyzed. The Behavioral Regulation Index indicates the
+teacher’s perception of the child’s level of difficulty in regulating and
+supervising their behaviors effectively. The Emotion Regulation Index
+reports the teacher’s perception of the child’s ability in regulating and
+modulating emotional responses, especially in response to changing
+situations. The Cognitive Regulation Index reflects the child’s abil-
+ity to control and manage cognitive processes and to problem solve
+effectively. Higher scores indicate greater problems in EF and lower
+scores reflect better EFs. The BRIEF2 – Teacher Form is widely used
+and has shown adequate validity and reliability properties ( α=0.88–
+0.98) (Gioia et al., 2015 ; Maldonado et al., 2017 ). BRIEF2 – Teacher
+Form has demonstrated a significant correlation with the ADHD-RS-
+IV, CBCL-TRF, BASC-2 TRS, and Conners 3-T(S) measures, which are
+widely used to assess children’s attention, self-regulation and mental
+health (for a review, see Hendrickson & McCrimmon, 2018 ). In the sam-
+ple of this study, the reliability of the BRIEF-2 – Teacher Form was
+excellent ( α=0.97).
+Attendance, acceptability, and personal practice
+Participants’ attendance rate to the program was determined by con-
+trolling the number of sessions that each student missed (i.e., none, one,
+two, three, or more sessions). Also, children assessed acceptability and
+satisfaction with the programs at the end of them. Each student rated
+3 items on a 0–10 Likert scale (i.e., Did you like the mindfulness/skills
+for life program?; Would you recommend a mindfulness/skills for life
+program to a friend?; Did you find helpful the mindfulness/skills for life
+program?; 0 =Never; 10 =Always). In addition, the personal practice
+was assessed asking the children about if they had been used the prac-
+tices and exercises taught throughout the programs: Have you used
+in your day-to-day in and outside the school (e.g., home) what you
+learned on the mindfulness/skills for life program; Have you used inter-
+sessions the different practices learned on the mindfulness/skills for
+life program?; 0 =Never; 10=Always).
+2.5 Data analysis
+2.5.1 Behavioral and EEG data analysis
+For EEG, after acquisition, data were segmented in epochs of 1 s
+(200 ms before and 800 ms after stimulus onset) and only trials
+with valid responses were analyzed (correct go trials with responses
+between 150 and 1100 ms after onset, correct nogo trials without
+response). Data were low-pass filtered below 35 Hz and re-referenced
+to the average mastoids. Artifact rejection was based on a three-step
+procedure. First, we used Independent Component Analysis (ICA) toremove eye-blinks or muscular activity, since it uses spatial filtering
+and preserves ERP contributions, in contrast to other methods such
+as filtering or regression (Jung, Makeig, Humphries, et al., 2000 ; Jung,
+Makeig, Westerfield, et al., 2000 ). Then, noisy channels were interpo-
+lated using data of adjacent electrodes (mean ±SD of interpolated
+electrodes per participant and time: 2.2 ±1.9). Finally, trials in which
+the EEG signal exceeded ±150 mV after baseline correction ( −200 to
+0 ms) were automatically excluded. Only participants with at least 15
+error-free trials per condition were analyzed, yielding a final sample
+of 46 participants (see Participants section for a detailed description;
+the number of trials did not differ between groups in any condition at
+either pre or post-test, all ps>0.05). ERP waves were computed for
+each condition (Go frequent, Go infrequent and Nogo), participant (46),
+and time (pre and post). Then, ERP data across participants was decom-
+posed by ICA (3 conditions ×46 participants ×2 times ERPs for each
+electrode). The resulting independent components were explored by
+means of visual inspection, identifying a meaningful component as P3
+based on its scalp topography and time course. For the analysis, the
+average of amplitude of the P3 maximum amplitude time point ±10 ms
+was used.
+Repeated-measures ANOVAs were used with Group (mindfulness-
+training vs. active control group) and Time (pre, post) in all analyses
+as factors. For behavioral data, percentage error rates (both omis-
+sions and commissions: no responses in Go trials and button presses
+in Nogo trials, respectively) and mean reaction times (RTs) for the
+correct frequent and infrequent-go trials were analyzed. Repeated-
+measures ANOVAs on each behavioral measure were carried out using
+Trial type (frequent-Go, infrequent-Go, infrequent-Nogo), Group and
+Time as factors. To examine the effects of mindfulness training on Nogo
+P3, we conducted repeated-measures ANOVA, with Group and Time as
+factors. The Greenhouse–Geisser (GG) epsilon correction was applied
+to adjust the degrees of freedom of the F ratios where necessary,
+and post hoc comparisons were also made in order to determine the
+significance of pair-wise contrasts applying the Bonferroni procedure
+(alpha 0.05). For all analyses, the level of significance employed was
+0.05. Effect sizes were computed using the partial eta-square ( ƞ2p). For
+interpreting effect sizes, Cohen’s ( 1988 ) cutoff criteria were followed:
+ƞ2p=0.01 as small effect size, ƞ2p=0.06 as medium effect size, and
+ƞ2p=0.14 as large effect size.
+2.5.2 Questionnaires data analysis
+Relative to self-reports completed by children, there was no attrition
+from pre to post-interventions (Nexp =24; Ncon=22). With regard
+to questionnaires completed by teachers, questionnaires for three chil-
+dren were not completed at post-intervention (i.e., the questionnaires
+of two children from the mindfulness group and one child from the con-
+trol group were not completed). Hence, we decided to exclude these
+participants from the teacher reports analysis (Nexp =22; Ncon=21).
+We used the SPSS Missing Value Analysis package to estimate the
+patterns of missing data for children and teachers. Little’s MCAR
+test (Little & Rubin, 1989 ) was not significant for child self-report
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

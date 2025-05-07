@@ -1,0 +1,21 @@
+Characteristic,Value
+raw_extraction,"
+        {
+            ""sample_size"": 100,
+            ""mean_age"": 55.7,
+            ""age_range"": ""18-75 years"",
+            ""gender_distribution"": ""male: 52%, female: 48%"",
+            ""inclusion_criteria"": [
+                ""adults over 18 years"",
+                ""able to provide informed consent""
+            ],
+            ""exclusion_criteria"": [
+                ""severe comorbidities"",
+                ""participation in other clinical trials""
+            ]
+        }
+        "
+_meta_source_file,sample_research_article.pdf
+_meta_extraction_date,2025-05-07T08:51:37.469414
+_meta_model_used,
+_meta_chunks_processed,3

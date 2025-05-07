@@ -1,0 +1,81 @@
+overned by the applicable Creative Commons License
+
+ANDREU ET AL . 9o f1 4
+TABLE 2 Performance on the Go/Nogo task.
+Mindfulness Control
+Pre Post Pre Post
+Go frequent
+Error 6.29 (4.40) 8.72 (7.60) 9.90 (6.50) 14.02 (12.70)
+RT 384.35 (43.78) 361.67 (43.53) 382.75 (49.53) 362.35 (43.79)
+Go infrequent
+Error 8.44 (6.01) 10.52 (8.07) 11.99 (8.11) 16.52 (13.08)
+RT 395.17 (56.67) 365.85 (48.10) 386.80 (56.37) 373.37 (55.79)
+Nogo infrequent
+Error 57.30 (12.63) 49.72 (14.76) 56.39 (15.00) 52.23 (10.64)
+Data shown represent means of error rates (omission errors in percentages), mean reaction times for the Go trials (frequent and infrequent-go), and m eans
+of error rates (commission errors in percentage) for the Nogo trials. Standard deviations in parentheses.
+in frequent-go trials ( t(44)=2.219, p=0.032), where the control group
+showed higher error rate.
+With respect to percentage error rates, a significant main effect
+of trial type was observed ( F(2,88)=379.6, p<0.001, ƞ2p=0.896).
+Percentage error rates were higher for Nogo trials (i.e., commis-
+sion errors) than for frequent- and infrequent- Go trials (omis-
+sion errors), as expected. Also, group difference ( F(1,44)=4.356,
+p=0.043, ƞ2p=0.09) and time-by-trial type interaction were sig-
+nificant ( F(2,88)=10.712, p<0.001, ƞ2p=0.196), indicated higher
+error rates among students in the active control group compared
+to students in the mindfulness group. Moreover, the analysis indi-
+cated that students in both groups improved their performance,
+particularly with regard to commission errors within time. No other
+significant effects or interactions were found regarding to error
+rates.
+Regarding RTs, a significant main effect of Go-trial type (frequent
+and infrequent) was found ( F(1,44)=9.277, p=0.004, ƞ2p=0.174).
+In general, correct responses to infrequent-go trials were larger
+(higher reaction times) than correct responses to frequent-go trials
+(slower reaction times). Additionally, a main effect of Time was found
+(F(1,44)=20.9, p<0.001, ƞ2p=0.322), showing a general decrease in
+frequent- and infrequent-go RTs at post-test compared to pre-test. No
+other significant effect or interaction was found.
+In summary, the mindfulness group, relative to the active control
+group, did not change after the intervention in the reaction times in the
+Go trials. However, in general, the percentage of errors in the control
+group was higher than in the mindfulness group.
+3.3 Questionnaires
+3.3.1 Baseline comparisons
+Preliminary analyses were conducted to examine pre-intervention
+group differences across gender, age, and all of the dependent vari-
+ables in the study. There were no significant group differences atbaseline on socio-demographic characteristics: gender ( χ2 [1]=0.006,
+p=0.936), and age ( t(44)=0.903, p=0.371). There were no significant
+pre-intervention group differences in children’s self-reports on mind-
+fulness ( t(43)=0.007, p=0.994) and effortful control ( t(44)=1.462,
+p=0.151). There were no significant pre-intervention group dif-
+ferences on teacherst’ reports of children’s EF as assessed via the
+BRIEF Global Index ( t(41)=0.697, p=0.489), behavioral regula-
+tion ( t(41)=1.314, p=0.196), cognitive regulation ( t(41)=−0.496,
+p=0.623) and emotion regulation indexes ( t(41)=1.120, p=0.269).
+3.3.2 Intervention effects
+Pretest and posttest means and standard deviations as well as differ-
+ences in change scores for all dependent variables (i.e., mindfulness, EC,
+EF, behavioral regulation, emotion regulation, and cognitive regulation)
+by intervention group are reported in Table 3.
+With regard to child self-reports, the results for mindfulness indi-
+cated a significant change from pretest to posttest, F(1, 43)=5.101,
+p=0.029, ƞ2p=0.11, indicating differences between the mindfulness
+and control group, with a decrease in mindfulness scores in the control
+group. Also, the results regarding EC were significant in the expected
+direction, F(1, 44)=6.144, p=0.017, ƞ2p=0.12. That is, the mindful-
+ness group showed a higher increment of EC from pretest to posttest
+compared to the control group.
+Regarding teachers reports, results showed an improvement from
+pretest to posttest in total EF of children in the mindfulness group
+compared to children in the control group, F(1, 41)=5.64, p=0.022,
+ƞ2p=0.12. Specifically, children in the mindfulness group showed
+improvements in behavioral regulation from pretest to posttest, F(1,
+41)=5.63, p=0.022, ƞ2p=0.12, and on the emotion regulation index,
+F(1, 41)=8.02, p=0.007, ƞ2p=0.16, with no change in the cogni-
+tive regulation index, F(1,41)=1.69, p=0.201, ƞ2p=0.040. Overall,
+whereas teachers reported an increase of EF from pretest to posttest
+of children in mindfulness group, no change of EFs was observed in the
+control group.
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
