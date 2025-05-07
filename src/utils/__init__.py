@@ -1,4 +1,4 @@
-# src/utils/__init__.py (update)
+# src/utils/__init__.py
 """
 Utility modules for the research data extraction project
 """
@@ -9,7 +9,6 @@ from .analytics import PromptAnalytics
 from .config_manager import ConfigManager
 from .unified_analytics import Analytics
 from .results_manager import ResultsManager  # Add this import
-from .batch_processor import BatchProcessor  # Add this import too
 
 # Create a global configuration instance
 config = ConfigManager()

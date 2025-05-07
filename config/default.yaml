@@ -16,6 +16,7 @@ input:
   directory: "data/input"
   sample_file: "sample_research_article.pdf"
 
+# Output settings
 output:
   format: "csv"  # Options: "csv" or "xlsx"
   directory: "data/output"
@@ -35,9 +36,8 @@ llm:
   default_model: "claude-3-sonnet-20240229"
   temperature: 0.0
   max_tokens: 4096
-  api_keys:
-    anthropic: "${ANTHROPIC_API_KEY}"
-    openai: "${OPENAI_API_KEY}"
+  # Note: API keys removed for security
+  # Use environment variables instead
 
 # Data extraction settings
 extraction:

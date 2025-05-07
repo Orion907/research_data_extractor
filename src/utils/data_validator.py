@@ -52,6 +52,25 @@ class DataValidator:
         self.schema = schema or self.COMMON_FIELDS
         logger.info("Initialized DataValidator")
     
+    def validate_and_clean(self, data):
+        """
+        Validate and clean data - compatibility method for DataExtractor
+    
+        Args:
+            data (dict): Data to validate and clean
+        
+        Returns:
+            dict: Cleaned data
+        """
+        # First normalize the field names
+        normalized_data = self.normalize_fields(data)
+    
+        # Then validate against schema
+        validation_result = self.validate(normalized_data)
+    
+        # Return the cleaned data, even if there were validation issues
+        return validation_result['cleaned_data']
+
     def validate(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Validate extracted data against the schema
