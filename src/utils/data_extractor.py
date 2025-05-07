@@ -1,4 +1,4 @@
-# src/utils/data_extractor.py - Modifications to integrate ResultsManager
+# src/utils/data_extractor.py
 """
 Module for extracting structured data from text using LLMs
 """
@@ -17,7 +17,7 @@ class DataExtractor:
     Extracts structured data from text using LLM APIs
     """
     
-    def __init__(self, provider="anthropic", api_key=None, model_name=None, results_dir=None):
+    def __init__(self, provider="anthropic", api_key=None, model_name=None, results_dir=None, validator=None):
         """
         Initialize the extractor
         
@@ -26,12 +26,15 @@ class DataExtractor:
             api_key (str, optional): API key for the service
             model_name (str, optional): Model name to use
             results_dir (str, optional): Directory to store results
+            validator (DataValidator, optional): Validator for extracted data
         """
         self.client = ClientFactory.create_client(provider, api_key, model_name)
         self.provider = provider
         self.model_name = model_name or self.client.model_name
         # Add a results manager
         self.results_manager = ResultsManager(results_dir)
+        # Store the validator if provided
+        self.validator = validator
         logger.info(f"Initialized DataExtractor with {provider} provider")
     
     def extract_patient_characteristics(self, text_chunk, template_id=None, source_file=None):
@@ -87,6 +90,10 @@ class DataExtractor:
                         result_data[key.strip()] = value.strip()
                 success = len(result_data) > 0
             
+            # Validate data if validator is provided
+            if self.validator and success:
+                result_data = self.validator.validate_and_clean(result_data)
+            
             # Calculate end time for analytics
             end_time = datetime.now()
             
@@ -119,15 +126,14 @@ class DataExtractor:
             # Return the raw completion if parsing fails
             return {"raw_extraction": completion}
     
-    # Rest of the class remains the same...
-    
-    def extract_from_chunks(self, chunks, merge=True):
+    def extract_from_chunks(self, chunks, merge=True, source_file=None):
         """
         Extract patient characteristics from multiple text chunks
         
         Args:
             chunks (list): List of text chunks to analyze
             merge (bool): Whether to merge results into a single dictionary
+            source_file (str, optional): Path to the source file for results management
             
         Returns:
             dict or list: Extracted patient characteristics (merged dict or list of dicts)
@@ -136,7 +142,7 @@ class DataExtractor:
         
         for i, chunk in enumerate(chunks):
             logger.info(f"Processing chunk {i+1}/{len(chunks)}")
-            extraction = self.extract_patient_characteristics(chunk)
+            extraction = self.extract_patient_characteristics(chunk, source_file=source_file)
             results.append(extraction)
         
         if merge:

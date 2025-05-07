@@ -1,4 +1,4 @@
-# main.py (modified)
+# main.py
 """
 Main entry point for the PDF Data Extraction application.
 """

@@ -1,4 +1,4 @@
-# src/data_export/csv_exporter.py (modified)
+# src/data_export/csv_exporter.py
 """
 Module for exporting data to CSV format
 """

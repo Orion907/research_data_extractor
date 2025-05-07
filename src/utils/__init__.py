@@ -1,4 +1,4 @@
-# src/utils/__init__.py (update)
+# src/utils/__init__.py
 """
 Utility modules for the research data extraction project
 """
