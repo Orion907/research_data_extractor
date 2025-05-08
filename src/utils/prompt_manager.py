@@ -6,6 +6,7 @@ import json
 import os
 import logging
 from datetime import datetime
+from .config.template_categories import ALL_CATEGORIES, CATEGORY_GROUPS
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -58,7 +59,7 @@ class PromptManager:
                 except Exception as e:
                     logger.error(f"Error loading template {filename}: {str(e)}")
     
-    def save_template(self, template_id, template_text, description=None, metadata=None):
+    def save_template(self, template_id, template_text, description=None, metadata=None, categories=None):
         """
         Save a new template version
         
@@ -67,6 +68,8 @@ class PromptManager:
             template_text (str): The prompt template text
             description (str, optional): Description of the template
             metadata (dict, optional): Additional metadata for the template
+            categories (dict, optional): Category tags for the template
+                                        (e.g., {"extraction_domain": ["population_parameters"]})
             
         Returns:
             str: The version identifier for the saved template
@@ -75,6 +78,15 @@ class PromptManager:
         timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
         version_id = f"{template_id}_v{timestamp}"
         
+        # Process metadata and categories
+        if metadata is None:
+            metadata = {}
+            
+        # Validate and integrate categories
+        processed_categories = self._validate_categories(categories)
+        if processed_categories:
+            metadata['categories'] = processed_categories
+        
         # Create template data
         template_data = {
             'id': template_id,
@@ -82,7 +94,7 @@ class PromptManager:
             'template_text': template_text,
             'description': description or f"Version created on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
             'created_at': datetime.now().isoformat(),
-            'metadata': metadata or {}
+            'metadata': metadata
         }
         
         # Save to file
@@ -102,6 +114,38 @@ class PromptManager:
         except Exception as e:
             logger.error(f"Error saving template {template_id}: {str(e)}")
             raise
+    
+    def _validate_categories(self, categories):
+        """
+        Validate category tags against the defined category lists
+        
+        Args:
+            categories (dict): Dictionary of category groups and their values
+            
+        Returns:
+            dict: Validated categories dictionary
+        """
+        if not categories:
+            return {}
+            
+        validated_categories = {}
+        
+        for group, values in categories.items():
+            if group not in CATEGORY_GROUPS:
+                logger.warning(f"Unknown category group: {group}")
+                continue
+                
+            valid_values = []
+            for value in values:
+                if value in CATEGORY_GROUPS[group]:
+                    valid_values.append(value)
+                else:
+                    logger.warning(f"Unknown category value: {value} in group {group}")
+            
+            if valid_values:
+                validated_categories[group] = valid_values
+                
+        return validated_categories
     
     def get_template(self, template_id, version_id=None):
         """
@@ -186,3 +230,23 @@ class PromptManager:
         if template:
             return template.get('template_text')
         return None
+    
+    def filter_templates_by_category(self, category_group, category_value):
+        """
+        Filter templates by a specific category
+        
+        Args:
+            category_group (str): The category group (e.g., 'extraction_domain')
+            category_value (str): The category value to filter by
+            
+        Returns:
+            list: List of template IDs matching the category
+        """
+        matching_templates = []
+        
+        for template_id, template_data in self.templates.items():
+            categories = template_data.get('metadata', {}).get('categories', {})
+            if category_group in categories and category_value in categories[category_group]:
+                matching_templates.append(template_id)
+                
+        return matching_templates
