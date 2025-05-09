@@ -4,6 +4,7 @@ Module for managing and versioning prompt templates
 """
 import json
 import os
+import re
 import logging
 from datetime import datetime
 from .config.template_categories import ALL_CATEGORIES, CATEGORY_GROUPS
@@ -74,13 +75,21 @@ class PromptManager:
         Returns:
             str: The version identifier for the saved template
         """
-        # Generate a version identifier based on timestamp
+        # Validate the template text
+        validation_result = self.validate_template(template_text)
+        if not validation_result['valid']:
+            raise ValueError(f"Invalid template text: {validation_result['message']}")
+
+        # Generate a version identifier based on timestamp - THIS WAS MISSING
         timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
         version_id = f"{template_id}_v{timestamp}"
         
         # Process metadata and categories
         if metadata is None:
             metadata = {}
+            
+        # Store placeholder information
+        metadata['placeholders'] = validation_result['placeholders']
             
         # Validate and integrate categories
         processed_categories = self._validate_categories(categories)
@@ -90,7 +99,7 @@ class PromptManager:
         # Create template data
         template_data = {
             'id': template_id,
-            'version_id': version_id,
+            'version_id': version_id,  # Now version_id is defined
             'template_text': template_text,
             'description': description or f"Version created on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
             'created_at': datetime.now().isoformat(),
@@ -114,6 +123,86 @@ class PromptManager:
         except Exception as e:
             logger.error(f"Error saving template {template_id}: {str(e)}")
             raise
+                    
+    def validate_template(self, template_text):
+        """
+        Validate a template text to ensure it contains the required placeholders
+        
+        Args:
+            template_text (str): The template text to validate
+            
+        Returns:
+            dict: Validation result with 'valid', 'message', and 'placeholders' keys
+        """        
+        # Basic validation
+        if not template_text or not isinstance(template_text, str):
+            return {
+                'valid': False,
+                'message': 'Template text must be a non-empty string',
+                'placeholders': []
+            }
+        
+        # Check for main content placeholder
+        placeholder_pattern = r'\{([^}]+)\}'
+        placeholders = re.findall(placeholder_pattern, template_text)
+        
+        if not placeholders:
+            return {
+                'valid': False,
+                'message': 'Template must contain at least one placeholder in {placeholder} format',
+                'placeholders': []
+            }
+        
+        # Check for text placeholder specifically
+        if 'text' not in placeholders:
+            return {
+                'valid': False,
+                'message': 'Template must contain a {text} placeholder for the article content',
+                'placeholders': placeholders
+            }
+        
+        return {
+            'valid': True,
+            'message': 'Template is valid',
+            'placeholders': placeholders
+        }    
+    
+    def preview_template(self, template_text, sample_data=None):
+        """
+        Preview how a template will render with sample data
+        
+        Args:
+            template_text (str): The template text
+            sample_data (dict, optional): Sample data for placeholders
+            
+        Returns:
+            str: The rendered template
+        """
+        # Validate the template first
+        validation = self.validate_template(template_text)
+        if not validation['valid']:
+            raise ValueError(f"Cannot preview invalid template: {validation['message']}")
+        
+        # Use default sample data if none provided
+        if sample_data is None:
+            sample_data = {
+                'text': '** This is a sample research article text. A clinical trial with 100 patients was conducted to test the efficacy of Drug X... **'
+            }
+        
+        # Create a dict with default for any missing placeholders
+        render_data = {}
+        for placeholder in validation['placeholders']:
+            if placeholder in sample_data:
+                render_data[placeholder] = sample_data[placeholder]
+            else:
+                render_data[placeholder] = f"[SAMPLE {placeholder.upper()}]"
+        
+        # Render the template
+        rendered_template = template_text
+        for placeholder, value in render_data.items():
+            rendered_template = rendered_template.replace(f"{{{placeholder}}}", value)
+        
+        return rendered_template
     
     def _validate_categories(self, categories):
         """
@@ -183,7 +272,32 @@ class PromptManager:
         
         # Return the latest version
         return self.templates[template_id]
-    
+
+    def get_template_with_preview(self, template_id, version_id=None, sample_data=None):
+        """
+        Get a template with a preview of how it would render with sample data
+        
+        Args:
+            template_id (str): Identifier for the template
+            version_id (str, optional): Version identifier, returns latest if None
+            sample_data (dict, optional): Sample data for placeholders
+            
+        Returns:
+            dict: Template data with preview
+        """
+        template = self.get_template(template_id, version_id)
+        if not template:
+            return None
+            
+        template_text = template.get('template_text')
+        try:
+            preview = self.preview_template(template_text, sample_data)
+            template['preview'] = preview
+        except ValueError as e:
+            template['preview_error'] = str(e)
+            
+        return template
+
     def list_templates(self):
         """
         List all available templates
