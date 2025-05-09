@@ -97,24 +97,28 @@ def test_template_preview():
         assert "sample research article" in preview.lower()
         
         # Test preview with custom sample data
-        sample_data = {
+        hypertension_sample = {
             'text': 'In this study, 50 patients with hypertension were randomized...'
         }
-        preview = manager.preview_template(template, sample_data)
+        preview = manager.preview_template(template, hypertension_sample)
         logger.info(f"Custom preview: {preview}")
         assert "50 patients with hypertension" in preview
         
         # Test template with multiple placeholders
         multi_template = "Analyze {text} focusing on {focus_area} with {detail_level} detail."
-        sample_data = {
+        multi_sample_data = {
             'text': 'Clinical trial results for Drug X',
             'focus_area': 'adverse events'
         }
-        preview = manager.preview_template(multi_template, sample_data)
+        preview = manager.preview_template(multi_template, multi_sample_data)
         logger.info(f"Multi-placeholder preview: {preview}")
         assert "Clinical trial results for Drug X" in preview
         assert "adverse events" in preview
-        assert "[SAMPLE DETAIL_LEVEL]" in preview  # Default for missing placeholder
+        assert "[SAMPLE DETAIL_LEVEL]" in preview
+        
+        # Add these debug lines
+        logger.info(f"TEMPLATE TEXT ABOUT TO USE: '{template}'")
+        logger.info(f"SAMPLE DATA ABOUT TO USE: {hypertension_sample}")
         
         # Test get_template_with_preview
         version_id = manager.save_template(
@@ -123,11 +127,25 @@ def test_template_preview():
             "Template for preview testing"
         )
         
+        # Get template with preview and add additional debugging
         template_with_preview = manager.get_template_with_preview(
             "preview_template",
-            sample_data=sample_data
+            version_id=None,
+            sample_data=hypertension_sample
         )
+        
+        # Add this line to directly print the preview content
+        logger.info(f"ACTUAL PREVIEW CONTENT: >>>{template_with_preview['preview']}<<<")
+        
         logger.info(f"Template with preview metadata: {template_with_preview.keys()}")
+        
+        # Check if hypertension is ANYWHERE in the preview
+        if "hypertension" in template_with_preview['preview']:
+            logger.info("Hypertension word is present")
+        else:
+            logger.info("Hypertension word is NOT present")
+        
+        # Now run the assertions
         assert 'preview' in template_with_preview
         assert "50 patients with hypertension" in template_with_preview['preview']
         
