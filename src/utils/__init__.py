@@ -8,14 +8,26 @@ from .prompt_manager import PromptManager
 from .analytics import PromptAnalytics
 from .config_manager import ConfigManager
 from .unified_analytics import Analytics
-from .results_manager import ResultsManager  # Add this import
+from .template_system import TemplateSystem
 
 # Create a global configuration instance
 config = ConfigManager()
 PromptAnalytics = Analytics
 AnalyticsTracker = Analytics
 
+# Create a global template system instance
+template_system = TemplateSystem()
+
 # Make these classes directly importable 
-__all__ = ['DataExtractor', 'PromptTemplate', 'PromptManager', 
-           'Analytics', 'PromptAnalytics', 'AnalyticsTracker', 'ConfigManager', 
-           'config', 'ResultsManager', 'BatchProcessor']
+__all__ = [
+    'DataExtractor', 
+    'PromptTemplate', 
+    'PromptManager', 
+    'Analytics', 
+    'PromptAnalytics', 
+    'AnalyticsTracker', 
+    'ConfigManager', 
+    'config',
+    'TemplateSystem',
+    'template_system'
+]
