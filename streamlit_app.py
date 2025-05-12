@@ -13,6 +13,7 @@ from src.pdf_processor import extract_text_from_pdf, chunk_text
 from src.utils import DataExtractor, PromptTemplate
 from src.data_export.csv_exporter import save_to_csv
 from src.utils.analytics_tracker import AnalyticsTracker
+from src.utils.display_utils import display_structured_results
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -173,24 +174,48 @@ if page == "Extract Data":
                 with st.spinner("Compiling results..."):
                     # Save raw results
                     raw_output_path = f"data/output/raw_{uploaded_file.name.replace('.pdf', '.csv')}"
-                    
-                    # Convert to DataFrame for display
+    
+                    # Convert to DataFrame for display and saving
                     df = pd.DataFrame([
                         {'chunk': item['chunk_index'], 'extraction': item['extraction']} 
                         for item in chunk_results
                     ])
-                    
-                    # Save results
+    
+                    # Save results to CSV
                     save_to_csv(df.to_dict('records'), raw_output_path)
-                    
-                    # Show results
+    
+                    # Show structured results
                     st.subheader("Extraction Results")
-                    st.dataframe(df)
-                    
-                    # Download button
+    
+                    # Option to toggle between raw and structured view
+                    view_type = st.radio("View Format", ["Structured", "Raw Data"], horizontal=True)
+    
+                    if view_type == "Structured":
+                        # Use our new function for structured display
+                        combined_data = display_structured_results(chunk_results)
+        
+                        # Save structured results
+                        structured_output_path = f"data/output/structured_{uploaded_file.name.replace('.pdf', '.json')}"
+                        os.makedirs(os.path.dirname(structured_output_path), exist_ok=True)
+                        with open(structured_output_path, 'w') as f:
+                            json.dump(combined_data, f, indent=2)
+            
+                        # Add download button for structured results
+                        with open(structured_output_path, 'rb') as f:
+                            st.download_button(
+                                label="Download Structured Results as JSON",
+                                data=f,
+                                file_name=f"structured_{uploaded_file.name.replace('.pdf', '.json')}",
+                                mime="application/json"
+                            )
+                    else:
+                        # Show traditional raw view
+                        st.dataframe(df)
+    
+                    # Original CSV download button (keep this for backward compatibility)
                     with open(raw_output_path, 'rb') as f:
                         st.download_button(
-                            label="Download Results as CSV",
+                            label="Download Raw Results as CSV",
                             data=f,
                             file_name=f"extracted_data_{uploaded_file.name.replace('.pdf', '.csv')}",
                             mime="text/csv"
