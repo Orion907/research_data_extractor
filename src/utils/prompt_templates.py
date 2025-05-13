@@ -1,3 +1,4 @@
+# src/utils/prompt_templates.py
 """
 Module for LLM prompt templates
 """
@@ -14,22 +15,34 @@ class PromptTemplate:
     
     # Base prompt for extracting patient characteristics
     PATIENT_CHARACTERISTICS_TEMPLATE = """
-    You are an AI assistant specialized in extracting patient characteristic data from medical research articles.
-    
-    Below is a section of a research article. Please extract all patient characteristics mentioned, including:
-    - Demographics (age, gender, ethnicity)
-    - Inclusion/exclusion criteria
-    - Comorbidities
-    - Medications
-    - Disease-specific characteristics
-    
-    Format your response as a structured list of key-value pairs.
-    
-    ARTICLE SECTION:
-    {text}
-    
-    EXTRACTED PATIENT CHARACTERISTICS:
-    """
+You are an AI assistant specialized in extracting patient characteristic data from medical research articles.
+
+Below is a section of a research article. Please extract all patient characteristics mentioned, including:
+- Demographics (age, gender, ethnicity)
+- Inclusion/exclusion criteria
+- Comorbidities
+- Medications
+- Disease-specific characteristics
+
+Format your response as a JSON object with the following structure:
+{{
+  "demographics": {{
+    "age": "",
+    "gender": "",
+    "ethnicity": ""
+  }},
+  "inclusion_criteria": [],
+  "exclusion_criteria": [],
+  "comorbidities": [],
+  "medications": [],
+  "disease_specific": {{}}
+}}
+
+ARTICLE SECTION:
+{text}
+
+EXTRACTED PATIENT CHARACTERISTICS:
+"""    
     
     @classmethod
     def initialize(cls):

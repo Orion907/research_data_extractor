@@ -1,3 +1,4 @@
+# src/llm/anthropic_client.py
 """
 Anthropic API client implementation
 """
@@ -37,12 +38,12 @@ class AnthropicClient(BaseLLMClient):
     def generate_completion(self, prompt, max_tokens=None, temperature=0.0):
         """
         Generate a completion using Anthropic's API
-        
+    
         Args:
             prompt (str): The prompt to send to the model
             max_tokens (int, optional): Maximum tokens to generate 
             temperature (float, optional): Sampling temperature
-            
+        
         Returns:
             str: Generated text completion
         """
@@ -51,16 +52,16 @@ class AnthropicClient(BaseLLMClient):
                 model=self.model_name,
                 max_tokens=max_tokens or 4096,
                 temperature=temperature,
-                system="You are a helpful assistant that extracts patient characteristic data from medical research articles.",
+                system="You are a helpful assistant that extracts patient characteristic data from medical research articles. Follow the exact JSON schema specified in the prompt, using the exact field names provided. Always respond with valid JSON format.",
                 messages=[
                     {"role": "user", "content": prompt}
                 ]
             )
-            
+        
             # Extract the completion text
             completion = response.content[0].text
             return completion
-            
+        
         except Exception as e:
             logger.error(f"Error generating completion with Anthropic: {str(e)}")
             raise
