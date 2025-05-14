@@ -24,49 +24,41 @@ class MockLLMClient(BaseLLMClient):
         logger.info(f"Initialized Mock LLM client with model: {model_name}")
     
     def generate_completion(self, prompt, max_tokens=None, temperature=0.0):
-        """
-        Return a mock response based on the prompt
-        
-        Args:
-            prompt (str): The prompt to analyze
-            max_tokens (int, optional): Not used, for compatibility
-            temperature (float, optional): Not used, for compatibility
-            
-        Returns:
-            str: Generated mock completion
-        """
+        """Return a mock response based on the prompt"""
         logger.info("Generating mock completion")
-        
-        # Check if prompt contains specific keywords to return appropriate responses
-        prompt_lower = prompt.lower()
-        
-        # Response for patient characteristic extraction
-        if "patient" in prompt_lower and "characteristic" in prompt_lower:
-            # Look for specific conditions in the prompt
-            if "diabetes" in prompt_lower:
-                return self._generate_diabetes_response()
-            elif "heart failure" in prompt_lower or "cardiac" in prompt_lower:
-                return self._generate_heart_failure_response()
-            elif "cancer" in prompt_lower or "oncology" in prompt_lower:
-                return self._generate_cancer_response()
-            else:
-                # Generic patient characteristics
-                return self._generate_generic_patient_response()
-        
-        # Response for age and gender extraction
-        elif "age" in prompt_lower and "gender" in prompt_lower:
-            return """
-            {
-                "Age": "65 years old",
-                "Gender": "Male",
-                "Ethnicity": "Caucasian"
-            }
-            """
-        
-        # Default response
+    
+        # Create a more comprehensive mock response for patient characteristics
         return """
         {
-            "Extracted Data": "This is a mock response for testing without API access"
+            "sample_size": "75 patients",
+            "demographics": {
+                "age": {
+                    "mean": "62.5 years",
+                    "range": "45-78 years"
+                },
+                "gender": "60% male, 40% female",
+                "ethnicity": "85% Caucasian, 10% African American, 5% Asian"
+            },
+            "inclusion_criteria": [
+                "Diagnosis of type 2 diabetes mellitus",
+                "HbA1c > 7.5%",
+                "BMI > 25 kg/m²"
+            ],
+            "exclusion_criteria": [
+                "Pregnancy",
+                "Severe renal impairment (eGFR < 30 mL/min)",
+                "Active cancer treatment"
+            ],
+            "comorbidities": [
+                "Hypertension (68%)",
+                "Dyslipidemia (72%)",
+                "Coronary artery disease (24%)"
+            ],
+            "medications": [
+                "Metformin (85%)",
+                "Insulin (45%)",
+                "SGLT2 inhibitors (32%)"
+            ]
         }
         """
     
