@@ -17,33 +17,123 @@ from src.utils import DataExtractor, TemplateSystem, Analytics, ConfigManager
 from src.data_export import save_to_csv
 from src.utils.display_utils import display_structured_results
 from src.utils.annotation_utils import display_annotation_interface, load_extraction_results, save_annotations, compare_extractions
+from src.utils.prompt_templates import PromptTemplate
+
+def get_extraction_prompt_with_version(text, custom_characteristics=None, version=None):
+    """
+    Get extraction prompt with version support and optional custom characteristics
+    
+    Args:
+        text (str): The text to extract from
+        custom_characteristics (list, optional): List of specific characteristics to extract
+        version (str, optional): Version of the template to use
+    
+    Returns:
+        str: The formatted prompt
+    """
+    if custom_characteristics:
+        return PromptTemplate.custom_extraction_prompt(text, custom_characteristics)
+    else:
+        return PromptTemplate.get_extraction_prompt(text, version=version)
 
 def safe_display_results(results):
-    """Wrapper for display_structured_results that handles mixed data types"""
+    """Wrapper for display_structured_results that handles mixed data types and errors"""
     try:
         return display_structured_results(results)
     except Exception as e:
-        st.error(f"Error displaying structured results: {str(e)}")
-        # Fall back to a simpler display method
-        st.info("Displaying simplified version due to mixed data types")
+        # Log the full error details for debugging
+        logger.error(f"Error in display_structured_results: {str(e)}")
+        import traceback
+        logger.error(traceback.format_exc())
         
+        # Show error to user with more helpful context
+        st.error(f"Could not display structured results: {str(e)}")
+        st.info("Displaying simplified version of the extracted data")
+        
+        # Initialize a more organized data structure
         combined_data = {}
-        for result in results:
-            extraction_text = result['extraction']
-            lines = extraction_text.strip().split('\n')
-            for line in lines:
-                if ':' in line:
-                    try:
-                        key, value = line.split(':', 1)
-                        combined_data[key.strip()] = value.strip()
-                    except:
-                        pass
         
-        # Display as simple expander sections
-        for category, items in {"All Extracted Items": combined_data}.items():
-            with st.expander(f"{category} ({len(items)} items)", expanded=True):
-                for key, value in items.items():
-                    st.markdown(f"**{key}:** {value}")
+        for result in results:
+            try:
+                # First attempt to parse as JSON if it looks like JSON
+                extraction_text = result['extraction']
+                if '{' in extraction_text and '}' in extraction_text:
+                    json_start = extraction_text.find('{')
+                    json_end = extraction_text.rfind('}') + 1
+                    
+                    if json_start >= 0 and json_end > json_start:
+                        try:
+                            json_str = extraction_text[json_start:json_end]
+                            json_data = json.loads(json_str)
+                            # Merge JSON data into combined data
+                            for key, value in json_data.items():
+                                # Handle nested structures
+                                if isinstance(value, dict):
+                                    # Flatten one level of nesting with prefixes
+                                    for sub_key, sub_value in value.items():
+                                        combined_data[f"{key}.{sub_key}"] = sub_value
+                                elif isinstance(value, list):
+                                    # Convert lists to comma-separated string
+                                    combined_data[key] = ", ".join(str(item) for item in value)
+                                else:
+                                    combined_data[key] = value
+                            continue  # Skip to next result if JSON parsing succeeded
+                        except json.JSONDecodeError:
+                            # JSON parsing failed, proceed with line-by-line parsing
+                            pass
+                
+                # Fallback to line-by-line parsing
+                lines = extraction_text.strip().split('\n')
+                for line in lines:
+                    if ':' in line:
+                        try:
+                            key, value = line.split(':', 1)
+                            key = key.strip()
+                            value = value.strip()
+                            # Skip empty values or very short keys
+                            if value and len(key) > 1:
+                                combined_data[key] = value
+                        except Exception:
+                            # Skip problematic lines
+                            pass
+            except Exception as chunk_error:
+                # Log but continue processing other chunks
+                logger.warning(f"Error processing chunk {result.get('chunk_index')}: {str(chunk_error)}")
+        
+        # Display as simple expander sections with better organization
+        st.write("### Simplified Extraction Results")
+        
+        if not combined_data:
+            st.warning("No structured data could be extracted. Please check the raw view.")
+        else:
+            # Display total items count
+            st.info(f"Found {len(combined_data)} extracted items")
+            
+            # Group items by common prefixes if possible
+            grouped_data = {}
+            ungrouped = {}
+            
+            for key, value in combined_data.items():
+                # Try to find category prefixes (e.g., "demographics.age")
+                if '.' in key:
+                    category, subkey = key.split('.', 1)
+                    if category not in grouped_data:
+                        grouped_data[category] = {}
+                    grouped_data[category][subkey] = value
+                else:
+                    ungrouped[key] = value
+            
+            # Display grouped data first
+            for category, items in grouped_data.items():
+                with st.expander(f"{category.title()} ({len(items)} items)", expanded=True):
+                    for key, value in items.items():
+                        st.markdown(f"**{key}:** {value}")
+            
+            # Then display ungrouped data
+            if ungrouped:
+                with st.expander(f"Other Extracted Items ({len(ungrouped)} items)", expanded=True):
+                    for key, value in ungrouped.items():
+                        st.markdown(f"**{key}:** {value}")
         
         return combined_data
 
@@ -166,9 +256,14 @@ if page == "Extract Data":
         with st.spinner("Extracting text from PDF..."):
             text = extract_text_from_pdf(temp_path)
             st.info(f"Extracted {len(text)} characters of text")
-        
+    
+        if 'processing_complete' not in st.session_state:
+            st.session_state.processing_complete = False
+        if 'view_type' not in st.session_state:
+            st.session_state.view_type = "Structured"
+
         # Process button
-        if st.button("Process Article") or st.session_state.processing_complete:
+        if st.button("Process Article", key="process_article_button", disabled=st.session_state.processing_complete) or st.session_state.processing_complete:
             # Only do the processing part if we haven't completed it yet
             if not st.session_state.processing_complete:
                 # Check for API key (skip for mock provider)
@@ -381,6 +476,19 @@ if page == "Extract Data":
                         file_name=f"extracted_data_{st.session_state.uploaded_file_name.replace('.pdf', '.csv')}",
                         mime="text/csv"
                     )
+
+                if st.button("Process New File", key="reset_button"):
+                    # Reset all session state variables
+                    st.session_state.processing_complete = False
+                    st.session_state.view_type = "Structured"
+                    st.session_state.uploaded_file_name = None
+                    st.session_state.chunk_results = []
+                    st.session_state.results_df = None
+                    st.session_state.chunks = []
+                    # Any other session state variables that need to be reset
+    
+                    # Trigger a rerun to refresh the page
+                    st.experimental_rerun()
 
 elif page == "Manual Annotation":
     st.header("Manual Annotation and Comparison")
