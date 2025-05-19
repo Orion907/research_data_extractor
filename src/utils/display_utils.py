@@ -143,7 +143,7 @@ def display_structured_results(extraction_results):
                 with st.expander(f"{category} ({len(items)} items)"):
                     # Convert to DataFrame for display
                     df = pd.DataFrame(
-                        {"Value": items.values()}, 
+                        {"Value": [str(v) if isinstance(v, (list, dict)) else v for v in items.values()]}, 
                         index=items.keys()
                     )
                     st.dataframe(df, use_container_width=True)

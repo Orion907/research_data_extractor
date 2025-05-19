@@ -91,49 +91,56 @@ EXTRACTED PATIENT CHARACTERISTICS:
                 json.dump({}, f)
     
     @staticmethod
-    def get_extraction_prompt(text):
+    def get_extraction_prompt(text, version=None):
         """
         Generate a prompt for extracting patient characteristics
-        
+    
         Args:
             text (str): The text chunk to analyze
+            version (str, optional): Version of the template to use (not fully implemented yet)
             
         Returns:
             str: Formatted prompt for the LLM
         """
+        if version:
+            logger.warning(f"Version parameter '{version}' provided to get_extraction_prompt() but versioning is not fully implemented. Using default template.")
         return PromptTemplate.PATIENT_CHARACTERISTICS_TEMPLATE.format(text=text)
     
     @staticmethod
-    def custom_extraction_prompt(text, characteristics=None):
+    def custom_extraction_prompt(text, characteristics=None, version=None):
         """
         Generate a custom extraction prompt with specific characteristics to look for
-        
+    
         Args:
             text (str): The text chunk to analyze
             characteristics (list, optional): List of specific characteristics to extract
+            version (str, optional): Version of the template to use (not fully implemented yet)
             
         Returns:
             str: Formatted prompt for the LLM
         """
+        if version:
+            logger.warning(f"Version parameter '{version}' provided to custom_extraction_prompt() but versioning is not fully implemented. Using default template.")
+        
         if not characteristics:
             return PromptTemplate.get_extraction_prompt(text)
-        
+    
         characteristics_str = "\n".join([f"- {item}" for item in characteristics])
-        
+    
         custom_template = f"""
         You are an AI assistant specialized in extracting patient characteristic data from medical research articles.
-        
+    
         Below is a section of a research article. Please extract the following patient characteristics:
         {characteristics_str}
-        
+    
         Format your response as a structured list of key-value pairs.
-        
+    
         ARTICLE SECTION:
         {{text}}
-        
+    
         EXTRACTED PATIENT CHARACTERISTICS:
         """
-        
+    
         return custom_template.format(text=text)
         
     @classmethod
