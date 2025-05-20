@@ -14,7 +14,7 @@ from datetime import datetime
 from src.utils.prompt_override import get_extraction_prompt_with_version
 from src.pdf_processor import extract_text_from_pdf, chunk_text
 from src.utils import DataExtractor, TemplateSystem, Analytics, ConfigManager
-from src.data_export import save_to_csv
+from src.data_export import save_to_csv, save_extraction_results_to_csv
 from src.utils.display_utils import display_structured_results
 from src.utils.annotation_utils import display_annotation_interface, load_extraction_results, save_annotations, compare_extractions
 from src.utils.prompt_templates import PromptTemplate
@@ -238,6 +238,19 @@ if page == "Extract Data":
             if custom_chars_text:
                 custom_chars = [line.strip() for line in custom_chars_text.split('\n') if line.strip()]
 
+        st.markdown("---")
+        st.markdown("### Development Options")
+        st.session_state.development_mode = st.checkbox(
+            "Development Mode", 
+            value=st.session_state.get('development_mode', False),
+            help="Show detailed extraction results by chunk"
+        )
+        st.session_state.include_chunks = st.checkbox(
+            "Include chunks in CSV", 
+            value=st.session_state.get('include_chunks', False),
+            help="Include individual chunk data in CSV export"
+        )
+
     # File uploader
     uploaded_file = st.file_uploader("Upload a research article PDF", type="pdf")
 
@@ -431,7 +444,17 @@ if page == "Extract Data":
                     ])
 
                 # Save results to CSV
-                save_to_csv(st.session_state.results_df.to_dict('records'), raw_output_path)
+                save_extraction_results_to_csv(
+                    st.session_state.chunk_results, 
+                    raw_output_path,
+                    include_chunks=st.session_state.get('include_chunks', False)
+                )
+
+                st.info("""
+                The CSV file now contains a 'combined' row at the top that intelligently merges data from all chunks.
+                Different values for the same field are combined with '|' separators.
+                The individual chunk data follows the combined row for reference.
+                """)
 
                 # Show structured results
                 st.subheader("Extraction Results")
@@ -448,7 +471,10 @@ if page == "Extract Data":
 
                 if view_type == "Structured":
                     # Use our display function for structured display
-                    combined_data = safe_display_results(st.session_state.chunk_results)
+                    combined_data = display_structured_results(
+                        st.session_state.chunk_results, 
+                        development_mode=st.session_state.get('development_mode', False)
+                    )
 
                     # Save structured results
                     structured_output_path = f"data/output/structured_{st.session_state.uploaded_file_name.replace('.pdf', '.json')}"
@@ -471,7 +497,7 @@ if page == "Extract Data":
                 # Original CSV download button (keep this for backward compatibility)
                 with open(raw_output_path, 'rb') as f:
                     st.download_button(
-                        label="Download Raw Results as CSV",
+                        label="Download as CSV (with Merged Data)",
                         data=f,
                         file_name=f"extracted_data_{st.session_state.uploaded_file_name.replace('.pdf', '.csv')}",
                         mime="text/csv"
@@ -488,7 +514,7 @@ if page == "Extract Data":
                     # Any other session state variables that need to be reset
     
                     # Trigger a rerun to refresh the page
-                    st.experimental_rerun()
+                    st.rerun()
 
 elif page == "Manual Annotation":
     st.header("Manual Annotation and Comparison")

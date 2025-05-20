@@ -113,12 +113,13 @@ def categorize_extraction_data(data):
     # Remove empty categories
     return {k: v for k, v in categories.items() if v}
 
-def display_structured_results(extraction_results):
+def display_structured_results(extraction_results, development_mode=False):
     """
     Display extraction results in a structured, user-friendly format.
     
     Args:
         extraction_results (list): List of extraction results by chunk
+        development_mode (bool): Whether to show detailed extraction by chunk
         
     Returns:
         dict: Combined structured data from all chunks
@@ -133,38 +134,82 @@ def display_structured_results(extraction_results):
         # Parse the extraction result
         parsed_data = parse_extraction_result(extraction_text)
         
-        st.subheader(f"Chunk {chunk_idx+1} Extractions")
+        # Display individual chunk results only in development mode
+        if development_mode:
+            st.subheader(f"Chunk {chunk_idx+1} Extractions")
+            
+            # Categorize and display results for this chunk
+            categorized = categorize_extraction_data(parsed_data)
+            
+            for category, items in categorized.items():
+                if items:  # Only show non-empty categories
+                    with st.expander(f"{category} ({len(items)} items)"):
+                        # Convert to DataFrame for display
+                        values = []
+                        for value in items.values():
+                            if isinstance(value, list):
+                                # Convert lists to strings
+                                values.append("; ".join(str(item) for item in value))
+                            elif isinstance(value, dict):
+                                # Convert dicts to JSON strings
+                                values.append(json.dumps(value))
+                            else:
+                                values.append(value)
+                        
+                        df = pd.DataFrame(
+                            {"Value": values},
+                            index=items.keys()
+                        )
+                        st.dataframe(df, use_container_width=True)
         
-        # Categorize and display results for this chunk
+        # Categorize for combining (we do this regardless of display mode)
         categorized = categorize_extraction_data(parsed_data)
-        
+                
+        # Add to combined data (for all chunks)
         for category, items in categorized.items():
-            if items:  # Only show non-empty categories
-                with st.expander(f"{category} ({len(items)} items)"):
-                    # Convert to DataFrame for display
-                    df = pd.DataFrame(
-                        {"Value": [str(v) if isinstance(v, (list, dict)) else v for v in items.values()]}, 
-                        index=items.keys()
-                    )
-                    st.dataframe(df, use_container_width=True)
-                    
-                # Add to combined data (for all chunks)
+            if items:
                 if category not in combined_data:
                     combined_data[category] = {}
                 combined_data[category].update(items)
     
-    # Display combined results from all chunks
-    st.header("Combined Extraction Results")
-    
+    # Deduplicate the combined data
+    deduplicated_data = {}
     for category, items in combined_data.items():
+        if items:  # Only process non-empty categories
+            unique_items = {}
+            for key, value in items.items():
+                # Convert value to string for comparison
+                value_str = str(value)
+                # Only add if we haven't seen this value before
+                if value_str not in [str(v) for v in unique_items.values()]:
+                    unique_items[key] = value
+            deduplicated_data[category] = unique_items
+    
+    # Display combined results
+    header_text = "Combined Extraction Results" if development_mode else "Extraction Results"
+    st.header(f"{header_text} (Deduplicated)")
+    
+    # Display the deduplicated data
+    for category, items in deduplicated_data.items():
         if items:  # Only show non-empty categories
             with st.expander(f"{category} ({len(items)} items)", expanded=True):
                 # Convert to DataFrame for display
+                values = []
+                for value in items.values():
+                    if isinstance(value, list):
+                        # Convert lists to strings
+                        values.append("; ".join(str(item) for item in value))
+                    elif isinstance(value, dict):
+                        # Convert dicts to JSON strings
+                        values.append(json.dumps(value))
+                    else:
+                        values.append(value)
+                
                 df = pd.DataFrame(
-                    {"Value": items.values()}, 
+                    {"Value": values},
                     index=items.keys()
                 )
                 st.dataframe(df, use_container_width=True)
     
-    # Return combined data for potential further processing
-    return combined_data
+    # Return the deduplicated data for potential further processing
+    return deduplicated_data
