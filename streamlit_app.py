@@ -18,6 +18,7 @@ from src.data_export import save_to_csv, save_extraction_results_to_csv
 from src.utils.display_utils import display_structured_results
 from src.utils.annotation_utils import display_annotation_interface, load_extraction_results, save_annotations, compare_extractions
 from src.utils.prompt_templates import PromptTemplate
+from src.utils.picots_parser import PicotsParser
 
 def get_extraction_prompt_with_version(text, custom_characteristics=None, version=None):
     """
@@ -253,6 +254,102 @@ if page == "Extract Data":
 
     # File uploader
     uploaded_file = st.file_uploader("Upload a research article PDF", type="pdf")
+    # PICOTS criteria input (replace the file upload section)
+    st.markdown("---")
+    st.subheader("📊 PICOTS Criteria (Optional)")
+    st.markdown("Paste your PICOTS criteria below to customize the extraction focus.")
+    
+    # Create expandable section for PICOTS input
+    with st.expander("📋 What is PICOTS?", expanded=False):
+        st.markdown("""
+        **PICOTS** helps focus research extraction:
+        - **P**opulation: Who are the study participants?
+        - **I**ntervention: What treatment/exposure is being studied?
+        - **C**omparison: What is the control or comparison group?
+        - **O**utcomes: What outcomes are being measured?
+        - **T**iming: What is the timeframe?
+        - **S**etting: Where is the study conducted?
+        """)
+    
+    # Text area for PICOTS input
+    picots_text = st.text_area(
+        "Paste your PICOTS criteria here:",
+        height=200,
+        placeholder="""Example format:
+Population: Adults aged 18-65 with type 2 diabetes
+Intervention: Metformin therapy
+Comparison: Placebo or standard care
+Outcomes: HbA1c reduction, weight loss, adverse events
+Timing: 12-week treatment period
+Setting: Outpatient clinics
+
+Abbreviations: HbA1c = Hemoglobin A1c; BMI = Body Mass Index""",
+    help="Copy and paste your PICOTS criteria from your protocol document. Including abbreviations helps improve extraction accuracy!"
+)
+    
+    # Process PICOTS if provided
+picots_data = None
+if picots_text.strip():
+    try:
+        # Initialize parser and parse the PICOTS text
+        parser = PicotsParser()
+        picots_data = parser.parse_picots_table(picots_text.strip())
+        
+        st.success("✅ PICOTS criteria parsed successfully!")
+        
+        # Display parsed data for verification
+        with st.expander("🔍 View Parsed PICOTS Data", expanded=False):
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                if picots_data.population:
+                    st.write("**Population:**")
+                    for item in picots_data.population:
+                        st.write(f"• {item}")
+                
+                if picots_data.interventions:
+                    st.write("**Interventions:**")
+                    for item in picots_data.interventions:
+                        st.write(f"• {item}")
+                        
+                if picots_data.comparators:
+                    st.write("**Comparators:**")
+                    for item in picots_data.comparators:
+                        st.write(f"• {item}")
+            
+            with col2:
+                if picots_data.outcomes:
+                    st.write("**Outcomes:**")
+                    for item in picots_data.outcomes:
+                        st.write(f"• {item}")
+                        
+                if picots_data.timing:
+                    st.write("**Timing:**")
+                    for item in picots_data.timing:
+                        st.write(f"• {item}")
+                        
+                if picots_data.setting:
+                    st.write("**Setting:**")
+                    for item in picots_data.setting:
+                        st.write(f"• {item}")
+            
+            # Show detected KQs if any
+            if picots_data.detected_kqs:
+                st.write("**Detected Key Questions:**")
+                for kq in picots_data.detected_kqs:
+                    st.write(f"• {kq}")
+
+            # Show abbreviations if any
+            if picots_data.abbreviations:
+                st.write("**Abbreviations:**")
+                for abbrev, full_name in picots_data.abbreviations.items():
+                    st.write(f"• {abbrev} = {full_name}")
+                    
+    except Exception as e:
+        st.error(f"Error parsing PICOTS data: {str(e)}")
+        picots_data = {"raw_text": picots_text.strip()}
+    
+    st.markdown("---")
 
     # Process the uploaded file
     if uploaded_file is not None:

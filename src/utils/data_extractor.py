@@ -39,24 +39,31 @@ class DataExtractor:
         logger.info(f"Initialized DataExtractor with {provider} provider, model {self.model_name}")
     
     def extract_patient_characteristics(self, text_chunk, template_id="patient_characteristics", 
-                                       version_id=None, source_file=None):
+                                   version_id=None, source_file=None, picots_context=None):
         """
         Extract patient characteristics from a text chunk
-        
+
         Args:
             text_chunk (str): The text chunk to analyze
             template_id (str, optional): Template ID to use
             version_id (str, optional): Template version ID to use
             source_file (str, optional): Source file name for analytics
-            
+            picots_context (dict, optional): PICOTS data to enhance extraction
+    
         Returns:
             dict: Extracted patient characteristics
         """
         # Track extraction start time
         start_time = datetime.now()
         
-        # Get the appropriate prompt using template system
-        prompt = self.template_system.get_extraction_prompt(text_chunk, template_id, version_id)
+        # Get the appropriate prompt using template system with PICOTS context
+        if template_id == "patient_characteristics":
+            # Use new comprehensive template with PICOTS context
+            from .prompt_templates import PromptTemplate
+            prompt = PromptTemplate.get_extraction_prompt(text_chunk, picots_context)
+        else:
+            # Use template system for other templates
+            prompt = self.template_system.get_extraction_prompt(text_chunk, template_id, version_id)
         
         logger.info(f"Sending text chunk ({len(text_chunk)} chars) to LLM for extraction using template {template_id}")
         completion = self.client.generate_completion(prompt)
@@ -248,17 +255,19 @@ class DataExtractor:
             }
     
     def extract_from_chunks(self, chunks, template_id="patient_characteristics", 
-                            version_id=None, merge=True, source_file=None):
+                        version_id=None, merge=True, source_file=None, 
+                        picots_context=None):
         """
         Extract patient characteristics from multiple text chunks
-        
+    
         Args:
             chunks (list): List of text chunks to analyze
             template_id (str, optional): Template ID to use
             version_id (str, optional): Template version ID to use
             merge (bool): Whether to merge results into a single dictionary
             source_file (str, optional): Source file name for analytics
-            
+            picots_context (dict, optional): PICOTS data to enhance extraction
+        
         Returns:
             dict or list: Extracted patient characteristics (merged dict or list of dicts)
         """
@@ -267,7 +276,7 @@ class DataExtractor:
         for i, chunk in enumerate(chunks):
             logger.info(f"Processing chunk {i+1}/{len(chunks)}")
             extraction = self.extract_patient_characteristics(
-                chunk, template_id, version_id, source_file
+                chunk, template_id, version_id, source_file, picots_context
             )
             results.append(extraction)
         
