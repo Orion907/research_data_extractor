@@ -53,13 +53,92 @@ def parse_extraction_result(text):
 
 def categorize_extraction_data(data):
     """
-    Categorize extraction data into logical groups.
+    Categorize extraction data into logical groups, handling both PICOTS and flat structures.
     
     Args:
         data (dict): Parsed extraction data
         
     Returns:
         dict: Data categorized by type
+    """
+    # Check if this is PICOTS-structured data
+    picots_keys = {"population", "intervention", "comparator", "outcomes", "timing", "setting"}
+    if any(key in data for key in picots_keys):
+        return categorize_picots_data(data)
+    else:
+        return categorize_flat_data(data)
+
+def categorize_picots_data(data):
+    """
+    Categorize PICOTS-structured data
+    """
+    categories = {}
+    
+    # Handle Population section
+    if "population" in data and data["population"]:
+        pop_data = data["population"]
+        
+        # Demographics
+        if "demographics" in pop_data and pop_data["demographics"]:
+            demographics = {k: v for k, v in pop_data["demographics"].items() if v}
+            if demographics:
+                categories["Demographics"] = demographics
+        
+        # Inclusion/Exclusion Criteria
+        if "inclusion_criteria" in pop_data and pop_data["inclusion_criteria"]:
+            categories["Inclusion Criteria"] = {"inclusion_criteria": pop_data["inclusion_criteria"]}
+            
+        if "exclusion_criteria" in pop_data and pop_data["exclusion_criteria"]:
+            categories["Exclusion Criteria"] = {"exclusion_criteria": pop_data["exclusion_criteria"]}
+            
+        # Baseline characteristics and comorbidities
+        if "baseline_characteristics" in pop_data and pop_data["baseline_characteristics"]:
+            categories["Baseline Characteristics"] = {"baseline_characteristics": pop_data["baseline_characteristics"]}
+            
+        if "comorbidities" in pop_data and pop_data["comorbidities"]:
+            categories["Comorbidities"] = {"comorbidities": pop_data["comorbidities"]}
+    
+    # Handle Intervention section
+    if "intervention" in data and data["intervention"]:
+        int_data = data["intervention"]
+        intervention_items = {k: v for k, v in int_data.items() if v}
+        if intervention_items:
+            categories["Interventions"] = intervention_items
+    
+    # Handle Comparator section
+    if "comparator" in data and data["comparator"]:
+        comp_data = data["comparator"]
+        comparator_items = {k: v for k, v in comp_data.items() if v}
+        if comparator_items:
+            categories["Comparators"] = comparator_items
+    
+    # Handle Outcomes section
+    if "outcomes" in data and data["outcomes"]:
+        out_data = data["outcomes"]
+        outcome_items = {k: v for k, v in out_data.items() if v}
+        if outcome_items:
+            categories["Outcomes"] = outcome_items
+    
+    # Handle Timing section
+    if "timing" in data and data["timing"]:
+        time_data = data["timing"]
+        timing_items = {k: v for k, v in time_data.items() if v}
+        if timing_items:
+            categories["Timing"] = timing_items
+    
+    # Handle Setting section
+    if "setting" in data and data["setting"]:
+        set_data = data["setting"]
+        setting_items = {k: v for k, v in set_data.items() if v}
+        if setting_items:
+            categories["Setting"] = setting_items
+    
+    # Remove empty categories
+    return {k: v for k, v in categories.items() if v}
+
+def categorize_flat_data(data):
+    """
+    Categorize flat-structured data (original logic for backward compatibility)
     """
     categories = {
         "Demographics": {},

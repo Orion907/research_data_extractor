@@ -37,106 +37,20 @@ def get_extraction_prompt_with_version(text, custom_characteristics=None, versio
     else:
         return PromptTemplate.get_extraction_prompt(text, version=version)
 
-def safe_display_results(results):
-    """Wrapper for display_structured_results that handles mixed data types and errors"""
+def display_results(results):
+    """Display extraction results with simple error handling"""
     try:
         return display_structured_results(results)
     except Exception as e:
-        # Log the full error details for debugging
-        logger.error(f"Error in display_structured_results: {str(e)}")
-        import traceback
-        logger.error(traceback.format_exc())
+        logger.error(f"Error displaying structured results: {str(e)}")
+        st.error("Error displaying structured results. Showing raw data instead.")
         
-        # Show error to user with more helpful context
-        st.error(f"Could not display structured results: {str(e)}")
-        st.info("Displaying simplified version of the extracted data")
-        
-        # Initialize a more organized data structure
-        combined_data = {}
-        
-        for result in results:
-            try:
-                # First attempt to parse as JSON if it looks like JSON
-                extraction_text = result['extraction']
-                if '{' in extraction_text and '}' in extraction_text:
-                    json_start = extraction_text.find('{')
-                    json_end = extraction_text.rfind('}') + 1
-                    
-                    if json_start >= 0 and json_end > json_start:
-                        try:
-                            json_str = extraction_text[json_start:json_end]
-                            json_data = json.loads(json_str)
-                            # Merge JSON data into combined data
-                            for key, value in json_data.items():
-                                # Handle nested structures
-                                if isinstance(value, dict):
-                                    # Flatten one level of nesting with prefixes
-                                    for sub_key, sub_value in value.items():
-                                        combined_data[f"{key}.{sub_key}"] = sub_value
-                                elif isinstance(value, list):
-                                    # Convert lists to comma-separated string
-                                    combined_data[key] = ", ".join(str(item) for item in value)
-                                else:
-                                    combined_data[key] = value
-                            continue  # Skip to next result if JSON parsing succeeded
-                        except json.JSONDecodeError:
-                            # JSON parsing failed, proceed with line-by-line parsing
-                            pass
-                
-                # Fallback to line-by-line parsing
-                lines = extraction_text.strip().split('\n')
-                for line in lines:
-                    if ':' in line:
-                        try:
-                            key, value = line.split(':', 1)
-                            key = key.strip()
-                            value = value.strip()
-                            # Skip empty values or very short keys
-                            if value and len(key) > 1:
-                                combined_data[key] = value
-                        except Exception:
-                            # Skip problematic lines
-                            pass
-            except Exception as chunk_error:
-                # Log but continue processing other chunks
-                logger.warning(f"Error processing chunk {result.get('chunk_index')}: {str(chunk_error)}")
-        
-        # Display as simple expander sections with better organization
-        st.write("### Simplified Extraction Results")
-        
-        if not combined_data:
-            st.warning("No structured data could be extracted. Please check the raw view.")
-        else:
-            # Display total items count
-            st.info(f"Found {len(combined_data)} extracted items")
-            
-            # Group items by common prefixes if possible
-            grouped_data = {}
-            ungrouped = {}
-            
-            for key, value in combined_data.items():
-                # Try to find category prefixes (e.g., "demographics.age")
-                if '.' in key:
-                    category, subkey = key.split('.', 1)
-                    if category not in grouped_data:
-                        grouped_data[category] = {}
-                    grouped_data[category][subkey] = value
-                else:
-                    ungrouped[key] = value
-            
-            # Display grouped data first
-            for category, items in grouped_data.items():
-                with st.expander(f"{category.title()} ({len(items)} items)", expanded=True):
-                    for key, value in items.items():
-                        st.markdown(f"**{key}:** {value}")
-            
-            # Then display ungrouped data
-            if ungrouped:
-                with st.expander(f"Other Extracted Items ({len(ungrouped)} items)", expanded=True):
-                    for key, value in ungrouped.items():
-                        st.markdown(f"**{key}:** {value}")
-        
-        return combined_data
+        # Simple fallback: show raw results
+        st.subheader("Raw Extraction Results")
+        for i, result in enumerate(results):
+            with st.expander(f"Chunk {i+1} Results"):
+                st.text(result.get('extraction', 'No data'))
+        return {}
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -239,18 +153,6 @@ if page == "Extract Data":
             if custom_chars_text:
                 custom_chars = [line.strip() for line in custom_chars_text.split('\n') if line.strip()]
 
-        st.markdown("---")
-        st.markdown("### Development Options")
-        st.session_state.development_mode = st.checkbox(
-            "Development Mode", 
-            value=st.session_state.get('development_mode', False),
-            help="Show detailed extraction results by chunk"
-        )
-        st.session_state.include_chunks = st.checkbox(
-            "Include chunks in CSV", 
-            value=st.session_state.get('include_chunks', False),
-            help="Include individual chunk data in CSV export"
-        )
 
     # File uploader
     uploaded_file = st.file_uploader("Upload a research article PDF", type="pdf")
@@ -286,115 +188,117 @@ Setting: Outpatient clinics
 Abbreviations: HbA1c = Hemoglobin A1c; BMI = Body Mass Index""",
     help="Copy and paste your PICOTS criteria from your protocol document. Including abbreviations helps improve extraction accuracy!"
 )
-    
-    # Process PICOTS if provided
-picots_data = None
-if picots_text.strip():
-    try:
-        # Initialize parser and parse the PICOTS text
-        parser = PicotsParser()
-        picots_data = parser.parse_picots_table(picots_text.strip())
-        
-        st.success("✅ PICOTS criteria parsed successfully!")
-        
-        # Display parsed data for verification
-        with st.expander("🔍 View Parsed PICOTS Data", expanded=False):
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                if picots_data.population:
-                    st.write("**Population:**")
-                    for item in picots_data.population:
-                        st.write(f"• {item}")
-                
-                if picots_data.interventions:
-                    st.write("**Interventions:**")
-                    for item in picots_data.interventions:
-                        st.write(f"• {item}")
-                        
-                if picots_data.comparators:
-                    st.write("**Comparators:**")
-                    for item in picots_data.comparators:
-                        st.write(f"• {item}")
-            
-            with col2:
-                if picots_data.outcomes:
-                    st.write("**Outcomes:**")
-                    for item in picots_data.outcomes:
-                        st.write(f"• {item}")
-                        
-                if picots_data.timing:
-                    st.write("**Timing:**")
-                    for item in picots_data.timing:
-                        st.write(f"• {item}")
-                        
-                if picots_data.setting:
-                    st.write("**Setting:**")
-                    for item in picots_data.setting:
-                        st.write(f"• {item}")
-            
-            # Show detected KQs if any
-            if picots_data.detected_kqs:
-                st.write("**Detected Key Questions:**")
-                for kq in picots_data.detected_kqs:
-                    st.write(f"• {kq}")
 
-            # Show abbreviations if any
-            if picots_data.abbreviations:
-                st.write("**Abbreviations:**")
-                for abbrev, full_name in picots_data.abbreviations.items():
-                    st.write(f"• {abbrev} = {full_name}")
+# Process the uploaded file
+if uploaded_file is not None:
+    # Save the uploaded file temporarily
+    temp_path = f"data/input/temp_{uploaded_file.name}"
+    os.makedirs(os.path.dirname(temp_path), exist_ok=True)
+    
+    with open(temp_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+    
+    st.success(f"File {uploaded_file.name} uploaded successfully!")
+
+    # Extract text
+    with st.spinner("Extracting text from PDF..."):
+        text = extract_text_from_pdf(temp_path)
+        st.info(f"Extracted {len(text)} characters of text")
+
+    # Process PICOTS if provided
+    picots_data = None
+    if picots_text.strip():
+        try:
+            # Initialize parser and parse the PICOTS text
+            parser = PicotsParser()
+            picots_data = parser.parse_picots_table(picots_text.strip())
+            
+            st.success("✅ PICOTS criteria parsed successfully!")
+            
+            # Display parsed data for verification
+            with st.expander("🔍 View Parsed PICOTS Data", expanded=False):
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if picots_data.population:
+                        st.write("**Population:**")
+                        for item in picots_data.population:
+                            st.write(f"• {item}")
                     
-    except Exception as e:
-        st.error(f"Error parsing PICOTS data: {str(e)}")
-        picots_data = {"raw_text": picots_text.strip()}
+                    if picots_data.interventions:
+                        st.write("**Interventions:**")
+                        for item in picots_data.interventions:
+                            st.write(f"• {item}")
+                            
+                    if picots_data.comparators:
+                        st.write("**Comparators:**")
+                        for item in picots_data.comparators:
+                            st.write(f"• {item}")
+                
+                with col2:
+                    if picots_data.outcomes:
+                        st.write("**Outcomes:**")
+                        for item in picots_data.outcomes:
+                            st.write(f"• {item}")
+                            
+                    if picots_data.timing:
+                        st.write("**Timing:**")
+                        for item in picots_data.timing:
+                            st.write(f"• {item}")
+                            
+                    if picots_data.setting:
+                        st.write("**Setting:**")
+                        for item in picots_data.setting:
+                            st.write(f"• {item}")
+                
+                # Show detected KQs if any
+                if picots_data.detected_kqs:
+                    st.write("**Detected Key Questions:**")
+                    for kq in picots_data.detected_kqs:
+                        st.write(f"• {kq}")
+
+                # Show abbreviations if any
+                if picots_data.abbreviations:
+                    st.write("**Abbreviations:**")
+                    for abbrev, full_name in picots_data.abbreviations.items():
+                        st.write(f"• {abbrev} = {full_name}")
+                        
+        except Exception as e:
+            st.error(f"Error parsing PICOTS data: {str(e)}")
+            picots_data = {"raw_text": picots_text.strip()}
     
     st.markdown("---")
 
-    # Process the uploaded file
-    if uploaded_file is not None:
-        # Save the uploaded file temporarily
-        temp_path = f"data/input/temp_{uploaded_file.name}"
-        os.makedirs(os.path.dirname(temp_path), exist_ok=True)
-        
-        with open(temp_path, "wb") as f:
-            f.write(uploaded_file.getbuffer())
-        
-        st.success(f"File {uploaded_file.name} uploaded successfully!")
-        
-        # Extract text
-        with st.spinner("Extracting text from PDF..."):
-            text = extract_text_from_pdf(temp_path)
-            st.info(f"Extracted {len(text)} characters of text")
-    
-        if 'processing_complete' not in st.session_state:
-            st.session_state.processing_complete = False
-        if 'view_type' not in st.session_state:
-            st.session_state.view_type = "Structured"
+    # Fixed: proper indentation for session state initialization
+    if 'processing_complete' not in st.session_state:
+        st.session_state.processing_complete = False
+    if 'view_type' not in st.session_state:
+        st.session_state.view_type = "Structured"
 
-        # Process button
-        if st.button("Process Article", key="process_article_button", disabled=st.session_state.processing_complete) or st.session_state.processing_complete:
-            # Only do the processing part if we haven't completed it yet
-            if not st.session_state.processing_complete:
-                # Check for API key (skip for mock provider)
-                api_key_env_var = "ANTHROPIC_API_KEY" if provider == "anthropic" else "OPENAI_API_KEY"
-                if provider != "mock" and not os.environ.get(api_key_env_var):
-                    st.error(f"Please set the {api_key_env_var} environment variable before processing.")
-                else:
-                    # Set state variables
-                    st.session_state.processing_complete = True
-                    st.session_state.uploaded_file_name = uploaded_file.name
-                
-                    # Chunk the text
-                    with st.spinner("Chunking text..."):
-                        chunks = chunk_text(
-                            text, 
-                            chunk_size=chunk_size, 
-                            overlap=overlap, 
-                            respect_paragraphs=config.get('pdf_processor.text_chunking.respect_paragraphs', True)
-                        )
-                        st.session_state.chunks = chunks  # Store chunks in session state
-                        st.info(f"Created {len(chunks)} text chunks")
+    if st.button("Process Article", key="process_article_button", disabled=st.session_state.processing_complete) or st.session_state.processing_complete:
+
+        # Only do the processing part if we haven't completed it yet
+        if not st.session_state.processing_complete:
+                     
+            # Check for API key (skip for mock provider)
+            api_key_env_var = "ANTHROPIC_API_KEY" if provider == "anthropic" else "OPENAI_API_KEY"
+            if provider != "mock" and not os.environ.get(api_key_env_var):
+                st.error(f"Please set the {api_key_env_var} environment variable before processing.")
+            else:
+                # Set state variables
+                st.session_state.processing_complete = True
+                st.session_state.uploaded_file_name = uploaded_file.name
+            
+                # Chunk the text
+                with st.spinner("Chunking text..."):
+                    chunks = chunk_text(
+                        text, 
+                        chunk_size=chunk_size, 
+                        overlap=overlap, 
+                        respect_paragraphs=config.get('pdf_processor.text_chunking.respect_paragraphs', True)
+                    )
+                    st.session_state.chunks = chunks
+                    st.info(f"Created {len(chunks)} text chunks")
                     
                     # Initialize extractor
                     with st.spinner("Initializing AI model..."):
@@ -413,20 +317,38 @@ if picots_text.strip():
                             # Extract data from chunk
                             start_time = datetime.now()
                             
-                            # Select appropriate prompt
+                            # Select appropriate prompt with PICOTS context
                             if use_custom and custom_chars:
                                 prompt_id = 'custom_patient_characteristics'
-                                # Use the imported function designed for custom prompts
                                 prompt = get_extraction_prompt_with_version(
                                     chunk['content'],
                                     custom_characteristics=custom_chars,
-                                    version=None  # or whatever version parameter is appropriate
+                                    version=None
                                 )
                             else:
-                                prompt_id = 'patient_characteristics'
-                                prompt = get_extraction_prompt_with_version(
+                                prompt_id = 'comprehensive_research'
+                                # Use new comprehensive template with PICOTS context
+                                from src.utils.prompt_templates import PromptTemplate
+    
+                                # Convert PicotsData object to dictionary format for template
+                                picots_context = None
+                                if picots_data:
+                                    picots_context = {
+                                        'picots_sections': {
+                                            'population': picots_data.population,
+                                            'interventions': picots_data.interventions,
+                                            'comparators': picots_data.comparators,
+                                            'outcomes': picots_data.outcomes,
+                                            'timing': picots_data.timing,
+                                            'setting': picots_data.setting
+                                        },
+                                        'key_questions': picots_data.detected_kqs,
+                                        'abbreviations': picots_data.abbreviations
+                                    }
+    
+                                prompt = PromptTemplate.get_extraction_prompt(
                                     chunk['content'], 
-                                    version=prompt_version if prompt_version != "default" else None
+                                    picots_context=picots_context
                                 )
                             
                             # Generate completion
@@ -436,27 +358,9 @@ if picots_text.strip():
                                     temperature=temperature
                                 )
 
-                                # Basic completion validation - make sure we actually got a response
+                                # Basic completion validation
                                 if not completion or not isinstance(completion, str):
                                     st.warning(f"Warning: Chunk {i+1} returned an invalid response format. Skipping...")
-                                    # Log in analytics
-                                    analytics.log_extraction(
-                                        template_id=prompt_id,
-                                        version_id=prompt_version if prompt_version != "default" else "latest",
-                                        source_file=uploaded_file.name,
-                                        characteristics_found=0,
-                                        start_time=start_time,
-                                        end_time=datetime.now(),
-                                        success=False,
-                                        error="Invalid response format",
-                                        metadata={
-                                            'provider': provider,
-                                            'model': model,
-                                            'chunk_index': chunk['index'],
-                                            'temperature': temperature,
-                                            'text_chunk_length': len(chunk['content'])
-                                        }  
-                                    )
                                     continue  # Skip to next chunk
 
                                 # Calculate end time
@@ -507,26 +411,18 @@ if picots_text.strip():
                                         'text_chunk_length': len(chunk['content'])
                                     }
                                 )
-                    
-                    # Store results in session state
-                    if 'chunk_results' not in st.session_state:
-                        st.session_state.chunk_results = []
-                    st.session_state.chunk_results = chunk_results    
-
-            else:
-                # Retrieve stored values if processing was already done
-                chunk_results = st.session_state.chunk_results
-                uploaded_file_name = st.session_state.uploaded_file_name
-                if 'results_df' in st.session_state:
-                    df = st.session_state.results_df
-                else:
-                    # Recreate dataframe if needed
-                    df = pd.DataFrame([
-                        {'chunk': item['chunk_index'], 'extraction': item['extraction']} 
-                        for item in st.session_state.chunk_results
-                    ])
-                    st.session_state.results_df = df
-
+                        
+                        # Store results in session state (this should be OUTSIDE the for loop)
+                        st.session_state.chunk_results = chunk_results
+                       
+        else:
+            # Retrieve stored values if processing was already done            
+            chunk_results = st.session_state.chunk_results
+            
+        # Display results section (this should be OUTSIDE the processing_complete check)
+        if st.session_state.processing_complete and 'chunk_results' in st.session_state:
+            
+            # Add your results display code here
             # This section is outside both the if and else blocks but still within the outer if
             with st.spinner("Compiling results..."):
                 # Save raw results
@@ -544,7 +440,7 @@ if picots_text.strip():
                 save_extraction_results_to_csv(
                     st.session_state.chunk_results, 
                     raw_output_path,
-                    include_chunks=st.session_state.get('include_chunks', False)
+                    include_chunks=False
                 )
 
                 st.info("""
@@ -569,8 +465,7 @@ if picots_text.strip():
                 if view_type == "Structured":
                     # Use our display function for structured display
                     combined_data = display_structured_results(
-                        st.session_state.chunk_results, 
-                        development_mode=st.session_state.get('development_mode', False)
+                        st.session_state.chunk_results
                     )
 
                     # Save structured results
