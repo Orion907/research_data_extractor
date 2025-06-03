@@ -10,9 +10,11 @@ import logging
 import pandas as pd
 import json
 import matplotlib.pyplot as plt
+import tempfile
 from datetime import datetime
 from src.utils.prompt_override import get_extraction_prompt_with_version
 from src.pdf_processor import extract_text_from_pdf, chunk_text
+from src.utils.zip_processor import ZipProcessor
 from src.utils import DataExtractor, TemplateSystem, Analytics, ConfigManager
 from src.data_export import save_to_csv, save_extraction_results_to_csv
 from src.utils.display_utils import display_structured_results
@@ -579,8 +581,80 @@ elif page == "Batch Processing":
         )
         
         if uploaded_zip:
-            st.info("ZIP archive upload functionality will be implemented in the next step.")
-            # Placeholder for ZIP processing
+            # Initialize ZIP processor
+            zip_processor = ZipProcessor(max_files=50, max_file_size_mb=100)
+            
+            # Validate ZIP file first
+            with st.spinner("Validating ZIP archive..."):
+                is_valid, validation_errors, zip_info = zip_processor.validate_zip_file(uploaded_zip.getvalue())
+            
+            if is_valid:
+                st.success(f"✅ Valid ZIP archive found!")
+                
+                # Display ZIP file information
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.metric("Total Files", zip_info['total_files'])
+                with col2:
+                    st.metric("PDF Files", zip_info['pdf_files'])
+                with col3:
+                    st.metric("Total Size", f"{zip_info['total_size'] / (1024*1024):.1f} MB")
+                
+                # Show PDF file list
+                with st.expander("📋 PDF Files Found", expanded=True):
+                    for i, pdf_name in enumerate(zip_info['pdf_file_names'], 1):
+                        st.write(f"{i}. {pdf_name}")
+                
+                # Extract files button
+                if st.button("Extract PDF Files", key="extract_zip_button"):
+                    with st.spinner("Extracting PDF files from ZIP archive..."):
+                        # Create temporary directory for this session
+                        if 'zip_temp_dir' not in st.session_state:
+                            st.session_state.zip_temp_dir = tempfile.mkdtemp()
+                        
+                        # Extract files
+                        extracted_files, extract_errors = zip_processor.extract_pdfs_from_zip(
+                            uploaded_zip.getvalue(), 
+                            st.session_state.zip_temp_dir
+                        )
+                        
+                        if extracted_files:
+                            st.success(f"✅ Successfully extracted {len(extracted_files)} PDF files!")
+                            
+                            # Convert extracted files to file-like objects for compatibility
+                            file_objects = []
+                            for file_info in extracted_files:
+                                # Create a simple file-like object with the necessary attributes
+                                class FileObject:
+                                    def __init__(self, name, path):
+                                        self.name = name
+                                        self.path = path
+                                        with open(path, 'rb') as f:
+                                            self._content = f.read()
+                                    
+                                    def getbuffer(self):
+                                        return self._content
+                                
+                                file_objects.append(FileObject(file_info['name'], file_info['path']))
+                            
+                            # Store in session state for batch processing
+                            st.session_state.batch_files = file_objects
+                            
+                            # Display success message
+                            st.info("Files extracted and ready for batch processing. Scroll down to start processing.")
+                            
+                        if extract_errors:
+                            st.warning("⚠️ Some issues occurred during extraction:")
+                            for error in extract_errors:
+                                st.write(f"• {error}")
+                        
+                        if not extracted_files and extract_errors:
+                            st.error("❌ Failed to extract any PDF files from the ZIP archive.")
+            
+            else:
+                st.error("❌ ZIP archive validation failed:")
+                for error in validation_errors:
+                    st.write(f"• {error}")
     
     # Settings section (placeholder for now)
     with st.expander("⚙️ Batch Processing Settings"):
