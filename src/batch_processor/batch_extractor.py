@@ -217,3 +217,57 @@ class BatchExtractor:
                 pass  # Don't fail on error file creation
             
             raise
+
+    def generate_batch_report(self, output_dir: str, report_name: str = "batch_processing_report.csv") -> str:
+        """
+        Generate a CSV report summarizing the batch processing results
+        
+        Args:
+            output_dir (str): Directory to save the report
+            report_name (str): Name of the report file
+            
+        Returns:
+            str: Path to the generated report file
+        """
+        if not self.batch_results and not self.failed_files:
+            logger.warning("No batch processing results to report")
+            return None
+        
+        # Prepare data for the report
+        report_data = []
+        
+        # Add successful processing results
+        for result in self.batch_results:
+            report_data.append({
+                'file_name': result['file_name'],
+                'status': 'success',
+                'processing_time_seconds': result['processing_time_seconds'],
+                'chunk_count': result['chunk_count'],
+                'text_length': result['text_length'],
+                'extraction_fields': result['extraction_fields'],
+                'result_file': result['result_file'],
+                'processed_at': result['processed_at'],
+                'error': ''
+            })
+        
+        # Add failed processing results
+        for failed in self.failed_files:
+            report_data.append({
+                'file_name': failed['file_name'],
+                'status': 'failed',
+                'processing_time_seconds': 0,
+                'chunk_count': 0,
+                'text_length': 0,
+                'extraction_fields': 0,
+                'result_file': '',
+                'processed_at': failed['timestamp'],
+                'error': failed['error']
+            })
+        
+        # Create DataFrame and save to CSV
+        df = pd.DataFrame(report_data)
+        report_path = os.path.join(output_dir, report_name)
+        df.to_csv(report_path, index=False)
+        
+        logger.info(f"Generated batch processing report: {report_path}")
+        return report_path

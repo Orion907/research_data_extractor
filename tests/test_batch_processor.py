@@ -69,6 +69,48 @@ class TestBatchProcessor(unittest.TestCase):
                 input_dir="nonexistent_directory",
                 output_dir=self.output_dir
             )
+    
+    def test_generate_batch_report(self):
+        """Test generating a batch processing report"""
+        if not os.path.exists(self.input_dir):
+            self.skipTest(f"Input directory {self.input_dir} does not exist")
+        
+        # Check if there are any PDF files
+        pdf_files = [f for f in os.listdir(self.input_dir) if f.lower().endswith('.pdf')]
+        if not pdf_files:
+            self.skipTest(f"No PDF files found in {self.input_dir}")
+        
+        # Process directory first
+        results = self.batch_extractor.process_directory(
+            input_dir=self.input_dir,
+            output_dir=self.output_dir
+        )
+        
+        # Generate report
+        report_path = self.batch_extractor.generate_batch_report(self.output_dir)
+        
+        # Verify report was created
+        self.assertIsNotNone(report_path)
+        self.assertTrue(os.path.exists(report_path))
+        
+        # Verify report contains expected data
+        import pandas as pd
+        df = pd.read_csv(report_path)
+        
+        # Check that report has expected columns
+        expected_columns = ['file_name', 'status', 'processing_time_seconds', 
+                           'chunk_count', 'text_length', 'extraction_fields']
+        for col in expected_columns:
+            self.assertIn(col, df.columns)
+        
+        # Check that all processed files are in the report
+        self.assertEqual(len(df), results['total_files'])
+        
+        print(f"\n=== BATCH REPORT TEST RESULTS ===")
+        print(f"Report generated: {report_path}")
+        print(f"Report contains {len(df)} rows")
+        print("Report preview:")
+        print(df.head())
 
 def run_manual_test():
     """Manual test function for quick verification"""
