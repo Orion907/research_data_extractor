@@ -20,8 +20,10 @@ def save_to_csv(data, output_path, flatten_nested=True):
         flatten_nested (bool): Whether to flatten nested dictionaries and lists
     """
     try:
-        # Ensure the output directory exists
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        # Ensure the output directory exists (only if not current directory)
+        output_dir = os.path.dirname(output_path)
+        if output_dir:  # Only create directory if it's not empty (not current directory)
+            os.makedirs(output_dir, exist_ok=True)
         
         # If data is empty, create an empty file with headers
         if not data:
@@ -68,7 +70,9 @@ def save_patient_data_to_csv(patient_data, output_path):
     """
     try:
         # Ensure the output directory exists
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        output_dir = os.path.dirname(output_path)
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
         
         # Convert to rows for CSV
         rows = []
@@ -175,8 +179,10 @@ def save_extraction_results_to_csv(chunk_results, output_path, include_chunks=Tr
         include_chunks (bool): Whether to include individual chunk data
     """
     try:
-        # Ensure the output directory exists
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        # Ensure the output directory exists (only if not current directory)
+        output_dir = os.path.dirname(output_path)
+        if output_dir:  # Only create directory if it's not empty (not current directory)
+            os.makedirs(output_dir, exist_ok=True)
         
         if not chunk_results:
             # Create an empty file if no results
