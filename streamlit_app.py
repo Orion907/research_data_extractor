@@ -96,17 +96,20 @@ if page == "Extract Data":
     Upload a PDF of a research article to get started.
     """)
 
-    # LLM provider selection
-    provider = st.sidebar.selectbox(
-        "LLM Provider",
-        ["anthropic", "openai", "mock"],  # Added mock for testing without API
-        index=0
+    # LLM provider selection  
+    if 'provider' not in st.session_state:
+        st.session_state.provider = "anthropic"
+
+    st.session_state.provider = st.sidebar.selectbox(
+        "LLM Provider", 
+        ["anthropic", "openai", "mock"],
+        index=["anthropic", "openai", "mock"].index(st.session_state.provider)
     )
 
     # Model selection (will be dynamically populated based on provider)
-    if provider == "anthropic":
+    if st.session_state.provider == "anthropic":
         models = ["claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-3-haiku-20240307"]
-    elif provider == "openai":
+    elif st.session_state.provider == "openai":
         models = ["gpt-3.5-turbo", "gpt-4o", "gpt-4-1106-preview"]
     else:  # mock
         models = ["mock-model"]
@@ -283,8 +286,8 @@ if page == "Extract Data":
             if not st.session_state.processing_complete:
                         
                 # Check for API key (skip for mock provider)
-                api_key_env_var = "ANTHROPIC_API_KEY" if provider == "anthropic" else "OPENAI_API_KEY"
-                if provider != "mock" and not os.environ.get(api_key_env_var):
+                api_key_env_var = "ANTHROPIC_API_KEY" if st.session_state.provider == "anthropic" else "OPENAI_API_KEY"
+                if st.session_state.provider != "mock" and not os.environ.get(api_key_env_var):
                     st.error(f"Please set the {api_key_env_var} environment variable before processing.")
                 else:
                     # Set state variables
@@ -304,7 +307,7 @@ if page == "Extract Data":
                         
                         # Initialize extractor
                         with st.spinner("Initializing AI model..."):
-                            extractor = DataExtractor(provider=provider, model_name=model)
+                            extractor = DataExtractor(provider=st.session_state.provider, model_name=model)
                         
                         # Process chunks
                         progress_bar = st.progress(0)
@@ -378,7 +381,7 @@ if page == "Extract Data":
                                         end_time=end_time,
                                         success=True,
                                         metadata={
-                                            'provider': provider,
+                                            'provider': st.session_state.provider,
                                             'model': model,
                                             'chunk_index': chunk['index'],
                                             'temperature': temperature,
@@ -406,10 +409,10 @@ if page == "Extract Data":
                                         success=False,
                                         error=str(e),
                                         metadata={
-                                            'provider': provider,
-                                            'model': model,
+                                            'provider': st.session_state.provider,
+                                            'model': st.session_state.batch_model,
                                             'chunk_index': chunk['index'],
-                                            'temperature': temperature,
+                                            'temperature': st.session_state.batch_temperature,
                                             'text_chunk_length': len(chunk['content'])
                                         }
                                     )
@@ -529,22 +532,28 @@ elif page == "Batch Processing":
     # Provider and model selection (same as single processing)
     col1, col2 = st.columns(2)
     with col1:
-        batch_provider = st.selectbox(
+        if 'batch_provider' not in st.session_state:
+            st.session_state.batch_provider = "anthropic"
+        
+        st.session_state.batch_provider = st.selectbox(
             "LLM Provider",
             ["anthropic", "openai", "mock"],
-            index=0,
-            key="batch_provider"
+            index=["anthropic", "openai", "mock"].index(st.session_state.batch_provider),
+            key="batch_provider_select"
         )
-    
+
     with col2:
-        if batch_provider == "anthropic":
+        if st.session_state.batch_provider == "anthropic":
             models = ["claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-3-haiku-20240307"]
-        elif batch_provider == "openai":
+        elif st.session_state.batch_provider == "openai":
             models = ["gpt-3.5-turbo", "gpt-4o", "gpt-4-1106-preview"]
         else:  # mock
             models = ["mock-model"]
         
-        batch_model = st.selectbox("Model", models, key="batch_model")
+        if 'batch_model' not in st.session_state:
+            st.session_state.batch_model = models[0]
+        
+        st.session_state.batch_model = st.selectbox("Model", models, key="batch_model_select")
     
     # File upload section
     st.markdown("---")
@@ -655,24 +664,403 @@ elif page == "Batch Processing":
                 st.error("❌ ZIP archive validation failed:")
                 for error in validation_errors:
                     st.write(f"• {error}")
+
+    # Initialize batch processing settings in session state
+    if 'batch_chunk_size' not in st.session_state:
+        st.session_state.batch_chunk_size = 1000
+    if 'batch_overlap' not in st.session_state:
+        st.session_state.batch_overlap = 100
+    if 'batch_temperature' not in st.session_state:
+        st.session_state.batch_temperature = 0.0
+    if 'batch_continue_on_error' not in st.session_state:
+        st.session_state.batch_continue_on_error = True
+    if 'batch_save_individual' not in st.session_state:
+        st.session_state.batch_save_individual = True
+    if 'batch_max_concurrent' not in st.session_state:
+        st.session_state.batch_max_concurrent = "Sequential (1 at a time)"
+              
     
-    # Settings section (placeholder for now)
+    # Batch Processing Settings
     with st.expander("⚙️ Batch Processing Settings"):
-        st.info("Batch processing settings will be added in the next step.")
+        settings_col1, settings_col2 = st.columns(2)
+        
+        with settings_col1:
+            # Chunk settings
+            st.number_input(
+                "Chunk Size (chars)", 
+                min_value=500, 
+                max_value=10000, 
+                value=st.session_state.batch_chunk_size,
+                key="batch_chunk_size"
+            )
+
+            st.number_input(
+                "Chunk Overlap (chars)", 
+                min_value=0, 
+                max_value=500, 
+                value=st.session_state.batch_overlap,
+                key="batch_overlap"
+            )
+
+            # Temperature setting
+            st.slider(
+                "Temperature", 
+                min_value=0.0, 
+                max_value=1.0, 
+                value=st.session_state.batch_temperature, 
+                step=0.1,
+                key="batch_temperature"
+            )
+        
+        with settings_col2:
+            # Processing options
+            st.checkbox(
+                "Continue processing if a file fails", 
+                value=st.session_state.batch_continue_on_error,
+                help="If checked, batch processing will continue even if individual files fail",
+                key="batch_continue_on_error"
+            )
+            
+            st.checkbox(
+                "Save individual file results", 
+                value=st.session_state.batch_save_individual,
+                help="Save separate result files for each processed PDF",
+                key="batch_save_individual"
+            )
+            
+            st.selectbox(
+                "Processing Mode",
+                ["Sequential (1 at a time)", "Limited Parallel (3 at a time)", "Full Parallel"],
+                index=["Sequential (1 at a time)", "Limited Parallel (3 at a time)", "Full Parallel"].index(st.session_state.batch_max_concurrent),
+                help="Sequential is safer for API rate limits",
+                key="batch_max_concurrent"
+            )
     
-    # Processing section (placeholder for now)
+    # Processing section
     if st.session_state.batch_files:
         st.markdown("---")
         st.subheader("🚀 Process Batch")
         
-        if st.button("Start Batch Processing", disabled=st.session_state.batch_processing_complete):
-            st.info("Batch processing logic will be implemented in the next step.")
+        # Show batch summary
+        st.info(f"Ready to process {len(st.session_state.batch_files)} PDF files")
         
-        # Results section (placeholder for now)
-        if st.session_state.batch_processing_complete:
-            st.markdown("---")
-            st.subheader("📊 Batch Results")
-            st.info("Batch results display will be implemented in the next step.")
+        if st.button("Start Batch Processing", disabled=st.session_state.batch_processing_complete):
+            # Initialize batch processing
+            st.session_state.batch_processing_complete = False
+            
+            # Check for API key (skip for mock provider)
+            api_key_env_var = "ANTHROPIC_API_KEY" if st.session_state.batch_provider == "anthropic" else "OPENAI_API_KEY"
+            if st.session_state.batch_provider != "mock" and not os.environ.get(api_key_env_var):
+                st.error(f"Please set the {api_key_env_var} environment variable before processing.")
+            else:
+                # Initialize extractor
+                with st.spinner("Initializing AI model..."):
+                    batch_extractor = DataExtractor(provider=st.session_state.batch_provider, model_name=st.session_state.batch_model)
+                
+                # Initialize results storage
+                batch_results = []
+                failed_files = []
+                
+                # Create progress containers
+                overall_progress = st.progress(0)
+                status_text = st.empty()
+                current_file_text = st.empty()
+                
+                # Process each file
+                for file_idx, file_obj in enumerate(st.session_state.batch_files):
+                    try:
+                        # Update progress
+                        progress = file_idx / len(st.session_state.batch_files)
+                        overall_progress.progress(progress)
+                        status_text.text(f"Processing file {file_idx + 1} of {len(st.session_state.batch_files)}")
+                        current_file_text.text(f"Current file: {file_obj.name}")
+                        
+                        # Save file temporarily
+                        temp_path = f"data/input/batch_temp_{file_obj.name}"
+                        os.makedirs(os.path.dirname(temp_path), exist_ok=True)
+                        
+                        with open(temp_path, "wb") as f:
+                            f.write(file_obj.getbuffer())
+                        
+                        # Extract text from PDF
+                        text = extract_text_from_pdf(temp_path)
+                        
+                        if not text.strip():
+                            raise ValueError("No text could be extracted from PDF")
+                        
+                        # Chunk the text
+                        chunks = chunk_text(
+                            text, 
+                            chunk_size=st.session_state.batch_chunk_size, 
+                            overlap=st.session_state.batch_overlap, 
+                            respect_paragraphs=True
+                        )
+                        
+                        # Process chunks
+                        file_results = []
+                        for chunk in chunks:
+                            # Track extraction timing
+                            chunk_start_time = datetime.now()
+                            
+                            # Use the same prompt as single processing
+                            prompt = PromptTemplate.get_extraction_prompt(chunk['content'])
+                            
+                            completion = batch_extractor.client.generate_completion(
+                                prompt, 
+                                temperature=st.session_state.batch_temperature
+                            )
+                            
+                            chunk_end_time = datetime.now()
+                            
+                            # Log analytics for this chunk
+                            analytics.log_extraction(
+                                template_id='comprehensive_research',
+                                version_id='batch_processing',
+                                source_file=file_obj.name,
+                                characteristics_found=len(completion.split('\n')),  # Rough estimate
+                                start_time=chunk_start_time,
+                                end_time=chunk_end_time,
+                                success=True,
+                                metadata={
+                                    'provider': st.session_state.batch_provider,
+                                    'model': st.session_state.batch_model,
+                                    'chunk_index': chunk['index'],
+                                    'temperature': st.session_state.batch_temperature,
+                                    'text_chunk_length': len(chunk['content']),
+                                    'processing_type': 'batch',
+                                    'batch_file_count': len(st.session_state.batch_files)
+                                }
+                            )
+                            
+                            file_results.append({
+                                'chunk_index': chunk['index'],
+                                'extraction': completion
+                            })
+                                            
+                        # Store results
+                        batch_results.append({
+                            'file_name': file_obj.name,
+                            'status': 'success',
+                            'chunks_processed': len(file_results),
+                            'results': file_results,
+                            'text_length': len(text)
+                        })
+                        
+                        # Clean up temp file
+                        os.unlink(temp_path)
+                        
+                    except Exception as e:
+                        error_msg = str(e)
+                        failed_files.append({
+                            'file_name': file_obj.name,
+                            'error': error_msg
+                        })
+
+                        # Log failed extraction
+                        analytics.log_extraction(
+                            template_id='comprehensive_research',
+                            version_id='batch_processing',
+                            source_file=file_obj.name,
+                            characteristics_found=0,
+                            start_time=datetime.now(),
+                            end_time=datetime.now(),
+                            success=False,
+                            error=error_msg,
+                            metadata={
+                                'provider': st.session_state.batch_provider,
+                                'model': st.session_state.batch_model,
+                                'processing_type': 'batch',
+                                'batch_file_count': len(st.session_state.batch_files)
+                            }
+                        )
+
+                        batch_results.append({
+                            'file_name': file_obj.name,
+                            'status': 'failed',
+                            'error': error_msg,
+                            'chunks_processed': 0,
+                            'results': []
+                        })
+                        
+                        # Clean up temp file if it exists
+                        temp_path = f"data/input/batch_temp_{file_obj.name}"
+                        if os.path.exists(temp_path):
+                            os.unlink(temp_path)
+                        
+                        # Continue or stop based on settings
+                        if not st.session_state.batch_continue_on_error:
+                            st.error(f"Processing stopped due to error in {file_obj.name}: {error_msg}")
+                            break
+                        else:
+                            st.warning(f"Error processing {file_obj.name}: {error_msg}")
+                
+                # Complete processing
+                overall_progress.progress(1.0)
+                status_text.text("Batch processing complete!")
+                current_file_text.text("")
+                
+                # Store results in session state
+                st.session_state.batch_results = batch_results
+                st.session_state.batch_processing_complete = True
+                
+                # Show summary
+                successful_files = len([r for r in batch_results if r['status'] == 'success'])
+                st.success(f"✅ Batch processing complete! {successful_files}/{len(st.session_state.batch_files)} files processed successfully.")
+                
+                if failed_files:
+                    with st.expander("❌ Failed Files", expanded=False):
+                        for failed in failed_files:
+                            st.write(f"• **{failed['file_name']}**: {failed['error']}")
+        
+        # Results section
+    if st.session_state.batch_processing_complete:
+        st.markdown("---")
+        st.subheader("📊 Batch Results")
+        
+        # Summary metrics
+        total_files = len(st.session_state.batch_results)
+        successful_files = len([r for r in st.session_state.batch_results if r['status'] == 'success'])
+        failed_files = total_files - successful_files
+        total_chunks = sum(r.get('chunks_processed', 0) for r in st.session_state.batch_results)
+        
+        # Display metrics
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Total Files", total_files)
+        with col2:
+            st.metric("Successful", successful_files, delta=f"{successful_files/total_files*100:.0f}%")
+        with col3:
+            st.metric("Failed", failed_files, delta=f"-{failed_files/total_files*100:.0f}%" if failed_files > 0 else "0%")
+        with col4:
+            st.metric("Total Chunks", total_chunks)
+        
+        # Results tabs
+        results_tab, download_tab, details_tab = st.tabs(["📋 Results Summary", "💾 Downloads", "🔍 Detailed Results"])
+        
+        with results_tab:
+            # Show results summary table
+            summary_data = []
+            for result in st.session_state.batch_results:
+                summary_data.append({
+                    'File Name': result['file_name'],
+                    'Status': '✅ Success' if result['status'] == 'success' else '❌ Failed',
+                    'Chunks Processed': result.get('chunks_processed', 0),
+                    'Text Length': f"{result.get('text_length', 0):,} chars" if result.get('text_length') else 'N/A',
+                    'Error': result.get('error', '') if result['status'] == 'failed' else ''
+                })
+            
+            summary_df = pd.DataFrame(summary_data)
+            st.dataframe(summary_df, use_container_width=True)
+        
+        with download_tab:
+            st.markdown("### 📥 Download Options")
+            
+            # Combined results download
+            if st.button("📊 Generate Combined Results"):
+                with st.spinner("Generating combined results..."):
+                    # Create combined results file
+                    combined_results = []
+                    
+                    for result in st.session_state.batch_results:
+                        if result['status'] == 'success':
+                            for chunk_result in result['results']:
+                                combined_results.append({
+                                    'source_file': result['file_name'],
+                                    'chunk_index': chunk_result['chunk_index'],
+                                    'extraction': chunk_result['extraction']
+                                })
+                    
+                    # Save combined results
+                    combined_output_path = f"data/output/batch_combined_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+                    os.makedirs(os.path.dirname(combined_output_path), exist_ok=True)
+                    
+                    save_extraction_results_to_csv(
+                        combined_results,
+                        combined_output_path,
+                        include_chunks=True
+                    )
+                    
+                    st.success("Combined results generated!")
+                    
+                    # Download button
+                    with open(combined_output_path, 'rb') as f:
+                        st.download_button(
+                            label="📥 Download Combined Results CSV",
+                            data=f,
+                            file_name=f"batch_results_combined_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+                            mime="text/csv"
+                        )
+            
+            # Individual file downloads
+            if st.session_state.batch_save_individual:
+                st.markdown("### 📄 Individual File Results")
+                
+                for result in st.session_state.batch_results:
+                    if result['status'] == 'success':
+                        col1, col2 = st.columns([3, 1])
+                        with col1:
+                            st.write(f"**{result['file_name']}** ({result['chunks_processed']} chunks)")
+                        with col2:
+                            # Create individual file result
+                            individual_output_path = f"data/output/batch_{result['file_name'].replace('.pdf', '.csv')}"
+                            os.makedirs(os.path.dirname(individual_output_path), exist_ok=True)
+                            
+                            save_extraction_results_to_csv(
+                                result['results'],
+                                individual_output_path,
+                                include_chunks=False
+                            )
+                            
+                            with open(individual_output_path, 'rb') as f:
+                                st.download_button(
+                                    label="📥 Download",
+                                    data=f,
+                                    file_name=f"{result['file_name'].replace('.pdf', '_results.csv')}",
+                                    mime="text/csv",
+                                    key=f"download_{result['file_name']}"
+                                )
+        
+        with details_tab:
+            st.markdown("### 🔍 Detailed Extraction Results")
+            
+            # File selector
+            file_names = [r['file_name'] for r in st.session_state.batch_results if r['status'] == 'success']
+            if file_names:
+                selected_file = st.selectbox("Select file to view detailed results:", file_names)
+                
+                # Find the selected result
+                selected_result = next(r for r in st.session_state.batch_results if r['file_name'] == selected_file)
+                
+                # Display detailed results using the same function as single file processing
+                if selected_result['results']:
+                    try:
+                        combined_data = display_structured_results(selected_result['results'])
+                    except Exception as e:
+                        st.error(f"Error displaying structured results: {str(e)}")
+                        # Fallback to raw display
+                        st.subheader("Raw Extraction Results")
+                        for i, chunk_result in enumerate(selected_result['results']):
+                            with st.expander(f"Chunk {i+1} Results"):
+                                st.text(chunk_result['extraction'])
+            else:
+                st.info("No successful extractions to display.")
+        
+        # Reset button
+        if st.button("🔄 Process New Batch", key="reset_batch_button"):
+            # Reset batch processing session state
+            st.session_state.batch_processing_complete = False
+            st.session_state.batch_files = []
+            st.session_state.batch_results = []
+            if 'zip_temp_dir' in st.session_state:
+                # Clean up temporary directory
+                import shutil
+                try:
+                    shutil.rmtree(st.session_state.zip_temp_dir)
+                except:
+                    pass
+                del st.session_state.zip_temp_dir
+            
+            st.rerun()
 
 elif page == "Manual Annotation":
     st.header("Manual Annotation and Comparison")

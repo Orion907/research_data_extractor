@@ -1,0 +1,15 @@
+{
+  "id": "test_diabetes_extraction",
+  "version_id": "test_diabetes_extraction_v20250512091225",
+  "template_text": "\n        You are an AI assistant specialized in extracting patient characteristic data from diabetes studies.\n        \n        Below is a section of a research article. Please extract all patient characteristics mentioned, including:\n        - Sample size and demographics\n        - Age information (mean, median, range)\n        - Gender distribution (percentage male/female)\n        - Laboratory values (HbA1c, glucose levels)\n        - Anthropometric data (BMI, weight)\n        - Current medications\n        - Inclusion and exclusion criteria\n        \n        Format your response as a JSON object with appropriate keys and values.\n        \n        ARTICLE SECTION:\n        {text}\n        \n        EXTRACTED PATIENT CHARACTERISTICS:\n        ",
+  "description": "Updated diabetes extraction template with more detailed instructions",
+  "created_at": "2025-05-12T09:12:25.922205",
+  "metadata": {
+    "disease": "diabetes",
+    "focus": "clinical_trials",
+    "version": "detailed",
+    "placeholders": [
+      "text"
+    ]
+  }
+}
