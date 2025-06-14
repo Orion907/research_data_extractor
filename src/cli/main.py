@@ -222,7 +222,8 @@ def batch(input_dir, output_dir, provider, model, template, max_files, chunk_siz
             output_dir=output_dir,
             template_id=template,
             chunk_size=chunk_size,
-            overlap=chunk_overlap
+            overlap=chunk_overlap,
+            max_files=max_files
         )
         
         # Display results

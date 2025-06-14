@@ -76,8 +76,9 @@ class BatchExtractor:
 
         # Limit files if max_files specified
         if max_files and len(pdf_files) > max_files:
+            original_count = len(pdf_files)
             pdf_files = pdf_files[:max_files]
-            logger.info(f"Limited to {max_files} files (found {len(pdf_files)} total)")
+            logger.info(f"Limited to {max_files} files (found {original_count} total)")
 
         if not pdf_files:
             logger.warning(f"No PDF files found in {input_dir}")
