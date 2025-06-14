@@ -45,8 +45,9 @@ class BatchExtractor:
         logger.info(f"Initialized BatchExtractor with {provider} provider")
     
     def process_directory(self, input_dir: str, output_dir: str, 
-                         template_id: str = "patient_characteristics",
-                         chunk_size: int = 1000, overlap: int = 100) -> Dict[str, Any]:
+                     template_id: str = "patient_characteristics",
+                     chunk_size: int = 1000, overlap: int = 100,
+                     max_files: int = None) -> Dict[str, Any]:
         """
         Process all PDF files in a directory
         
@@ -72,11 +73,16 @@ class BatchExtractor:
         for file in os.listdir(input_dir):
             if file.lower().endswith('.pdf'):
                 pdf_files.append(os.path.join(input_dir, file))
-        
+
+        # Limit files if max_files specified
+        if max_files and len(pdf_files) > max_files:
+            pdf_files = pdf_files[:max_files]
+            logger.info(f"Limited to {max_files} files (found {len(pdf_files)} total)")
+
         if not pdf_files:
             logger.warning(f"No PDF files found in {input_dir}")
             return {"total_files": 0, "processed": 0, "failed": 0, "results": []}
-        
+
         logger.info(f"Found {len(pdf_files)} PDF files to process")
         
         # Process each PDF file
