@@ -267,6 +267,75 @@ class DataValidator:
         
         return issues
     
+    def normalize_value_for_comparison(self, field_name: str, value: Any) -> str:
+        """
+        Normalize values for comparison between manual and automatic extractions
+        
+        Args:
+            field_name (str): The canonical field name
+            value (Any): The value to normalize
+            
+        Returns:
+            str: Normalized value for comparison
+        """
+        if not value:
+            return ""
+            
+        value_str = str(value).strip()
+        
+        # Apply field-specific normalizations
+        if 'age' in field_name.lower():
+            return self._normalize_age_value(value_str)
+        elif 'sample_size' in field_name.lower():
+            return self._normalize_sample_size_value(value_str)
+        elif 'percentage' in field_name.lower() or '%' in value_str:
+            return self._normalize_percentage_value(value_str)
+        else:
+            return self._normalize_generic_value(value_str)
+    
+    def _normalize_age_value(self, value: str) -> str:
+        """Remove age units for comparison"""
+        # Remove years, yrs, y.o., etc.
+        normalized = re.sub(r'\s*(years?|yrs?|y\.?o\.?)\s*', '', value.lower())
+        return normalized.strip()
+    
+    def _normalize_sample_size_value(self, value: str) -> str:
+        """Remove sample size units for comparison"""
+        # Remove patients, subjects, participants, etc.
+        normalized = re.sub(r'\s*(patients?|subjects?|participants?|individuals?)\s*', '', value.lower())
+        return normalized.strip()
+    
+    def _normalize_percentage_value(self, value: str) -> str:
+        """Remove percentage symbols for comparison"""
+        normalized = re.sub(r'%\s*', '', value.strip())
+        return normalized.strip()
+    
+    def _normalize_generic_value(self, value: str) -> str:
+        """Generic normalization - remove extra whitespace, standardize case"""
+        return ' '.join(value.lower().split())
+
+    def prepare_for_comparison(self, data: Dict[str, Any]) -> Dict[str, str]:
+        """
+        Prepare extraction data for comparison by normalizing fields and values
+        
+        Args:
+            data (dict): Extraction data to normalize
+            
+        Returns:
+            dict: Normalized data ready for comparison
+        """
+        # First normalize field names
+        normalized_fields = self.normalize_fields(data)
+        
+        # Then normalize values for comparison
+        comparison_ready = {}
+        for field, value in normalized_fields.items():
+            normalized_value = self.normalize_value_for_comparison(field, value)
+            if normalized_value:  # Only include non-empty values
+                comparison_ready[field] = normalized_value
+        
+        return comparison_ready
+
     @staticmethod
     def normalize_fields(data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -286,13 +355,23 @@ class DataValidator:
             'subject_count': 'sample_size',
             'total_patients': 'sample_size',
             'number_of_subjects': 'sample_size',
+            'study_population': 'sample_size',
+            'enrolled_patients': 'sample_size',
+            'participants_enrolled': 'sample_size',
+            'sample_size': 'sample_size',
             
             'age_mean': 'mean_age',
             'average_age': 'mean_age',
+            'age_mean_years': 'mean_age',
+            'mean_age_years': 'mean_age',
+            'age_years': 'mean_age',
+            'age': 'mean_age',
             
             'gender': 'gender_distribution',
             'sex_distribution': 'gender_distribution',
             'sex': 'gender_distribution',
+            'male_female_ratio': 'gender_distribution',
+            'gender_breakdown': 'gender_distribution',
             
             'male': 'male_percentage',
             'males': 'male_percentage',
@@ -302,7 +381,13 @@ class DataValidator:
             'females': 'female_percentage',
             'percent_female': 'female_percentage',
             
-            # Add more mappings as needed
+            # New categories for PICOTS data
+            'inclusion_criteria': 'inclusion_criteria',
+            'exclusion_criteria': 'exclusion_criteria',
+            'primary_outcome': 'primary_outcomes',
+            'secondary_outcome': 'secondary_outcomes',
+            'study_duration': 'timing',
+            'follow_up_period': 'timing',
         }
         
         normalized = {}

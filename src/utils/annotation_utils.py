@@ -161,59 +161,40 @@ def save_annotations(annotated_data, output_path):
 
 def compare_extractions(auto_data, manual_data):
     """
-    Compare automatic and manual extractions
+    Compare automatic and manual extractions using enhanced validation
     
     Args:
         auto_data (dict or list): Automatic extraction data
         manual_data (dict or list): Manual extraction data
         
     Returns:
-        dict: Comparison results with metrics and differences
+        dict: Comparison results with metrics, differences, and transformation details
     """
-    # Initialize results
+    from .data_validator import DataValidator
+    
+    # Initialize validator
+    validator = DataValidator()
+    
+    # Prepare both datasets for comparison (normalize and clean)
+    auto_prepared = validator.prepare_for_comparison(auto_data)
+    manual_prepared = validator.prepare_for_comparison(manual_data)
+
+    # Track what transformations were made for transparency
+    transformation_log = {
+        "auto_transformations": _get_transformation_summary(auto_data, auto_prepared),
+        "manual_transformations": _get_transformation_summary(manual_data, manual_prepared)
+    }
+    
+    # Initialize results with transformation info
     results = {
         "metrics": {},
         "differences": {
             "different_values": {},
             "only_in_auto": {},
             "only_in_manual": {}
-        }
+        },
+        "transformation_log": transformation_log
     }
-    
-    # Normalize data format
-    auto_dict = {}
-    manual_dict = {}
-    
-    # Convert structured data format
-    if isinstance(auto_data, dict):
-        for key, item in auto_data.items():
-            if isinstance(item, dict) and 'value' in item:
-                auto_dict[key] = item['value']
-            else:
-                auto_dict[key] = item
-    elif isinstance(auto_data, list):
-        # If it's a list of records, flatten to key-value pairs
-        for item in auto_data:
-            if isinstance(item, dict) and 'Characteristic' in item and 'Value' in item:
-                auto_dict[item['Characteristic']] = item['Value']
-            elif isinstance(item, dict):
-                for k, v in item.items():
-                    auto_dict[k] = v
-    
-    # Same for manual data
-    if isinstance(manual_data, dict):
-        for key, item in manual_data.items():
-            if isinstance(item, dict) and 'value' in item:
-                manual_dict[key] = item['value']
-            else:
-                manual_dict[key] = item
-    elif isinstance(manual_data, list):
-        for item in manual_data:
-            if isinstance(item, dict) and 'Characteristic' in item and 'Value' in item:
-                manual_dict[item['Characteristic']] = item['Value']
-            elif isinstance(item, dict):
-                for k, v in item.items():
-                    manual_dict[k] = v
     
     # Calculate true positives, false positives, false negatives
     true_positives = 0
@@ -222,10 +203,10 @@ def compare_extractions(auto_data, manual_data):
     only_in_manual = {}
     
     # Check each key in auto against manual
-    for key, auto_value in auto_dict.items():
-        if key in manual_dict:
-            manual_value = manual_dict[key]
-            if str(auto_value).lower() == str(manual_value).lower():
+    for key, auto_value in auto_prepared.items():
+        if key in manual_prepared:
+            manual_value = manual_prepared[key]
+            if str(auto_value).lower().strip() == str(manual_value).lower().strip():
                 true_positives += 1
             else:
                 different_values[key] = {
@@ -236,8 +217,8 @@ def compare_extractions(auto_data, manual_data):
             only_in_auto[key] = auto_value
     
     # Check for keys only in manual
-    for key, manual_value in manual_dict.items():
-        if key not in auto_dict:
+    for key, manual_value in manual_prepared.items():
+        if key not in auto_prepared:
             only_in_manual[key] = manual_value
     
     # Calculate metrics
@@ -265,3 +246,60 @@ def compare_extractions(auto_data, manual_data):
     }
     
     return results
+
+def _get_transformation_summary(original_data, prepared_data):
+    """
+    Create a summary of what transformations were applied
+    
+    Args:
+        original_data: Original data before preparation
+        prepared_data: Data after preparation
+        
+    Returns:
+        dict: Summary of transformations
+    """
+    transformations = {
+        "field_mappings": {},
+        "value_normalizations": {},
+        "fields_added": [],
+        "fields_removed": []
+    }
+    
+    # Convert original data to flat format for comparison
+    original_flat = {}
+    if isinstance(original_data, dict):
+        for key, value in original_data.items():
+            if isinstance(value, dict) and 'value' in value:
+                original_flat[key] = value['value']
+            else:
+                original_flat[key] = value
+    elif isinstance(original_data, list):
+        for item in original_data:
+            if isinstance(item, dict) and 'Characteristic' in item and 'Value' in item:
+                original_flat[item['Characteristic']] = item['Value']
+    
+    # Track field mappings (keys that changed)
+    for orig_key in original_flat.keys():
+        if orig_key not in prepared_data:
+            # Look for mapped version
+            for prep_key in prepared_data.keys():
+                if orig_key.lower().replace(' ', '_') in prep_key.lower():
+                    transformations["field_mappings"][orig_key] = prep_key
+                    break
+    
+    # Track value normalizations (values that changed)
+    for key in prepared_data.keys():
+        if key in original_flat:
+            orig_val = str(original_flat[key]).strip()
+            prep_val = str(prepared_data[key]).strip()
+            if orig_val != prep_val and orig_val.lower() != prep_val.lower():
+                transformations["value_normalizations"][key] = {
+                    "original": orig_val,
+                    "normalized": prep_val
+                }
+    
+    # Track added/removed fields
+    transformations["fields_added"] = [k for k in prepared_data.keys() if k not in original_flat.keys()]
+    transformations["fields_removed"] = [k for k in original_flat.keys() if k not in prepared_data.keys()]
+    
+    return transformations
