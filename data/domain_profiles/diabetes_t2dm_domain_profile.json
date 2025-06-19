@@ -1,0 +1,256 @@
+{
+  "created_at": "2025-06-19T10:47:30.924584",
+  "sample_count": 3,
+  "raw_patterns": {
+    "top_terms": [
+      "metformin",
+      "placebo",
+      "diabetes",
+      "fpg",
+      "ppg",
+      "type",
+      "mellitus",
+      "reduction",
+      "weeks",
+      "glucose",
+      "bmi",
+      "mean",
+      "criteria",
+      "adverse",
+      "events",
+      "aes",
+      "association"
+    ],
+    "term_frequencies": {
+      "metformin": 6,
+      "placebo": 5,
+      "diabetes": 4,
+      "fpg": 3,
+      "ppg": 3,
+      "type": 2,
+      "mellitus": 2,
+      "reduction": 2,
+      "weeks": 2,
+      "glucose": 2,
+      "bmi": 2,
+      "mean": 2,
+      "criteria": 2,
+      "adverse": 2,
+      "events": 2,
+      "aes": 2,
+      "association": 2
+    },
+    "abbreviations": {
+      "ADA": "American Diabetes Association",
+      "EASD": "Diabetes",
+      "RCT": "unknown_expansion",
+      "FPG": "unknown_expansion",
+      "PPG": "unknown_expansion",
+      "BMI": "unknown_expansion",
+      "DKA": "unknown_expansion"
+    },
+    "potential_fields": [
+      "Baseline characteristics",
+      "Primary endpoint",
+      "Background",
+      "Secondary endpoints"
+    ],
+    "numeric_patterns": {
+      "ages": [
+        "58.3 \u00b1 12.4"
+      ],
+      "percentages": [
+        "52",
+        "7.0",
+        "8.2",
+        "1.1",
+        "7.1",
+        "8.0",
+        "23",
+        "15",
+        "12",
+        "8",
+        "5"
+      ],
+      "ranges": [
+        [
+          "25",
+          "40"
+        ]
+      ],
+      "measurements": [
+        [
+          "40",
+          "kg"
+        ],
+        [
+          "60",
+          "mL"
+        ],
+        [
+          "28",
+          "mg"
+        ],
+        [
+          "22",
+          "mg"
+        ],
+        [
+          "26",
+          "mg"
+        ],
+        [
+          "45",
+          "mg"
+        ],
+        [
+          "8",
+          "mg"
+        ]
+      ]
+    },
+    "domain_indicators": [
+      "diabetes:6"
+    ],
+    "analysis_stats": {
+      "total_texts": 3,
+      "total_characters": 2079,
+      "total_words": 359
+    }
+  },
+  "enhanced_patterns": {
+    "synonym_mappings": {
+      "metformin": [
+        "biguanide",
+        "glucophage",
+        "antidiabetic medication"
+      ],
+      "placebo": [
+        "control",
+        "inactive treatment",
+        "sham treatment"
+      ],
+      "diabetes": [
+        "diabetes mellitus",
+        "diabetic",
+        "dm",
+        "hyperglycemia"
+      ],
+      "reduction": [
+        "decrease",
+        "decline",
+        "improvement",
+        "lowering"
+      ]
+    },
+    "abbreviation_expansions": {
+      "ADA": {
+        "full_form": "American Diabetes Association",
+        "variations": [
+          "american diabetes association",
+          "American_Diabetes_Association"
+        ]
+      },
+      "EASD": {
+        "full_form": "Diabetes",
+        "variations": [
+          "diabetes",
+          "Diabetes"
+        ]
+      },
+      "RCT": {
+        "full_form": "unknown_expansion",
+        "variations": [
+          "unknown_expansion",
+          "unknown_expansion"
+        ]
+      },
+      "FPG": {
+        "full_form": "unknown_expansion",
+        "variations": [
+          "unknown_expansion",
+          "unknown_expansion"
+        ]
+      },
+      "PPG": {
+        "full_form": "unknown_expansion",
+        "variations": [
+          "unknown_expansion",
+          "unknown_expansion"
+        ]
+      },
+      "BMI": {
+        "full_form": "unknown_expansion",
+        "variations": [
+          "unknown_expansion",
+          "unknown_expansion"
+        ]
+      },
+      "DKA": {
+        "full_form": "unknown_expansion",
+        "variations": [
+          "unknown_expansion",
+          "unknown_expansion"
+        ]
+      }
+    },
+    "field_enhancements": {
+      "Baseline characteristics": {
+        "data_type": "text",
+        "variations": [
+          "baseline characteristics",
+          "Baseline_characteristics"
+        ],
+        "examples": [
+          "example1",
+          "example2"
+        ]
+      },
+      "Primary endpoint": {
+        "data_type": "text",
+        "variations": [
+          "primary endpoint",
+          "Primary_endpoint"
+        ],
+        "examples": [
+          "example1",
+          "example2"
+        ]
+      },
+      "Background": {
+        "data_type": "text",
+        "variations": [
+          "background",
+          "Background"
+        ],
+        "examples": [
+          "example1",
+          "example2"
+        ]
+      },
+      "Secondary endpoints": {
+        "data_type": "text",
+        "variations": [
+          "secondary endpoints",
+          "Secondary_endpoints"
+        ],
+        "examples": [
+          "example1",
+          "example2"
+        ]
+      }
+    },
+    "semantic_clusters": {
+      "medications": [
+        "metformin"
+      ],
+      "measurements": [
+        "reduction",
+        "mean"
+      ],
+      "demographics": []
+    }
+  },
+  "provider": "mock",
+  "model": "domain-analysis"
+}

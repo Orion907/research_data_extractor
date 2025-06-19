@@ -296,6 +296,168 @@ class DataExtractor:
         else:
             return results
     
+    # Around line 230 - RIGHT HERE, after extract_from_chunks method ends
+
+    def load_domain_profile(self, profile_path: str):
+        """
+        Load and apply a domain profile to enhance extraction accuracy
+        
+        Args:
+            profile_path (str): Path to saved domain profile JSON
+        """
+        try:
+            import json
+            with open(profile_path, 'r', encoding='utf-8') as f:
+                domain_profile = json.load(f)
+            
+            enhanced = domain_profile.get("enhanced_patterns", {})
+            
+            # Store domain knowledge for use in extraction
+            self.domain_synonyms = enhanced.get("synonym_mappings", {})
+            self.domain_abbreviations = enhanced.get("abbreviation_expansions", {})
+            self.domain_clusters = enhanced.get("semantic_clusters", {})
+            
+            logger.info(f"✅ Applied domain profile with {len(self.domain_synonyms)} synonym mappings, "
+                    f"{len(self.domain_abbreviations)} abbreviations")
+            
+            return True
+            
+        except Exception as e:
+            logger.error(f"Failed to apply domain profile: {e}")
+            # Set empty mappings as fallback
+            self.domain_synonyms = {}
+            self.domain_abbreviations = {}
+            self.domain_clusters = {}
+            return False
+
+    def _enhance_text_with_domain_knowledge(self, text: str) -> str:
+        """
+        Enhance text by expanding abbreviations and noting synonyms
+        
+        Args:
+            text (str): Original text chunk
+            
+        Returns:
+            str: Enhanced text with domain knowledge annotations
+        """
+        enhanced_text = text
+        
+        # Expand known abbreviations
+        if hasattr(self, 'domain_abbreviations'):
+            for abbrev, details in self.domain_abbreviations.items():
+                if abbrev in enhanced_text:
+                    full_form = details.get('full_form', abbrev)
+                    if full_form != 'unknown_expansion':
+                        # Add expansion in parentheses for clarity
+                        enhanced_text = enhanced_text.replace(
+                            abbrev, 
+                            f"{abbrev} ({full_form})"
+                        )
+        
+        # Add synonym context for better understanding
+        if hasattr(self, 'domain_synonyms'):
+            synonym_context = []
+            for term, synonyms in self.domain_synonyms.items():
+                if term.lower() in enhanced_text.lower():
+                    synonym_context.append(f"{term}: {', '.join(synonyms)}")
+            
+            if synonym_context:
+                enhanced_text += f"\n\nDOMAIN CONTEXT - Key terms and synonyms: {'; '.join(synonym_context)}"
+        
+        return enhanced_text
+
+    def create_domain_enhanced_prompt(self, text: str, custom_template: str = None) -> str:
+        """
+        Create extraction prompt enhanced with domain knowledge
+        
+        Args:
+            text (str): Text chunk to process
+            custom_template (str, optional): Custom template to use
+            
+        Returns:
+            str: Domain-enhanced prompt
+        """
+        # Enhance the text with domain knowledge
+        enhanced_text = self._enhance_text_with_domain_knowledge(text)
+        
+        # Create base prompt
+        if custom_template:
+            base_prompt = custom_template.format(text=enhanced_text)
+        else:
+            base_prompt = f"""
+Extract patient characteristics from the following medical research text.
+Pay special attention to synonyms and abbreviations that may have been expanded.
+
+TEXT TO ANALYZE:
+{enhanced_text}
+
+EXTRACTED PATIENT CHARACTERISTICS:
+"""
+        
+        # Add domain-specific guidance
+        domain_guidance = ""
+        if hasattr(self, 'domain_clusters') and self.domain_clusters:
+            cluster_info = []
+            for cluster_name, terms in self.domain_clusters.items():
+                if terms:
+                    cluster_info.append(f"{cluster_name}: {', '.join(terms[:3])}")
+            
+            if cluster_info:
+                domain_guidance = f"""
+DOMAIN GUIDANCE - Look for these types of information:
+{'; '.join(cluster_info)}
+"""    
+        return base_prompt + domain_guidance
+
+    def extract_from_text(self, text: str, template_id="patient_characteristics", 
+                        version_id=None, source_file=None, picots_context=None,
+                        use_domain_enhancement=False):
+        """
+        Simple wrapper for extracting from a single text string
+        
+        Args:
+            text (str): Text to extract from
+            template_id (str, optional): Template ID to use
+            version_id (str, optional): Template version ID to use
+            source_file (str, optional): Source file name for analytics
+            picots_context (dict, optional): PICOTS data to enhance extraction
+            use_domain_enhancement (bool): Whether to use domain-enhanced prompts
+            
+        Returns:
+            dict: Extracted patient characteristics
+        """
+        if use_domain_enhancement and hasattr(self, 'domain_synonyms'):
+            # Use domain-enhanced extraction
+            enhanced_prompt = self.create_domain_enhanced_prompt(text)
+            logger.info("Using domain-enhanced extraction")
+            
+            # Generate completion using enhanced prompt
+            completion = self.client.generate_completion(enhanced_prompt)
+            
+            # Parse the response (simplified for this wrapper)
+            try:
+                if "{" in completion and "}" in completion:
+                    json_start = completion.find("{")
+                    json_end = completion.rfind("}") + 1
+                    
+                    if json_start >= 0 and json_end > json_start:
+                        json_str = completion[json_start:json_end]
+                        data = json.loads(json_str)
+                        return data
+                
+                # Fallback to simple key-value parsing
+                return {"raw_extraction": completion}
+                
+            except Exception as e:
+                logger.warning(f"Enhanced extraction parsing failed: {e}")
+                return {"raw_extraction": completion, "error": str(e)}
+        
+        else:
+            # Use standard extraction
+            return self.extract_patient_characteristics(
+                text, template_id, version_id, source_file, picots_context
+            )
+
     def get_best_template_for_extraction(self, disease_type=None):
         """
         Get the best performing template for extraction

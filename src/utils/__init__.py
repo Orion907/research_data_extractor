@@ -9,6 +9,7 @@ from .analytics import PromptAnalytics
 from .config_manager import ConfigManager
 from .unified_analytics import Analytics
 from .template_system import TemplateSystem
+from .domain_priming import TermMapper
 
 # Create a global configuration instance
 config = ConfigManager()
@@ -29,5 +30,6 @@ __all__ = [
     'ConfigManager', 
     'config',
     'TemplateSystem',
-    'template_system'
+    'template_system',
+    'TermMapper'
 ]
