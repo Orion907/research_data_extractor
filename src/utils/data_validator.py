@@ -302,7 +302,7 @@ class DataValidator:
     def _normalize_sample_size_value(self, value: str) -> str:
         """Remove sample size units for comparison"""
         # Remove patients, subjects, participants, etc.
-        normalized = re.sub(r'\s*(patients?|subjects?|participants?|individuals?)\s*', '', value.lower())
+        normalized = re.sub(r'\s*(patients?|subjects?|participants?|individuals?|children)\s*', '', value.lower())
         return normalized.strip()
     
     def _normalize_percentage_value(self, value: str) -> str:
@@ -311,8 +311,23 @@ class DataValidator:
         return normalized.strip()
     
     def _normalize_generic_value(self, value: str) -> str:
-        """Generic normalization - remove extra whitespace, standardize case"""
-        return ' '.join(value.lower().split())
+        """Generic normalization - remove extra whitespace, preserve research acronyms"""
+        # Preserve common research acronyms before lowercasing
+        acronyms = ['SCARED', 'CAMM', 'MASC', 'CDI', 'BDI', 'PHQ', 'GAD']
+        
+        # Replace acronyms with placeholders
+        temp_value = value
+        for i, acronym in enumerate(acronyms):
+            temp_value = re.sub(rf'\b{acronym}\b', f'<<ACRONYM{i}>>', temp_value, flags=re.IGNORECASE)
+        
+        # Normalize (lowercase and clean whitespace)
+        normalized = ' '.join(temp_value.lower().split())
+        
+        # Restore acronyms
+        for i, acronym in enumerate(acronyms):
+            normalized = normalized.replace(f'<<acronym{i}>>', acronym)
+        
+        return normalized
 
     def prepare_for_comparison(self, data: Dict[str, Any]) -> Dict[str, str]:
         """
@@ -324,8 +339,8 @@ class DataValidator:
         Returns:
             dict: Normalized data ready for comparison
         """
-        # First normalize field names
-        normalized_fields = self.normalize_fields(data)
+        # Use instance method for field normalization (to include domain mappings)
+        normalized_fields = self._normalize_fields_with_domain(data)
         
         # Then normalize values for comparison
         comparison_ready = {}
@@ -335,6 +350,102 @@ class DataValidator:
                 comparison_ready[field] = normalized_value
         
         return comparison_ready
+
+    def _normalize_fields_with_domain(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Normalize field names using both static and domain-specific mappings
+        
+        Args:
+            data (dict): Data to normalize
+            
+        Returns:
+            dict: Data with normalized field names
+        """
+        # Get combined field mappings
+        field_mapping = self._get_field_mapping_with_domain()
+        
+        normalized = {}
+        
+        for key, value in data.items():
+            # Convert to lowercase and remove spaces for matching
+            lookup_key = key.lower().replace(' ', '_')
+            
+            if lookup_key in field_mapping:
+                normalized_key = field_mapping[lookup_key]
+            else:
+                normalized_key = key.lower().replace(' ', '_')
+            
+            normalized[normalized_key] = value
+        
+        return normalized
+
+    def set_domain_mappings(self, domain_mappings: Dict[str, str]):
+        """
+        Set domain-specific field mappings generated from article analysis
+        
+        Args:
+            domain_mappings (Dict[str, str]): Field mappings from DomainMapper
+        """
+        # Store domain mappings as instance variable
+        self.dynamic_field_mapping = domain_mappings
+        logger.info(f"Applied {len(domain_mappings)} domain-specific field mappings")
+
+    def _get_field_mapping_with_domain(self) -> Dict[str, str]:
+        """
+        Get combined field mappings (static + domain-specific)
+        
+        Returns:
+            Dict[str, str]: Combined field mappings
+        """
+        # Start with static mappings (copy the existing ones from normalize_fields)
+        combined_mapping = {
+            'n': 'sample_size',
+            'number_of_patients': 'sample_size',
+            'patient_count': 'sample_size',
+            'subject_count': 'sample_size',
+            'total_patients': 'sample_size',
+            'number_of_subjects': 'sample_size',
+            'study_population': 'sample_size',
+            'enrolled_patients': 'sample_size',
+            'participants_enrolled': 'sample_size',
+            'sample_size': 'sample_size',
+            
+            'age_mean': 'mean_age',
+            'average_age': 'mean_age',
+            'age_mean_years': 'mean_age',
+            'mean_age_years': 'mean_age',
+            'age_years': 'mean_age',
+            'age': 'mean_age',
+            
+            'gender': 'gender_distribution',
+            'sex_distribution': 'gender_distribution',
+            'sex': 'gender_distribution',
+            'male_female_ratio': 'gender_distribution',
+            'gender_breakdown': 'gender_distribution',
+            
+            'male': 'male_percentage',
+            'males': 'male_percentage',
+            'percent_male': 'male_percentage',
+            
+            'female': 'female_percentage',
+            'females': 'female_percentage',
+            'percent_female': 'female_percentage',
+            
+            # New categories for PICOTS data
+            'inclusion_criteria': 'inclusion_criteria',
+            'exclusion_criteria': 'exclusion_criteria',
+            'primary_outcome': 'primary_outcomes',
+            'secondary_outcome': 'secondary_outcomes',
+            'study_duration': 'timing',
+            'follow_up_period': 'timing',
+        }
+        
+        # Add domain-specific mappings if available
+        if hasattr(self, 'dynamic_field_mapping'):
+            combined_mapping.update(self.dynamic_field_mapping)
+            logger.debug(f"Combined {len(self.dynamic_field_mapping)} domain mappings with static mappings")
+        
+        return combined_mapping
 
     @staticmethod
     def normalize_fields(data: Dict[str, Any]) -> Dict[str, Any]:
