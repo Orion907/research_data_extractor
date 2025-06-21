@@ -1,0 +1,12 @@
+{
+  "id": "test_template_1",
+  "version_id": "test_template_1_v20250621151735",
+  "template_text": "This is an updated test template 1. Input: {text}",
+  "description": "Updated first template",
+  "created_at": "2025-06-21T15:17:35.697317",
+  "metadata": {
+    "placeholders": [
+      "text"
+    ]
+  }
+}

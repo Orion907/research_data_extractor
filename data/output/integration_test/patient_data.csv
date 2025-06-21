@@ -6,3 +6,7 @@ condition,heart failure
 disease_characteristics,"{'NYHA_class': 'III or IV', 'ejection_fraction': '30%'}"
 exclusion_criteria,['myocardial infarction within 3 months']
 medications,"{'ACE_inhibitors': '65% of patients', 'beta_blockers': '48% of patients'}"
+demographics,"{'age': '', 'gender': '', 'ethnicity': ''}"
+inclusion_criteria,[]
+comorbidities,[]
+disease_specific,{}

@@ -190,8 +190,8 @@ def test_integrated_extraction():
         EXTRACTED PATIENT CHARACTERISTICS:
         """
         
-        # Save the template through the PromptTemplate interface
-        extractor.prompt_template.create_new_template(
+        # Save the template through the TemplateSystem interface
+        extractor.template_system.create_template(
             template_id=template_id,
             template_text=template_text,
             description="Template for extracting diabetes patient characteristics",

@@ -1,0 +1,660 @@
+[
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.499881",
+    "end_time": "2025-06-21T15:17:25.499930",
+    "duration_seconds": 4.9e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 3616,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.499961"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.501281",
+    "end_time": "2025-06-21T15:17:25.501314",
+    "duration_seconds": 3.3e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 5984,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.501321"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.501856",
+    "end_time": "2025-06-21T15:17:25.501900",
+    "duration_seconds": 4.4e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 7402,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.501909"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.502295",
+    "end_time": "2025-06-21T15:17:25.502322",
+    "duration_seconds": 2.7e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 3749,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.502328"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.502987",
+    "end_time": "2025-06-21T15:17:25.503019",
+    "duration_seconds": 3.2e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 4886,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.503025"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.503443",
+    "end_time": "2025-06-21T15:17:25.503465",
+    "duration_seconds": 2.2e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 6849,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.503470"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.503858",
+    "end_time": "2025-06-21T15:17:25.503880",
+    "duration_seconds": 2.2e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 6943,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.503884"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.504201",
+    "end_time": "2025-06-21T15:17:25.504228",
+    "duration_seconds": 2.7e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 3386,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.504234"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.504506",
+    "end_time": "2025-06-21T15:17:25.504530",
+    "duration_seconds": 2.4e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 5181,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.504534"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.504915",
+    "end_time": "2025-06-21T15:17:25.504939",
+    "duration_seconds": 2.4e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 5480,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.504944"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.505217",
+    "end_time": "2025-06-21T15:17:25.505239",
+    "duration_seconds": 2.2e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 7649,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.505243"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.505511",
+    "end_time": "2025-06-21T15:17:25.505531",
+    "duration_seconds": 2e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 7791,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.505535"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.505909",
+    "end_time": "2025-06-21T15:17:25.505942",
+    "duration_seconds": 3.3e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 8266,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.505948"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.506263",
+    "end_time": "2025-06-21T15:17:25.506285",
+    "duration_seconds": 2.2e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 5202,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.506289"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.920805",
+    "end_time": "2025-06-21T15:17:25.920853",
+    "duration_seconds": 4.8e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 3616,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.920872"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.921356",
+    "end_time": "2025-06-21T15:17:25.921389",
+    "duration_seconds": 3.3e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 5984,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.921396"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.923601",
+    "end_time": "2025-06-21T15:17:25.923632",
+    "duration_seconds": 3.1e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 7402,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.923638"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.924252",
+    "end_time": "2025-06-21T15:17:25.924277",
+    "duration_seconds": 2.5e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 3749,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.924281"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.925094",
+    "end_time": "2025-06-21T15:17:25.925129",
+    "duration_seconds": 3.5e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 4886,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.925135"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.925593",
+    "end_time": "2025-06-21T15:17:25.925622",
+    "duration_seconds": 2.9e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 6849,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.925628"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.926351",
+    "end_time": "2025-06-21T15:17:25.926379",
+    "duration_seconds": 2.8e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 6943,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.926384"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.927008",
+    "end_time": "2025-06-21T15:17:25.927032",
+    "duration_seconds": 2.4e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 3386,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.927036"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.927678",
+    "end_time": "2025-06-21T15:17:25.927703",
+    "duration_seconds": 2.5e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 5181,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.927708"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.928187",
+    "end_time": "2025-06-21T15:17:25.928210",
+    "duration_seconds": 2.3e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 5480,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.928214"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.928698",
+    "end_time": "2025-06-21T15:17:25.928721",
+    "duration_seconds": 2.3e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 7649,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.928726"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.929169",
+    "end_time": "2025-06-21T15:17:25.929191",
+    "duration_seconds": 2.2e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 7791,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.929195"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.929687",
+    "end_time": "2025-06-21T15:17:25.929709",
+    "duration_seconds": 2.2e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 8266,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.929713"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "sample_research_article.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.930224",
+    "end_time": "2025-06-21T15:17:25.930245",
+    "duration_seconds": 2.1e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": null,
+      "text_chunk_length": 5202,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.930249"
+  },
+  {
+    "template_id": "test_diabetes_extraction",
+    "version_id": "latest",
+    "source_file": "test_diabetes_study.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.980302",
+    "end_time": "2025-06-21T15:17:25.980336",
+    "duration_seconds": 3.4e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": "test-model",
+      "text_chunk_length": 450,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.980348"
+  },
+  {
+    "template_id": "test_diabetes_extraction",
+    "version_id": "test_diabetes_extraction_v20250621151725",
+    "source_file": "test_diabetes_study.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.981475",
+    "end_time": "2025-06-21T15:17:25.981506",
+    "duration_seconds": 3.1e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": "test-model",
+      "text_chunk_length": 450,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.981515"
+  },
+  {
+    "template_id": "test_diabetes_extraction",
+    "version_id": "latest",
+    "source_file": "test_multi_chunk_diabetes_study.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.982205",
+    "end_time": "2025-06-21T15:17:25.982224",
+    "duration_seconds": 1.9e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": "test-model",
+      "text_chunk_length": 450,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.982229"
+  },
+  {
+    "template_id": "test_diabetes_extraction",
+    "version_id": "latest",
+    "source_file": "test_multi_chunk_diabetes_study.pdf",
+    "characteristics_found": 7,
+    "start_time": "2025-06-21T15:17:25.982771",
+    "end_time": "2025-06-21T15:17:25.982791",
+    "duration_seconds": 2e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": "test-model",
+      "text_chunk_length": 281,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:25.982797"
+  },
+  {
+    "template_id": "patient_characteristics",
+    "version_id": "latest",
+    "source_file": "test_file.pdf",
+    "characteristics_found": 12,
+    "start_time": "2025-06-21T15:17:26.100389",
+    "end_time": "2025-06-21T15:17:31.454402",
+    "duration_seconds": 5.354013,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "anthropic",
+      "model": "claude-3-sonnet-20240229",
+      "text_chunk_length": 594,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T15:17:31.454432"
+  },
+  {
+    "template_id": "test_template_1",
+    "version_id": "test_template_1_v20240421123456",
+    "source_file": "test_file.pdf",
+    "characteristics_found": 10,
+    "start_time": "2025-06-21T15:17:35.698046",
+    "end_time": "2025-06-21T15:17:35.698047",
+    "duration_seconds": 1e-06,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "test": true
+    },
+    "logged_at": "2025-06-21T15:17:35.698055"
+  },
+  {
+    "template_id": "test_template_2",
+    "version_id": "test_template_2_v20240421123456",
+    "source_file": "test_file2.pdf",
+    "characteristics_found": 5,
+    "start_time": "2025-06-21T15:17:35.698676",
+    "end_time": "2025-06-21T15:17:35.698677",
+    "duration_seconds": 1e-06,
+    "success": false,
+    "error": "Test error",
+    "metadata": {
+      "test": true
+    },
+    "logged_at": "2025-06-21T15:17:35.698683"
+  },
+  {
+    "template_id": "test_unified_template_1",
+    "version_id": "test_unified_template_1_v20250621151735",
+    "source_file": "test_file_unified.pdf",
+    "characteristics_found": 15,
+    "start_time": "2025-06-21T15:17:35.717947",
+    "end_time": "2025-06-21T15:17:35.717947",
+    "duration_seconds": 0.0,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "test": true,
+      "system": "unified"
+    },
+    "logged_at": "2025-06-21T15:17:35.717954"
+  },
+  {
+    "template_id": "diabetes_extraction",
+    "version_id": "latest",
+    "source_file": "sample_diabetes_study.pdf",
+    "characteristics_found": 11,
+    "start_time": "2025-06-21T16:44:19.118484",
+    "end_time": "2025-06-21T16:44:19.118505",
+    "duration_seconds": 2.1e-05,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": "mock-model",
+      "text_chunk_length": 422,
+      "format": "json"
+    },
+    "logged_at": "2025-06-21T16:44:19.118513"
+  }
+]

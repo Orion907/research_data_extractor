@@ -6,6 +6,12 @@ pypdf>=3.15.1
 pandas>=1.5.0
 openpyxl>=3.1.0
 
+# Environment variable loading
+python-dotenv>=1.0.0 # Or appropriate version
+
+# YAML handling
+PyYAML>=6.0 # Or appropriate version
+
 # LLM API
 openai>=0.27.0
 anthropic>=0.5.0
@@ -16,3 +22,6 @@ nltk>=3.9.1
 # Development Tools
 pytest>=7.3.1
 python-docx>=0.8.11
+
+# Web UI
+streamlit>=1.0.0 # Or appropriate version

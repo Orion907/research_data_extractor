@@ -1,0 +1,14 @@
+{
+  "id": "test_unified_template_2",
+  "version_id": "test_unified_template_2_v20250621151735",
+  "template_text": "This is test template 2 from the unified system. Article: {text}",
+  "description": "Second test template using unified system",
+  "created_at": "2025-06-21T15:17:35.717810",
+  "metadata": {
+    "type": "test",
+    "unified": true,
+    "placeholders": [
+      "text"
+    ]
+  }
+}

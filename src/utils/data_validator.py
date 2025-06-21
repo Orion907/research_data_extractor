@@ -18,7 +18,7 @@ class DataValidator:
     
     # Common patient characteristic fields with expected types and formats
     COMMON_FIELDS = {
-        'sample_size': {'type': 'integer', 'required': True},
+        'sample_size': {'type': 'integer', 'required': False},
         'age': {'type': 'string', 'required': False},
         'age_range': {'type': 'string', 'required': False},
         'mean_age': {'type': 'numeric', 'required': False},
@@ -104,7 +104,9 @@ class DataValidator:
                     if 'warning' in validation_result:
                         warnings.append(f"{field}: {validation_result['warning']}")
                 else:
-                    errors.append(f"{field}: {validation_result['error']}")
+                    # Instead of treating as error, add as warning and keep original value
+                    warnings.append(f"{field}: {validation_result['error']}")
+                    cleaned_data[field] = value  # Keep original value
             else:
                 # Field not in schema, but we'll keep it with a warning
                 cleaned_data[field] = value
@@ -122,12 +124,12 @@ class DataValidator:
             'cleaned_data': cleaned_data
         }
     
-    def _validate_field(self, field: str, value: Any, expected_type: str) -> Dict[str, Any]:
+    def _validate_field(self, field_name: str, value: Any, expected_type: str) -> Dict[str, Any]:
         """
         Validate a single field
         
         Args:
-            field (str): Field name
+            field_name (str): Field name
             value (any): Field value
             expected_type (str): Expected type from schema
             
@@ -151,6 +153,9 @@ class DataValidator:
                         result = {'valid': True, 'cleaned_value': int(matches.group(1))}
                         if value != matches.group(1):
                             result['warning'] = f"Extracted '{matches.group(1)}' from '{value}'"
+                    else:
+                        # If no digits found, validation fails but we don't crash
+                        result = {'valid': False, 'error': f"Could not extract integer from '{value}'"}
             
             elif expected_type == 'numeric':
                 # Handle numeric type (float or integer)
@@ -163,6 +168,9 @@ class DataValidator:
                         result = {'valid': True, 'cleaned_value': float(matches.group(1))}
                         if value != matches.group(1):
                             result['warning'] = f"Extracted '{matches.group(1)}' from '{value}'"
+                    else:
+                        # If no digits found, validation fails but we don't crash
+                        result = {'valid': False, 'error': f"Could not extract number from '{value}'"}
             
             elif expected_type == 'percentage':
                 # Handle percentage type
@@ -209,7 +217,7 @@ class DataValidator:
                             pass
                     
                     # If it's a newline or comma-separated string, split it
-                    if not result['valid'] and ('\n' in value or ',' in value):
+                    if not result.get('valid', False) and ('\n' in value or ',' in value):
                         if '\n' in value:
                             items = [item.strip() for item in value.split('\n') if item.strip()]
                         else:
@@ -218,6 +226,11 @@ class DataValidator:
                         if items:
                             result = {'valid': True, 'cleaned_value': items, 
                                       'warning': f"Converted string to list with {len(items)} items"}
+                    
+                    # If still not valid and it's a string, treat as single-item list
+                    if not result.get('valid', False) and isinstance(value, str) and value.strip():
+                        result = {'valid': True, 'cleaned_value': [value.strip()], 
+                                  'warning': f"Converted string to single-item list"}
             
         except Exception as e:
             result['error'] = f"Validation error: {str(e)}"

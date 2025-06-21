@@ -33,8 +33,11 @@ class PromptManager:
         # Ensure the templates directory exists
         os.makedirs(self.templates_dir, exist_ok=True)
         
-        # Dictionary to hold loaded prompt templates
+        # Dictionary to hold loaded prompt templates - stores latest version for each template ID
         self.templates = {}
+        
+        # Dictionary to hold all versions - maps version_id to template data
+        self.all_versions = {}
         
         # Load existing templates
         self._load_templates()
@@ -47,16 +50,31 @@ class PromptManager:
         """
         if not os.path.exists(self.templates_dir):
             return
-            
+        
+        # First pass: load all versions
         for filename in os.listdir(self.templates_dir):
             if filename.endswith('.json'):
                 try:
                     with open(os.path.join(self.templates_dir, filename), 'r') as f:
                         template_data = json.load(f)
                         template_id = template_data.get('id')
-                        if template_id:
-                            self.templates[template_id] = template_data
-                            logger.info(f"Loaded template: {template_id}")
+                        version_id = template_data.get('version_id')
+                        
+                        if template_id and version_id:
+                            # Store in all_versions
+                            self.all_versions[version_id] = template_data
+                            
+                            # Update latest version for template_id
+                            if template_id not in self.templates:
+                                self.templates[template_id] = template_data
+                            else:
+                                # Compare timestamps to keep the latest
+                                current_timestamp = self.templates[template_id].get('created_at', '')
+                                new_timestamp = template_data.get('created_at', '')
+                                if new_timestamp > current_timestamp:
+                                    self.templates[template_id] = template_data
+                                    
+                            logger.info(f"Loaded template version: {version_id}")
                 except Exception as e:
                     logger.error(f"Error loading template {filename}: {str(e)}")
     
@@ -80,8 +98,8 @@ class PromptManager:
         if not validation_result['valid']:
             raise ValueError(f"Invalid template text: {validation_result['message']}")
 
-        # Generate a version identifier based on timestamp - THIS WAS MISSING
-        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+        # Generate a version identifier based on timestamp with microseconds for uniqueness
+        timestamp = datetime.now().strftime("%Y%m%d%H%M%S%f")
         version_id = f"{template_id}_v{timestamp}"
         
         # Process metadata and categories
@@ -114,8 +132,9 @@ class PromptManager:
             with open(file_path, 'w') as f:
                 json.dump(template_data, f, indent=2)
                 
-            # Update in-memory cache
+            # Update in-memory caches
             self.templates[template_id] = template_data
+            self.all_versions[version_id] = template_data
             
             logger.info(f"Saved template {template_id} as version {version_id}")
             return version_id
@@ -247,22 +266,21 @@ class PromptManager:
         Returns:
             dict: Template data dictionary
         """
-        if template_id not in self.templates:
-            logger.warning(f"Template {template_id} not found")
-            return None
-            
-        # If version_id is specified, load that specific version
+        # If version_id is specified, get that specific version
         if version_id:
-            # Check if the current loaded template is the requested version
-            if self.templates[template_id].get('version_id') == version_id:
-                return self.templates[template_id]
+            # First check in-memory cache
+            if version_id in self.all_versions:
+                return self.all_versions[version_id]
                 
             # Otherwise, load from file
             file_path = os.path.join(self.templates_dir, f"{version_id}.json")
             if os.path.exists(file_path):
                 try:
                     with open(file_path, 'r') as f:
-                        return json.load(f)
+                        template_data = json.load(f)
+                        # Cache it for future use
+                        self.all_versions[version_id] = template_data
+                        return template_data
                 except Exception as e:
                     logger.error(f"Error loading template version {version_id}: {str(e)}")
                     return None
@@ -271,6 +289,10 @@ class PromptManager:
                 return None
         
         # Return the latest version
+        if template_id not in self.templates:
+            logger.warning(f"Template {template_id} not found")
+            return None
+            
         return self.templates[template_id]
 
     def get_template_with_preview(self, template_id, version_id=None, sample_data=None):

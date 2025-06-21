@@ -1,0 +1,113 @@
+PATTERN ANALYSIS RESULTS
+Source: sample_research_article.pdf
+Generated: tests.test_pattern_detector_real_pdf
+
+TOP 50 FREQUENT TERMS:
+ 1. children: 52
+ 2. control: 33
+ 3. efs: 32
+ 4. mindfulness: 31
+ 5. school: 18
+ 6. inhibitory: 17
+ 7. program: 16
+ 8. practices: 15
+ 9. eeg: 15
+10. use: 15
+11. development: 13
+12. https: 13
+13. intervention: 12
+14. wiley: 12
+15. neural: 11
+16. online: 11
+17. library: 11
+18. breathing: 11
+19. mbi: 10
+20. active: 10
+21. skills: 10
+22. one: 10
+23. life: 9
+24. cognitive: 9
+25. diamond: 9
+26. see: 9
+27. andreu: 8
+28. interventions: 8
+29. social: 8
+30. task: 8
+31. students: 8
+32. health: 8
+33. terms: 8
+34. creative: 8
+35. commons: 8
+36. license: 8
+37. ses: 8
+38. core: 8
+39. participants: 8
+40. trials: 8
+41. received: 7
+42. practice: 7
+43. schools: 7
+44. mbis: 7
+45. two: 7
+46. emotional: 7
+47. hackman: 7
+48. attention: 7
+49. conditions: 7
+50. rules: 7
+
+POTENTIAL FIELDS (21):
+ 1. Chile
+ 2. Four additional electrodes
+ 3. Received
+ 4. Email
+ 5. Nogo task
+ 6. The same procedure
+ 7. Accepted
+ 8. The school
+in which the study took place
+ 9. The
+program was taught by an experienced psychologist and mindfulness
+instructor and
+10. Participants
+11. The main aim of the present study
+12. Revised
+13. The
+aim of the present study
+14. All signals
+15. Specially significant
+16. Nogo task while electroencephalographic activity
+17. Life Europe
+Institute
+18. The total sample for the global study
+19. The aim of the study
+20. Competitiveness
+21. Award
+Number
+
+ABBREVIATIONS (27):
+MIDAP: Personality
+ICA: Component Analysis
+SFL: Life
+DOI: Unknown
+RESEARCH: Unknown
+ARTICLE: Unknown
+USA: Unknown
+IS: Unknown
+MBI: Unknown
+EF: Unknown
+KEYWORDS: Unknown
+EEG: Unknown
+ANDREU: Unknown
+ET: Unknown
+AL: Unknown
+INTRODUCTION: Unknown
+SES: Unknown
+EC: Unknown
+SEL: Unknown
+OA: Unknown
+ERP: Unknown
+METHOD: Unknown
+FIGURE: Unknown
+VEOG: Unknown
+TABLE: Unknown
+SD: Unknown
+USD: Unknown

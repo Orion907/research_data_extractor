@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "result_id": "sample_article_1_20250621151735",
+    "source_file": "sample_article_1.pdf",
+    "extraction_time": "2025-06-21T15:17:35.712239",
+    "model_info": {
+      "provider": "mock",
+      "model_name": "test-model-1"
+    },
+    "prompt_id": "test-prompt-1",
+    "metadata": {
+      "test_run": true
+    }
+  },
+  "data": {
+    "sample_size": "75 patients",
+    "condition": "type 2 diabetes mellitus",
+    "age_range": "45-70 years",
+    "mean_age": "58.3 years",
+    "gender_distribution": "60% male, 40% female"
+  }
+}
