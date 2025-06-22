@@ -43,4 +43,4 @@ This document outlines areas of the codebase identified for refactoring, improve
 ### 4.1. Consistent Logging Levels
 * **Current State:** Logging might not consistently use appropriate levels (DEBUG, INFO, WARNING, ERROR).
 * **Desired State:** Standardize logging calls throughout the application, using correct levels for different types of messages (e.g., INFO for progress, WARNING for recoverable issues, ERROR for critical failures).
-* **Rationale:** Improve observability and debugging capabilities, making it easier to monitor the application's health and troubleshoot issues.
+* **Rationale:** Improve observability and debugging capabilities, making it easier to monitor the application's health and troubleshoot issues. 

@@ -528,3 +528,4 @@ class DataValidator:
             normalized[normalized_key] = value
         
         return normalized
+    
