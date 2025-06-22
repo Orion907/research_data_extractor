@@ -1,5 +1,4 @@
 # PDF Processing
-PyPDF2>=3.0.0
 pypdf>=3.15.1
 
 # Data Handling

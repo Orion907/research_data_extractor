@@ -2,7 +2,7 @@
 Module for processing PDF files and extracting text.
 """
 import os
-import PyPDF2
+import pypdf
 import logging
 
 # Configure logging
@@ -23,7 +23,7 @@ def extract_text_from_pdf(pdf_path, keep_page_breaks=True):
     try:
         with open(pdf_path, 'rb') as file:
             # Create a PDF reader object
-            reader = PyPDF2.PdfReader(file)
+            reader = pypdf.PdfReader(file)
             
             # Check if PDF has pages
             total_pages = len(reader.pages)
