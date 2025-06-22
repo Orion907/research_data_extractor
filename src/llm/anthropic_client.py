@@ -14,7 +14,7 @@ class AnthropicClient(BaseLLMClient):
     """Client for Anthropic's Claude API"""
     
     # Default model to use if none specified
-    DEFAULT_MODEL = "claude-3-sonnet-20240229"
+    DEFAULT_MODEL = "claude-3-5-sonnet-20241022"
     
     def __init__(self, api_key=None, model_name=None):
         """
@@ -22,7 +22,7 @@ class AnthropicClient(BaseLLMClient):
         
         Args:
             api_key (str, optional): Anthropic API key, if not provided will try to get from ANTHROPIC_API_KEY environment variable
-            model_name (str, optional): Model to use, defaults to claude-3-sonnet-20240229
+            model_name (str, optional): Model to use, defaults to claude-3-5-sonnet-20241022
         """
         # Get API key from environment if not provided
         self.api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
@@ -75,9 +75,9 @@ class AnthropicClient(BaseLLMClient):
         """
         # Anthropic doesn't have a direct API to list models, so we return common ones
         return [
+            "claude-3-5-sonnet-20241022",
+            "claude-3-5-sonnet-20240620",
             "claude-3-opus-20240229",
-            "claude-3-sonnet-20240229", 
             "claude-3-haiku-20240307",
-            "claude-2.1",
-            "claude-2.0"
+            "claude-3-sonnet-20240229"
         ]

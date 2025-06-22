@@ -108,7 +108,7 @@ if page == "Extract Data":
 
     # Model selection (will be dynamically populated based on provider)
     if st.session_state.provider == "anthropic":
-        models = ["claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-3-haiku-20240307"]
+        models = ["claude-3-5-sonnet-20241022", "claude-3-5-sonnet-20240620", "claude-3-opus-20240229", "claude-3-haiku-20240307"]
     elif st.session_state.provider == "openai":
         models = ["gpt-3.5-turbo", "gpt-4o", "gpt-4-1106-preview"]
     else:  # mock
@@ -544,7 +544,7 @@ elif page == "Batch Processing":
 
     with col2:
         if st.session_state.batch_provider == "anthropic":
-            models = ["claude-3-sonnet-20240229", "claude-3-opus-20240229", "claude-3-haiku-20240307"]
+            models = ["claude-3-5-sonnet-20241022", "claude-3-5-sonnet-20240620", "claude-3-opus-20240229", "claude-3-haiku-20240307"]
         elif st.session_state.batch_provider == "openai":
             models = ["gpt-3.5-turbo", "gpt-4o", "gpt-4-1106-preview"]
         else:  # mock
