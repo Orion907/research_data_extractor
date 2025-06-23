@@ -22,6 +22,9 @@ from src.utils.annotation_utils import display_annotation_interface, load_extrac
 from src.utils.prompt_templates import PromptTemplate
 from src.utils.picots_parser import PicotsParser
 
+# Import new foundation modules
+from src.app import SessionStateManager, FileHandlerUtils, ConfigurationLoader
+
 def get_extraction_prompt_with_version(text, custom_characteristics=None, version=None):
     """
     Get extraction prompt with version support and optional custom characteristics
@@ -54,35 +57,24 @@ def display_results(results):
                 st.text(result.get('extraction', 'No data'))
         return {}
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Initialize configuration loader and setup logging
+config_loader = ConfigurationLoader.create_default_loader()
 logger = logging.getLogger(__name__)
 
-# Add at the top of your app after importing dependencies
-if 'processing_complete' not in st.session_state:
-    st.session_state.processing_complete = False
-if 'view_type' not in st.session_state:
-    st.session_state.view_type = "Structured"
-if 'current_file' not in st.session_state:
-    st.session_state.current_file = None
-if 'chunk_results' not in st.session_state:
-    st.session_state.chunk_results = []
-if 'results_df' not in st.session_state:
-    st.session_state.results_df = None
-if 'extracted_text' not in st.session_state:
-    st.session_state.extracted_text = ""
+# Initialize all session state using the new manager
+SessionStateManager.initialize_all_state()
 
-# Load configuration
-config = ConfigManager()
+# Load configuration systems using the new loader
+init_result = config_loader.initialize_all()
+config = init_result['config_manager']
+template_system = init_result['template_system']
+analytics = init_result['analytics']
 
-# Make sure the prompt templates are initialized
-template_system = TemplateSystem()
-
-# Initialize analytics system
-analytics = Analytics()
-
-if 'view_type' not in st.session_state:
-    st.session_state.view_type = "Structured"
+# Show initialization errors if any
+if init_result['errors']:
+    for error in init_result['errors']:
+        st.error(f"Configuration Error: {error}")
+    st.warning("Some features may not work properly due to configuration errors.")
 
 # App title and description
 st.title("Research Article Data Extractor")
@@ -196,14 +188,16 @@ if page == "Extract Data":
 
     # Process the uploaded file
     if uploaded_file is not None:
-        # Save the uploaded file temporarily
-        temp_path = f"data/input/temp_{uploaded_file.name}"
-        os.makedirs(os.path.dirname(temp_path), exist_ok=True)
+        # Save the uploaded file temporarily using new file handler
+        temp_path = FileHandlerUtils.save_uploaded_file(
+            uploaded_file, "data/input", "temp_"
+        )
         
-        with open(temp_path, "wb") as f:
-            f.write(uploaded_file.getbuffer())
-        
-        st.success(f"File {uploaded_file.name} uploaded successfully!")
+        if temp_path:
+            st.success(f"File {uploaded_file.name} uploaded successfully!")
+        else:
+            st.error("Failed to save uploaded file")
+            st.stop()
 
         # Extract text
         with st.spinner("Extracting text from PDF..."):
@@ -501,15 +495,9 @@ if page == "Extract Data":
                         )
 
                     if st.button("Process New File", key="reset_button"):
-                        # Reset all session state variables
-                        st.session_state.processing_complete = False
-                        st.session_state.view_type = "Structured"
-                        st.session_state.uploaded_file_name = None
-                        st.session_state.chunk_results = []
-                        st.session_state.results_df = None
-                        st.session_state.chunks = []
-                        # Any other session state variables that need to be reset
-        
+                        # Reset session state using the new manager
+                        SessionStateManager.reset_single_extraction_state()
+                        
                         # Trigger a rerun to refresh the page
                         st.rerun()
 
@@ -1047,18 +1035,8 @@ elif page == "Batch Processing":
         
         # Reset button
         if st.button("🔄 Process New Batch", key="reset_batch_button"):
-            # Reset batch processing session state
-            st.session_state.batch_processing_complete = False
-            st.session_state.batch_files = []
-            st.session_state.batch_results = []
-            if 'zip_temp_dir' in st.session_state:
-                # Clean up temporary directory
-                import shutil
-                try:
-                    shutil.rmtree(st.session_state.zip_temp_dir)
-                except:
-                    pass
-                del st.session_state.zip_temp_dir
+            # Reset batch processing session state using the new manager
+            SessionStateManager.reset_batch_processing_state()
             
             st.rerun()
 
