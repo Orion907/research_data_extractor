@@ -24,7 +24,9 @@ from .pages import (
     ExtractionSettingsComponent,
     BatchPage,
     BatchSettingsComponent,
-    BatchResultsComponent
+    BatchResultsComponent,
+    AnnotationPage,
+    AnalyticsPage
 )
 
 __version__ = "1.0.0"
