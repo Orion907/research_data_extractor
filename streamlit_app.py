@@ -22,8 +22,9 @@ from src.utils.annotation_utils import display_annotation_interface, load_extrac
 from src.utils.prompt_templates import PromptTemplate
 from src.utils.picots_parser import PicotsParser
 
-# Import new foundation modules
+# Import foundation and processing modules
 from src.app import SessionStateManager, FileHandlerUtils, ConfigurationLoader
+from src.processing import DocumentProcessor, ExtractionEngine, BatchCoordinator
 
 def get_extraction_prompt_with_version(text, custom_characteristics=None, version=None):
     """
@@ -70,6 +71,11 @@ config = init_result['config_manager']
 template_system = init_result['template_system']
 analytics = init_result['analytics']
 
+# Initialize processing modules
+document_processor = DocumentProcessor(config.config)
+extraction_engine = ExtractionEngine(config.config, analytics)
+batch_coordinator = BatchCoordinator(config.config)
+
 # Show initialization errors if any
 if init_result['errors']:
     for error in init_result['errors']:
@@ -98,14 +104,8 @@ if page == "Extract Data":
         index=["anthropic", "openai", "mock"].index(st.session_state.provider)
     )
 
-    # Model selection (will be dynamically populated based on provider)
-    if st.session_state.provider == "anthropic":
-        models = ["claude-3-5-sonnet-20241022", "claude-3-5-sonnet-20240620", "claude-3-opus-20240229", "claude-3-haiku-20240307"]
-    elif st.session_state.provider == "openai":
-        models = ["gpt-3.5-turbo", "gpt-4o", "gpt-4-1106-preview"]
-    else:  # mock
-        models = ["mock-model"]
-
+    # Model selection using extraction engine
+    models = extraction_engine.get_available_models(st.session_state.provider)
     model = st.sidebar.selectbox("Model", models)
 
     # Advanced settings expander
@@ -135,12 +135,9 @@ if page == "Extract Data":
             step=0.1
         )
         
-        # Prompt version selection
-        versions = template_system.list_versions('patient_characteristics')
-        if versions:
-            prompt_version = st.selectbox("Prompt Version", versions, index=len(versions)-1)
-        else:
-            prompt_version = "default"
+        # Prompt version selection using extraction engine
+        versions = extraction_engine.get_template_versions('patient_characteristics')
+        prompt_version = st.selectbox("Prompt Version", versions, index=len(versions)-1)
         
         # Custom characteristics
         use_custom = st.checkbox("Define Custom Characteristics")
@@ -188,83 +185,78 @@ if page == "Extract Data":
 
     # Process the uploaded file
     if uploaded_file is not None:
-        # Save the uploaded file temporarily using new file handler
-        temp_path = FileHandlerUtils.save_uploaded_file(
-            uploaded_file, "data/input", "temp_"
-        )
-        
-        if temp_path:
-            st.success(f"File {uploaded_file.name} uploaded successfully!")
-        else:
-            st.error("Failed to save uploaded file")
-            st.stop()
-
-        # Extract text
-        with st.spinner("Extracting text from PDF..."):
-            text = extract_text_from_pdf(temp_path)
-            st.info(f"Extracted {len(text)} characters of text")
-
-        # Process PICOTS if provided
-        picots_data = None
-        if picots_text.strip():
+        # Process uploaded file using document processor
+        with st.spinner("Processing uploaded PDF..."):
             try:
-                # Initialize parser and parse the PICOTS text
-                parser = PicotsParser()
-                picots_data = parser.parse_picots_table(picots_text.strip())
+                temp_path, text, chunks = document_processor.process_uploaded_file(
+                    uploaded_file, "data/input", "temp_"
+                )
+                st.success(f"File {uploaded_file.name} processed successfully!")
+                st.info(f"Extracted {len(text)} characters of text and created {len(chunks)} chunks")
                 
-                st.success("✅ PICOTS criteria parsed successfully!")
+                # Store in session state
+                st.session_state.processing_complete = True
+                st.session_state.uploaded_file_name = uploaded_file.name
+                st.session_state.chunks = chunks
                 
-                # Display parsed data for verification
-                with st.expander("🔍 View Parsed PICOTS Data", expanded=False):
-                    col1, col2 = st.columns(2)
-                    
-                    with col1:
-                        if picots_data.population:
-                            st.write("**Population:**")
-                            for item in picots_data.population:
-                                st.write(f"• {item}")
-                        
-                        if picots_data.interventions:
-                            st.write("**Interventions:**")
-                            for item in picots_data.interventions:
-                                st.write(f"• {item}")
-                                
-                        if picots_data.comparators:
-                            st.write("**Comparators:**")
-                            for item in picots_data.comparators:
-                                st.write(f"• {item}")
-                    
-                    with col2:
-                        if picots_data.outcomes:
-                            st.write("**Outcomes:**")
-                            for item in picots_data.outcomes:
-                                st.write(f"• {item}")
-                                
-                        if picots_data.timing:
-                            st.write("**Timing:**")
-                            for item in picots_data.timing:
-                                st.write(f"• {item}")
-                                
-                        if picots_data.setting:
-                            st.write("**Setting:**")
-                            for item in picots_data.setting:
-                                st.write(f"• {item}")
-                    
-                    # Show detected KQs if any
-                    if picots_data.detected_kqs:
-                        st.write("**Detected Key Questions:**")
-                        for kq in picots_data.detected_kqs:
-                            st.write(f"• {kq}")
-
-                    # Show abbreviations if any
-                    if picots_data.abbreviations:
-                        st.write("**Abbreviations:**")
-                        for abbrev, full_name in picots_data.abbreviations.items():
-                            st.write(f"• {abbrev} = {full_name}")
-                            
             except Exception as e:
-                st.error(f"Error parsing PICOTS data: {str(e)}")
-                picots_data = {"raw_text": picots_text.strip()}
+                st.error(f"Error processing file: {str(e)}")
+                st.stop()
+
+        # Process PICOTS if provided using extraction engine
+        picots_data = extraction_engine.parse_picots_data(picots_text)
+        if picots_data and "raw_text" not in picots_data:
+            st.success("✅ PICOTS criteria parsed successfully!")
+            
+            # Display parsed data for verification
+            with st.expander("🔍 View Parsed PICOTS Data", expanded=False):
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if picots_data.population:
+                        st.write("**Population:**")
+                        for item in picots_data.population:
+                            st.write(f"• {item}")
+                    
+                    if picots_data.interventions:
+                        st.write("**Interventions:**")
+                        for item in picots_data.interventions:
+                            st.write(f"• {item}")
+                            
+                    if picots_data.comparators:
+                        st.write("**Comparators:**")
+                        for item in picots_data.comparators:
+                            st.write(f"• {item}")
+                
+                with col2:
+                    if picots_data.outcomes:
+                        st.write("**Outcomes:**")
+                        for item in picots_data.outcomes:
+                            st.write(f"• {item}")
+                            
+                    if picots_data.timing:
+                        st.write("**Timing:**")
+                        for item in picots_data.timing:
+                            st.write(f"• {item}")
+                            
+                    if picots_data.setting:
+                        st.write("**Setting:**")
+                        for item in picots_data.setting:
+                            st.write(f"• {item}")
+                
+                # Show detected KQs if any
+                if picots_data.detected_kqs:
+                    st.write("**Detected Key Questions:**")
+                    for kq in picots_data.detected_kqs:
+                        st.write(f"• {kq}")
+
+                # Show abbreviations if any
+                if picots_data.abbreviations:
+                    st.write("**Abbreviations:**")
+                    for abbrev, full_name in picots_data.abbreviations.items():
+                        st.write(f"• {abbrev} = {full_name}")
+        elif picots_data and "raw_text" in picots_data:
+            st.warning("⚠️ PICOTS parsing failed, will use raw text")
         
         st.markdown("---")
 
@@ -278,141 +270,32 @@ if page == "Extract Data":
 
             # Only do the processing part if we haven't completed it yet
             if not st.session_state.processing_complete:
-                        
-                # Check for API key (skip for mock provider)
-                api_key_env_var = "ANTHROPIC_API_KEY" if st.session_state.provider == "anthropic" else "OPENAI_API_KEY"
-                if st.session_state.provider != "mock" and not os.environ.get(api_key_env_var):
-                    st.error(f"Please set the {api_key_env_var} environment variable before processing.")
+                # Validate API key using extraction engine
+                is_valid, error_msg = extraction_engine.validate_api_key(st.session_state.provider)
+                if not is_valid:
+                    st.error(error_msg)
                 else:
-                    # Set state variables
-                    st.session_state.processing_complete = True
-                    st.session_state.uploaded_file_name = uploaded_file.name
-                
-                    # Chunk the text
-                    with st.spinner("Chunking text..."):
-                        chunks = chunk_text(
-                            text, 
-                            chunk_size=chunk_size, 
-                            overlap=overlap, 
-                            respect_paragraphs=config.get('pdf_processor.text_chunking.respect_paragraphs', True)
+                    # Process chunks using extraction engine
+                    progress_bar = st.progress(0)
+                    
+                    def progress_callback(current, total, status):
+                        progress_bar.progress(current / total)
+                    
+                    with st.spinner("Extracting data from chunks..."):
+                        chunk_results = extraction_engine.process_chunks_batch(
+                            chunks=st.session_state.chunks,
+                            provider=st.session_state.provider,
+                            model_name=model,
+                            temperature=temperature,
+                            source_file=uploaded_file.name,
+                            custom_characteristics=custom_chars if use_custom else None,
+                            picots_context=picots_data,
+                            prompt_version=prompt_version,
+                            progress_callback=progress_callback
                         )
-                        st.session_state.chunks = chunks
-                        st.info(f"Created {len(chunks)} text chunks")
-                        
-                        # Initialize extractor
-                        with st.spinner("Initializing AI model..."):
-                            extractor = DataExtractor(provider=st.session_state.provider, model_name=model)
-                        
-                        # Process chunks
-                        progress_bar = st.progress(0)
-                        chunk_results = []
-                        
-                        with st.spinner("Extracting data from chunks..."):
-                            for i, chunk in enumerate(chunks):
-                                # Update progress
-                                progress = (i + 1) / len(chunks)
-                                progress_bar.progress(progress)
-                                
-                                # Extract data from chunk
-                                start_time = datetime.now()
-                                
-                                # Select appropriate prompt with PICOTS context
-                                if use_custom and custom_chars:
-                                    prompt_id = 'custom_patient_characteristics'
-                                    prompt = get_extraction_prompt_with_version(
-                                        chunk['content'],
-                                        custom_characteristics=custom_chars,
-                                        version=None
-                                    )
-                                else:
-                                    prompt_id = 'comprehensive_research'
-                                    # Use new comprehensive template with PICOTS context
-                                    from src.utils.prompt_templates import PromptTemplate
-        
-                                    # Convert PicotsData object to dictionary format for template
-                                    picots_context = None
-                                    if picots_data:
-                                        picots_context = {
-                                            'picots_sections': {
-                                                'population': picots_data.population,
-                                                'interventions': picots_data.interventions,
-                                                'comparators': picots_data.comparators,
-                                                'outcomes': picots_data.outcomes,
-                                                'timing': picots_data.timing,
-                                                'setting': picots_data.setting
-                                            },
-                                            'key_questions': picots_data.detected_kqs,
-                                            'abbreviations': picots_data.abbreviations
-                                        }
-        
-                                    prompt = PromptTemplate.get_extraction_prompt(
-                                        chunk['content'], 
-                                        picots_context=picots_context
-                                    )
-                                
-                                # Generate completion
-                                try:
-                                    completion = extractor.client.generate_completion(
-                                        prompt, 
-                                        temperature=temperature
-                                    )
-
-                                    # Basic completion validation
-                                    if not completion or not isinstance(completion, str):
-                                        st.warning(f"Warning: Chunk {i+1} returned an invalid response format. Skipping...")
-                                        continue  # Skip to next chunk
-
-                                    # Calculate end time
-                                    end_time = datetime.now()
-
-                                    # Track in analytics using the unified Analytics system
-                                    analytics.log_extraction(
-                                        template_id=prompt_id,
-                                        version_id=prompt_version if prompt_version != "default" else "latest",
-                                        source_file=uploaded_file.name,
-                                        characteristics_found=len(completion.split('\n')),  # Rough estimate
-                                        start_time=start_time,
-                                        end_time=end_time,
-                                        success=True,
-                                        metadata={
-                                            'provider': st.session_state.provider,
-                                            'model': model,
-                                            'chunk_index': chunk['index'],
-                                            'temperature': temperature,
-                                            'text_chunk_length': len(chunk['content'])
-                                        }
-                                    )
-
-                                    # Add to results
-                                    chunk_results.append({
-                                        'chunk_index': chunk['index'],
-                                        'extraction': completion
-                                    })
-
-                                except Exception as e:
-                                    st.error(f"Error processing chunk {i+1}: {str(e)}")
-                                    logger.error(f"Chunk processing error: {str(e)}")
-                                    # Log error in analytics
-                                    analytics.log_extraction(
-                                        template_id=prompt_id,
-                                        version_id=prompt_version if prompt_version != "default" else "latest",
-                                        source_file=uploaded_file.name,
-                                        characteristics_found=0,
-                                        start_time=start_time,
-                                        end_time=datetime.now(),
-                                        success=False,
-                                        error=str(e),
-                                        metadata={
-                                            'provider': st.session_state.provider,
-                                            'model': st.session_state.batch_model,
-                                            'chunk_index': chunk['index'],
-                                            'temperature': st.session_state.batch_temperature,
-                                            'text_chunk_length': len(chunk['content'])
-                                        }
-                                    )
-                            
-                            # Store results in session state (this should be OUTSIDE the for loop)
-                            st.session_state.chunk_results = chunk_results
+                    
+                    # Store results in session state
+                    st.session_state.chunk_results = chunk_results
                         
             else:
                 # Retrieve stored values if processing was already done            
