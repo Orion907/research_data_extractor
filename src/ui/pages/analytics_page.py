@@ -12,7 +12,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from typing import Dict, Any, Optional, List
 
-from src.utils import Analytics
+from src.utils.unified_analytics import Analytics
 
 
 class AnalyticsPage:
@@ -35,7 +35,7 @@ class AnalyticsPage:
         """
         self.analytics = analytics
     
-    def render(self):
+    def render(self) -> None:
         """Render the complete Analytics Dashboard page."""
         st.header("Analytics Dashboard")
         

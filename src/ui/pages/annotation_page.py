@@ -42,7 +42,7 @@ class AnnotationPage:
         for directory in [self.temp_dir, self.annotations_dir, self.reports_dir]:
             os.makedirs(directory, exist_ok=True)
     
-    def render(self):
+    def render(self) -> None:
         """Render the complete Manual Annotation page."""
         st.header("Manual Annotation and Comparison")
         
