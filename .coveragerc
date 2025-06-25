@@ -1,0 +1,55 @@
+# .coveragerc - Coverage configuration for E2E testing
+
+[run]
+source = src/
+omit = 
+    */tests/*
+    */test_*
+    */__pycache__/*
+    */site-packages/*
+    */venv/*
+    */env/*
+    setup.py
+    conftest.py
+    */migrations/*
+    */mock_*
+    */client_factory.py
+    
+branch = True
+data_file = .coverage
+
+[report]
+# Regexes for lines to exclude from consideration
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain about missing debug-only code:
+    def __repr__
+    if self\.debug
+
+    # Don't complain if tests don't hit defensive assertion code:
+    raise AssertionError
+    raise NotImplementedError
+
+    # Don't complain if non-runnable code isn't run:
+    if 0:
+    if __name__ == .__main__.:
+
+    # Don't complain about abstract methods
+    @(abc\.)?abstractmethod
+    
+    # Don't complain about streamlit specific code
+    st\.
+    streamlit\.
+
+ignore_errors = True
+show_missing = True
+precision = 2
+
+[html]
+directory = htmlcov
+title = Streamlit E2E Test Coverage Report
+
+[xml]
+output = coverage.xml
