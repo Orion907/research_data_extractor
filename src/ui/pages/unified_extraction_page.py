@@ -280,7 +280,7 @@ Setting: Outpatient clinics""",
             try:
                 from src.utils.picots_parser import PicotsParser
                 parser = PicotsParser()
-                picots_data = parser.parse_picots_text(picots_text)
+                picots_data = parser.parse_picots_table(picots_text)
                 result['picots_data'] = picots_data
                 st.session_state.unified_picots_data = picots_data
                 
@@ -288,8 +288,9 @@ Setting: Outpatient clinics""",
                 if st.session_state.active_domain_profile and picots_data:
                     self._show_picots_domain_preview(picots_data)
                     
-            except ImportError:
-                # Simple parsing fallback
+            except (ImportError, Exception) as e:
+                # Simple parsing fallback for any parsing errors
+                st.info(f"Using simplified PICOTS parsing: {str(e)}")
                 result['picots_data'] = self._simple_picots_parse(picots_text)
                 st.session_state.unified_picots_data = result['picots_data']
         
@@ -679,7 +680,7 @@ Setting: Outpatient clinics""",
         
         st.info("💡 Full editing available in the dedicated Domain Priming page")
     
-    def _show_picots_domain_preview(self, picots_data: Dict) -> None:
+    def _show_picots_domain_preview(self, picots_data) -> None:
         """Show preview of relevant domain mappings for PICOTS."""
         if not st.session_state.active_domain_profile:
             return
@@ -691,9 +692,24 @@ Setting: Outpatient clinics""",
             
             # Extract terms from PICOTS and show relevant mappings
             relevant_mappings = {}
-            for section, content in picots_data.items():
+            
+            # Handle both PicotsData objects and dict objects
+            if hasattr(picots_data, '__dict__'):
+                # PicotsData object - get all text content
+                picots_dict = {}
+                if hasattr(picots_data, 'population'): picots_dict['Population'] = ' '.join(picots_data.population)
+                if hasattr(picots_data, 'interventions'): picots_dict['Intervention'] = ' '.join(picots_data.interventions)
+                if hasattr(picots_data, 'comparators'): picots_dict['Comparator'] = ' '.join(picots_data.comparators)
+                if hasattr(picots_data, 'outcomes'): picots_dict['Outcome'] = ' '.join(picots_data.outcomes)
+                if hasattr(picots_data, 'timing'): picots_dict['Timing'] = ' '.join(picots_data.timing)
+                if hasattr(picots_data, 'setting'): picots_dict['Setting'] = ' '.join(picots_data.setting)
+            else:
+                # Regular dict
+                picots_dict = picots_data
+            
+            for section, content in picots_dict.items():
                 if content:
-                    words = content.lower().split()
+                    words = str(content).lower().split()
                     for word in words:
                         if word in domain_map:
                             relevant_mappings[word] = domain_map[word]
