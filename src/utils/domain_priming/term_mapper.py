@@ -289,9 +289,13 @@ class TermMapper:
         # Process abbreviations
         abbreviation_expansions = {}
         for abbrev, expansion in patterns.get('abbreviations', {}).items():
+            # Handle case where expansion might be a list
+            if isinstance(expansion, list):
+                expansion = expansion[0] if expansion else abbrev
+            expansion_str = str(expansion)
             abbreviation_expansions[abbrev] = {
-                "full_form": expansion,
-                "variations": [expansion.lower(), expansion.replace(' ', '_')]
+                "full_form": expansion_str,
+                "variations": [expansion_str.lower(), expansion_str.replace(' ', '_')]
             }
         
         # Basic field enhancements
