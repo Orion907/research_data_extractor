@@ -352,7 +352,23 @@ Setting: Outpatient clinics""",
             # PICOTS status
             if st.session_state.unified_picots_data:
                 st.success("✅ PICOTS Defined")
-                picots_count = len([v for v in st.session_state.unified_picots_data.values() if v])
+                
+                # Handle both PicotsData objects and dict objects
+                picots_data = st.session_state.unified_picots_data
+                if hasattr(picots_data, '__dict__'):
+                    # PicotsData object - count non-empty sections
+                    sections = []
+                    if hasattr(picots_data, 'population') and picots_data.population: sections.append('Population')
+                    if hasattr(picots_data, 'interventions') and picots_data.interventions: sections.append('Intervention')
+                    if hasattr(picots_data, 'comparators') and picots_data.comparators: sections.append('Comparator')
+                    if hasattr(picots_data, 'outcomes') and picots_data.outcomes: sections.append('Outcome')
+                    if hasattr(picots_data, 'timing') and picots_data.timing: sections.append('Timing')
+                    if hasattr(picots_data, 'setting') and picots_data.setting: sections.append('Setting')
+                    picots_count = len(sections)
+                else:
+                    # Regular dict
+                    picots_count = len([v for v in picots_data.values() if v])
+                
                 st.write(f"**Sections:** {picots_count}")
             else:
                 st.info("⏳ PICOTS Optional")
@@ -457,9 +473,12 @@ Setting: Outpatient clinics""",
                 # Use optimized PICOTS workflow if available
                 if st.session_state.unified_picots_data and hasattr(self.domain_engine, 'execute_optimized_picots_workflow'):
                     # Enhanced workflow with domain priming
+                    # Convert PicotsData to dict format if needed
+                    picots_for_workflow = self._convert_picots_to_dict(st.session_state.unified_picots_data)
+                    
                     results = self.domain_engine.execute_optimized_picots_workflow(
                         text_chunks=[chunk['content'] for chunk in chunks],
-                        picots_data=st.session_state.unified_picots_data,
+                        picots_data=picots_for_workflow,
                         extraction_engine=self.extraction_engine,
                         optimization_level=optimization_level
                     )
@@ -476,7 +495,7 @@ Setting: Outpatient clinics""",
                         model_name=st.session_state.get('unified_model', 'claude-3-sonnet-20240229'),
                         temperature=0.0,
                         source_file=uploaded_file.name,
-                        picots_context=st.session_state.unified_picots_data,
+                        picots_context=self._convert_picots_to_dict(st.session_state.unified_picots_data),
                         progress_callback=progress_callback
                     )
             
@@ -624,6 +643,28 @@ Setting: Outpatient clinics""",
             if key in st.session_state:
                 del st.session_state[key]
     
+    def _convert_picots_to_dict(self, picots_data) -> Dict[str, str]:
+        """Convert PicotsData object to dict format for workflow processing."""
+        if hasattr(picots_data, '__dict__'):
+            # PicotsData object - convert to dict
+            picots_dict = {}
+            if hasattr(picots_data, 'population') and picots_data.population:
+                picots_dict['Population'] = ' '.join(picots_data.population)
+            if hasattr(picots_data, 'interventions') and picots_data.interventions:
+                picots_dict['Intervention'] = ' '.join(picots_data.interventions)
+            if hasattr(picots_data, 'comparators') and picots_data.comparators:
+                picots_dict['Comparator'] = ' '.join(picots_data.comparators)
+            if hasattr(picots_data, 'outcomes') and picots_data.outcomes:
+                picots_dict['Outcome'] = ' '.join(picots_data.outcomes)
+            if hasattr(picots_data, 'timing') and picots_data.timing:
+                picots_dict['Timing'] = ' '.join(picots_data.timing)
+            if hasattr(picots_data, 'setting') and picots_data.setting:
+                picots_dict['Setting'] = ' '.join(picots_data.setting)
+            return picots_dict
+        else:
+            # Already a dict
+            return picots_data
+
     def _convert_picots_results_to_chunks(self, picots_results: Dict, original_chunks: List) -> List:
         """Convert PICOTS workflow results to chunk format for display."""
         # This is a simplified conversion - in practice you'd want to 
