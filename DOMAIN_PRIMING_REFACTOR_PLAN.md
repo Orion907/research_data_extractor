@@ -1,73 +1,288 @@
-# Prototype Development Plan: Dynamic Domain Mapping Integration
+# Domain Priming System: Implementation Plan & Status
 
-This plan outlines a streamlined approach to integrate dynamic domain mapping into your existing research review data extraction pipeline, focusing on efficiency and user safety for your prototype.
-
----
-
-## 1. Domain Map Generation Module (Phase 1: Build & Refine)
-
-This initial phase creates the core functionality for identifying equivalent terms within your research domain.
-
-### User Interaction: Sample Article Upload
-* **User Action:** Your system will prompt the user to upload a small, representative sample of relevant PDFs (e.g., 5-10 articles). Clearly explain that these articles are used to build a domain-specific vocabulary map.
-
-### Data Preparation
-* **PDF to Text:** Leverage your existing PDF conversion module to transform the sample PDFs into plain text.
-* **Text Chunking:** While not strictly necessary for domain mapping, using your existing chunking process here can simplify prototype development and integration.
-
-### NLP Processing & Term Extraction
-* **Python Libraries:** You'll primarily use **NLTK** and/or **SpaCy** for these steps.
-* **Preprocessing:**
-    * Perform **tokenization**, **lemmatization**, and **Part-of-Speech (POS) tagging** on the text from the sample articles.
-    * Remove common stop words, punctuation, and purely numerical tokens to reduce noise.
-* **Candidate Term Identification:**
-    * Extract **nouns and noun phrases**. SpaCy's `noun_chunks` are highly effective for this, as these often represent the medical conditions, interventions, outcomes, and other key terms you want to map.
-    * Filter these terms based on criteria like length or frequency to ensure relevance and reduce trivial entries.
-* **Semantic Similarity & Clustering:**
-    * Generate **word embeddings** for your candidate terms. SpaCy's pre-trained models come with excellent word vectors that are ideal for this.
-    * Calculate the **cosine similarity** between all pairs of candidate terms. This metric quantifies how semantically close two terms are.
-    * **Clustering:** Group terms that exhibit high semantic similarity (e.g., a cosine similarity score above a defined threshold, like 0.85). You can use a simple threshold-based grouping or a basic clustering algorithm from **Scikit-learn** (like Agglomerative Clustering) to identify clusters where "hypertension" and "high blood pressure" are correctly grouped together.
-
-### Domain Map Structure & Storage
-* **Data Structure:** Represent the domain map as a Python dictionary. A practical structure is one where **canonical terms** are keys, and their values are lists of **equivalent terms**. For example: `{'Hypertension': ['High blood pressure', 'HTN'], 'Myocardial Infarction': ['Heart attack', 'MI']}`.
-* **Persistence:** Store this map in a lightweight, easily loadable format. A **JSON file** (`domain_map.json`) is a great choice for human readability and easy parsing, or a **Python pickle file** for direct object serialization. Storing it avoids regenerating the map for every user session.
-
-### User Review & Refinement (Crucial Safety Feature)
-* **User Interface (Basic):** Present the automatically generated domain map to the user. For a prototype, simply printing it to the console or displaying it in a basic web view (if applicable) is sufficient.
-* **User Action:** Provide a mechanism for the user to **manually review, edit, add, or delete equivalencies**. This step is paramount for **safety**; it allows the domain expert (the researcher) to correct any erroneous groupings, remove false positives, or add crucial terms that the automated process might have missed. This **human-in-the-loop validation** minimizes the risk of incorrect or incomplete data extraction due to flawed mappings.
-* **Save Refined Map:** After user review, save the finalized domain map.
+This document outlines the implementation plan for dynamic domain mapping integration in the research data extraction pipeline, including the completed refactoring and upcoming UI development.
 
 ---
 
-## 2. Dynamic Domain Map Integration (Phase 2: Integrate & Test)
+## ✅ **COMPLETED: Backend Refactoring (Phase 0)**
 
-This phase integrates the refined domain map into your existing LLM prompting strategy, making your data extraction smarter.
+The domain priming system has been successfully refactored with a unified architecture:
 
-### User Interaction: PICOTS Input
-* **User Action:** The user copy-pastes their PICOTS information directly from their research protocol. (This is an existing step in your pipeline.)
+### **Implemented Components:**
+- **EnhancedPatternDetector**: Consolidated pattern detection and field mapping
+- **DomainPrimingEngine**: Unified orchestrator for complete workflow
+- **TermMapper**: Enhanced with LLM-based semantic understanding
+- **Comprehensive Testing**: 9 test cases covering all functionality
+- **Legacy Compatibility**: Backward compatibility maintained
 
-### Enhanced Prompt Generation
-* **Core Extraction Prompt:** Your existing process for generating the base LLM prompt from the user's PICOTS information will remain.
-* **Dynamic Domain Map Injection (Key Safety & Efficiency Step):**
-    * **Load Map:** Load the refined `domain_map.json` (or pickle file) into memory.
-    * **PICOTS-Driven Filtering:** For each element of the PICOTS (Population, Intervention, Comparator, Outcome, Timing, Setting), extract the key terms the user has defined.
-    * **Lookup & Select:** Look up these key PICOTS terms in your loaded `domain_map`. Identify any associated equivalent terms.
-    * **Concise Injection:** Construct a **small, highly specific section** of the prompt that includes *only the relevant equivalencies* for the current PICOTS and extraction task. **Avoid sending the entire domain map to the LLM**, as this can quickly overwhelm the context window and increase API costs.
-        * **Example Prompt Snippet:**
-            ```
-            "Please consider the following terms as equivalent for extraction:
-            - 'Hypertension' and 'High blood pressure'
-            - 'Myocardial Infarction' and 'Heart attack'
-            - 'Intervention A' and 'Treatment A'"
-            ```
-    * **Instruction to LLM:** Explicitly instruct the LLM to use these provided equivalencies during the data extraction process. For example: "When extracting 'Outcome', if 'MI' is present, report it as 'Myocardial Infarction', also consider 'heart attack' as equivalent to 'Myocardial Infarction'."
+### **Key Features:**
+- ✅ Sample text analysis and pattern detection
+- ✅ LLM-enhanced semantic term mapping
+- ✅ Human-in-the-loop review and refinement
+- ✅ Domain profile persistence (JSON storage)
+- ✅ PICOTS-driven term filtering
+- ✅ Dynamic prompt enhancement
 
-### LLM Interaction
-* **Input to LLM:** Your existing `chunk>LLM through API` process will now send the LLM an **enhanced prompt**. This prompt will contain your core extraction instructions based on PICOTS, the dynamically selected domain equivalencies, and the current article chunk.
-* **Output:** The LLM extracts the data in the specified CSV format, leveraging the provided equivalencies for more accurate and consistent term usage. (This is an existing step in your pipeline.)
+---
 
-### Results Aggregation
-* **CSV Consolidation:** Your existing process for consolidating the CSV results from individual chunks into a single, comprehensive CSV for all articles remains. The dynamic domain mapping should significantly improve the consistency of terms within this final output.
+## ✅ **COMPLETED: Complete UI Implementation (Phase 1)**
+
+**🎉 Phase 1 Implementation Summary:**
+- ✅ Complete domain priming UI with 4 interactive tabs
+- ✅ Professional PDF upload and processing workflow
+- ✅ Real-time pattern analysis with LLM enhancement
+- ✅ Advanced domain mapping editor with CRUD operations  
+- ✅ Comprehensive profile management system
+- ✅ Full integration with existing Streamlit app
+- ✅ Error handling, validation, and user feedback
+- ✅ Session state management and progress tracking
+
+### **Phase 1.1: Domain Priming Page Creation** ✅
+
+Successfully created a complete Streamlit page dedicated to domain priming workflow:
+
+**Implemented Files:**
+```
+✅ src/ui/pages/domain_priming_page.py        # Main page component
+✅ src/ui/components/domain_mapping_components.py  # UI components  
+✅ streamlit_app.py                           # Navigation integration
+```
+
+**Implemented Components:**
+1. **✅ Sample Upload Section**
+   - ✅ File uploader for 1-5 PDF sample articles
+   - ✅ Progress indicator for PDF processing  
+   - ✅ Validation (file type, size limits)
+   - ✅ PDF text extraction with statistics
+
+2. **✅ Domain Analysis Section** 
+   - ✅ Real-time progress display during analysis
+   - ✅ Analysis statistics (terms found, patterns detected)
+   - ✅ LLM enhancement with configurable options
+   - ✅ Analysis results summary with metrics
+
+3. **✅ Domain Map Review Section**
+   - ✅ Interactive table/editor for domain mappings
+   - ✅ Add/Edit/Delete functionality for term equivalencies
+   - ✅ Multi-tab interface for different operations
+   - ✅ Change tracking and validation
+
+4. **✅ Profile Management Section**
+   - ✅ Save domain profile with custom name
+   - ✅ Load existing profiles with preview
+   - ✅ Profile listing with metadata
+   - ✅ Export functionality
+
+### **Phase 1.2: UI Component Development** ✅
+
+**✅ SampleUploadComponent**
+```python
+class SampleUploadComponent:
+    ✅ handle_file_upload()
+    ✅ validate_files() 
+    ✅ process_pdfs_to_text()
+    ✅ display_upload_status()
+```
+
+**✅ DomainAnalysisComponent** 
+```python
+class DomainAnalysisComponent:
+    ✅ run_pattern_analysis()
+    ✅ enhance_with_llm()
+    ✅ display_progress()
+    ✅ show_analysis_results()
+```
+
+**✅ DomainMapEditorComponent**
+```python
+class DomainMapEditorComponent:
+    ✅ display_mapping_table()
+    ✅ handle_add_mapping()
+    ✅ handle_edit_mapping() 
+    ✅ handle_delete_mapping()
+    ✅ validate_mappings()
+```
+
+**✅ ProfileManagerComponent**
+```python  
+class ProfileManagerComponent:
+    ✅ save_profile()
+    ✅ load_profile()
+    ✅ list_profiles()
+    ✅ delete_profile()
+    ✅ export_profile()
+```
+
+### **Phase 1.3: Integration with Existing Workflow** ✅
+
+**✅ Streamlit App Navigation:**
+- ✅ Added "Domain Priming" to sidebar navigation
+- ✅ Integrated with existing session state management
+- ✅ Connected to configuration and analytics systems
+
+**✅ Backend Integration:**
+- ✅ Wired UI components to `DomainPrimingEngine`
+- ✅ Implemented error handling and user feedback
+- ✅ Added progress tracking for long-running operations
+
+### **Phase 1.4: User Experience Enhancements** ✅
+
+**✅ Safety Features:**
+- ✅ Confirmation dialogs for destructive actions
+- ✅ Change tracking for domain map edits  
+- ✅ Profile metadata and backup functionality
+- ✅ Validation warnings and user feedback
+
+**✅ Performance Optimizations:**
+- ✅ Progress indicators for PDF extraction
+- ✅ Session state management for results caching
+- ✅ Efficient component rendering
+- ✅ Configurable LLM enhancement options
+
+### **Implementation Architecture:**
+
+```
+streamlit_app.py
+├── Navigation: "Domain Priming" 
+└── DomainPrimingPage
+    ├── SampleUploadComponent
+    │   ├── File validation & upload
+    │   └── PDF to text conversion
+    ├── DomainAnalysisComponent  
+    │   ├── EnhancedPatternDetector integration
+    │   ├── TermMapper LLM enhancement
+    │   └── Progress & results display
+    ├── DomainMapEditorComponent
+    │   ├── Interactive mapping table
+    │   ├── CRUD operations
+    │   └── Validation & warnings
+    └── ProfileManagerComponent
+        ├── Save/Load profiles
+        ├── Profile listing & selection
+        └── Export functionality
+```
+
+**Backend Integration:**
+```python
+# In DomainPrimingPage
+engine = DomainPrimingEngine(
+    llm_provider=config.llm_provider,
+    api_key=config.api_key
+)
+
+# Phase 1 Workflow
+sample_texts = upload_component.process_files()
+domain_profile = engine.analyze_sample_articles(sample_texts)
+refined_profile = engine.review_and_refine_domain_map(user_edits)
+saved_path = engine.save_domain_profile(profile_name)
+```
+
+---
+
+## ✅ **IMPLEMENTED: Context-Aware Prompt Management**
+
+### **🚀 Advanced Context Window Management** ✅
+
+The domain priming system now includes sophisticated context-aware prompt generation:
+
+**✅ PICOTS-Based Prompt Chunking:**
+- Separate prompts generated for each PICOTS section (Population, Intervention, Comparator, Outcome, Timing, Setting)
+- Section-specific domain mappings included only where relevant
+- Context size estimation and management (configurable token limits)
+
+**✅ Intelligent Domain Mapping Selection:**
+- Term extraction from PICOTS section content
+- Relevance matching between section terms and domain mappings  
+- Priority-based mapping inclusion (most comprehensive mappings first)
+- Automatic synonym limiting to prevent context overflow
+
+**✅ Prompt Chaining Workflow:**
+- `execute_picots_extraction_workflow()` orchestrates complete extraction
+- Each PICOTS section processed separately with appropriate mappings
+- Token usage tracking and reporting
+- Error handling with graceful degradation
+
+**✅ Context Management Features:**
+- Token estimation (4 chars ≈ 1 token approximation)
+- Configurable context limits per section
+- Reserved space for responses and safety margins
+- Automatic mapping truncation when approaching limits
+
+**✅ Backward Compatibility:**
+- Legacy `generate_enhanced_prompt()` method maintained 
+- Deprecation warnings guide users to new chunked approach
+- All existing functionality preserved
+
+---
+
+## 📋 **PLANNED: Enhanced Extraction Integration (Phase 2)**
+
+### **Phase 2.1: Extraction Page Enhancement**
+
+Integrate domain priming into the existing extraction workflow:
+
+**Modified Components:**
+- **ExtractionPage**: Add domain profile selection
+- **BatchPage**: Bulk apply domain profiles to multiple articles
+- **Results Display**: Show domain mapping effects in results
+
+**User Experience:**
+1. **Profile Selection**
+   - Dropdown to select active domain profile
+   - Preview of selected profile's mappings
+   - Option to create new profile if none exists
+
+2. **PICOTS Integration** 
+   - Automatic term extraction from PICOTS fields
+   - Real-time preview of relevant domain mappings
+   - Warning if no relevant mappings found
+
+3. **Enhanced Prompt Preview**
+   - Show before/after prompt comparison
+   - Highlight injected domain mappings
+   - Estimated context usage
+
+### **Phase 2.2: Backend Integration Points**
+
+**Modified Files:**
+```
+src/ui/pages/extraction_page.py
+src/ui/pages/batch_page.py  
+src/processing/extraction_engine.py
+src/utils/prompt_manager.py
+```
+
+**Integration Architecture:**
+```python
+# In ExtractionEngine
+def extract_with_domain_priming(self, text_chunks, picots_data, domain_profile):
+    # Extract PICOTS terms
+    picots_terms = engine.extract_picots_terms(picots_data)
+    
+    # Generate enhanced prompts
+    enhanced_prompts = []
+    for chunk in text_chunks:
+        base_prompt = self.prompt_manager.create_extraction_prompt(chunk, picots_data)
+        enhanced_prompt = engine.generate_enhanced_prompt(base_prompt, picots_terms)
+        enhanced_prompts.append(enhanced_prompt)
+    
+    # Continue with existing extraction logic
+    return self.process_with_enhanced_prompts(enhanced_prompts)
+```
+
+### **Phase 2.3: Results Analysis**
+
+**Domain Mapping Analytics:**
+- Track which domain mappings were used
+- Measure extraction consistency improvements  
+- Compare results with/without domain priming
+- User feedback collection on mapping effectiveness
+
+**Performance Monitoring:**
+- Context window usage optimization
+- LLM API cost impact analysis
+- Processing time comparisons
+- Success rate improvements
 
 ---
 

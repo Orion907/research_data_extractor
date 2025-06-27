@@ -13,6 +13,7 @@ from src.processing import DocumentProcessor, ExtractionEngine, BatchCoordinator
 
 # Import UI components and pages
 from src.ui import ExtractionPage, BatchPage, AnnotationPage, AnalyticsPage
+from src.ui.pages.domain_priming_page import DomainPrimingPage
 
 
 # Initialize configuration loader and setup logging
@@ -43,7 +44,7 @@ if init_result['errors']:
 st.title("Research Article Data Extractor")
 
 # Navigation
-page = st.sidebar.selectbox("Navigate", ["Extract Data", "Batch Processing", "Manual Annotation", "Analytics Dashboard"])
+page = st.sidebar.selectbox("Navigate", ["Extract Data", "Batch Processing", "Manual Annotation", "Domain Priming", "Analytics Dashboard"])
 
 if page == "Extract Data":
     # Use the new extraction page component
@@ -59,6 +60,11 @@ elif page == "Manual Annotation":
     # Use the new annotation page component
     annotation_page = AnnotationPage()
     annotation_page.render()
+
+elif page == "Domain Priming":
+    # Use the new domain priming page component
+    domain_priming_page = DomainPrimingPage()
+    domain_priming_page.render()
 
 elif page == "Analytics Dashboard":
     # Use the new analytics page component
