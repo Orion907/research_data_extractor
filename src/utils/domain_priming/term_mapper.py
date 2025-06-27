@@ -6,7 +6,7 @@ import json
 from typing import Dict, List, Set, Optional, Tuple
 from datetime import datetime
 from src.llm.client_factory import ClientFactory
-from .pattern_detector import PatternDetector  # Add this import
+from .enhanced_pattern_detector import EnhancedPatternDetector
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -30,8 +30,8 @@ class TermMapper:
         self.provider = provider
         self.model_name = model_name or getattr(self.client, 'model_name', 'unknown')
         
-        # Initialize pattern detector
-        self.pattern_detector = PatternDetector(min_frequency=2, min_term_length=3)
+        # Initialize enhanced pattern detector
+        self.pattern_detector = EnhancedPatternDetector(min_frequency=2, min_term_length=3)
         
         # Storage for domain mappings
         self.term_mappings: Dict[str, List[str]] = {}
