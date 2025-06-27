@@ -14,6 +14,7 @@ from src.processing import DocumentProcessor, ExtractionEngine, BatchCoordinator
 # Import UI components and pages
 from src.ui import ExtractionPage, BatchPage, AnnotationPage, AnalyticsPage
 from src.ui.pages.domain_priming_page import DomainPrimingPage
+from src.ui.pages.unified_extraction_page import UnifiedExtractionPage
 
 
 # Initialize configuration loader and setup logging
@@ -44,9 +45,14 @@ if init_result['errors']:
 st.title("Research Article Data Extractor")
 
 # Navigation
-page = st.sidebar.selectbox("Navigate", ["Extract Data", "Batch Processing", "Manual Annotation", "Domain Priming", "Analytics Dashboard"])
+page = st.sidebar.selectbox("Navigate", ["Unified Extraction (Phase 1)", "Extract Data", "Batch Processing", "Manual Annotation", "Domain Priming", "Analytics Dashboard"])
 
-if page == "Extract Data":
+if page == "Unified Extraction (Phase 1)":
+    # Phase 1 unified page with Domain Priming + Extraction side-by-side
+    unified_page = UnifiedExtractionPage(extraction_engine, document_processor, config)
+    unified_page.render()
+
+elif page == "Extract Data":
     # Use the new extraction page component
     extraction_page = ExtractionPage(extraction_engine, document_processor, config)
     extraction_page.render()

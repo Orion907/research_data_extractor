@@ -24,3 +24,7 @@ python-docx>=0.8.11
 
 # Web UI
 streamlit>=1.0.0 # Or appropriate version
+
+# Data Visualization  
+matplotlib>=3.5.0
+seaborn>=0.11.0
