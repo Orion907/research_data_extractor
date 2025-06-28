@@ -318,18 +318,18 @@ Setting: Outpatient clinics""",
         
         processing_complete = st.session_state.get('unified_processing_complete', False)
         
+        # Process button
         if st.button(
             "🔬 Process with Enhanced Domain Extraction",
             key="unified_process_button",
             disabled=not process_ready or processing_complete
-        ) or processing_complete:
-            
+        ):
             if not processing_complete and process_ready:
                 self._perform_enhanced_extraction(uploaded_file, picots_result, optimization_level)
-            
-            # Display results if processing is complete
-            if processing_complete and 'unified_chunk_results' in st.session_state:
-                self._display_enhanced_results(uploaded_file.name)
+        
+        # Always display results if processing is complete (separate from button click)
+        if processing_complete and 'unified_chunk_results' in st.session_state:
+            self._display_enhanced_results(uploaded_file.name)
     
     def _render_workflow_status(self) -> None:
         """Render unified workflow status at the bottom."""
@@ -538,10 +538,16 @@ Setting: Outpatient clinics""",
             development_mode=False
         )
         
-        # Reset button
-        if st.button("🔄 Process New Article", key="unified_reset_button"):
-            self._reset_extraction_state()
-            st.rerun()
+        # Action buttons
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            self._download_results_csv(chunk_results, filename)
+        
+        with col2:
+            if st.button("🔄 Process New Article", key="unified_reset_button"):
+                self._reset_extraction_state()
+                st.rerun()
     
     # Helper methods
     def _is_file_processed(self, filename: str) -> bool:
@@ -630,6 +636,45 @@ Setting: Outpatient clinics""",
                     picots_data[key] = value
         
         return picots_data
+    
+    def _download_results_csv(self, chunk_results: List, filename: str) -> None:
+        """Generate and download results as CSV."""
+        try:
+            import pandas as pd
+            import io
+            
+            # Convert results to DataFrame format
+            rows = []
+            for result in chunk_results:
+                row = {
+                    'chunk_index': result.get('chunk_index', 0),
+                    'source_file': result.get('source_file', filename),
+                    'extraction_text': result.get('extraction', ''),
+                    'confidence_score': result.get('confidence_score', 0),
+                    'optimization_level': result.get('metadata', {}).get('optimization_level', 'parallel'),
+                    'sections_processed': result.get('metadata', {}).get('sections_processed', 0),
+                    'processing_time': result.get('metadata', {}).get('processing_time', 0)
+                }
+                rows.append(row)
+            
+            df = pd.DataFrame(rows)
+            
+            # Create CSV
+            csv_buffer = io.StringIO()
+            df.to_csv(csv_buffer, index=False)
+            csv_data = csv_buffer.getvalue()
+            
+            # Generate download
+            st.download_button(
+                label="📥 Download CSV",
+                data=csv_data,
+                file_name=f"enhanced_extraction_{filename.replace('.pdf', '')}.csv",
+                mime="text/csv",
+                key="unified_csv_download"
+            )
+            
+        except Exception as e:
+            st.error(f"Error generating CSV: {str(e)}")
     
     def _reset_extraction_state(self) -> None:
         """Reset extraction state for new processing."""
