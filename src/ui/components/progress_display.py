@@ -244,16 +244,17 @@ class ChunkProgressTracker:
         self.progress_bar = st.progress(0.0)
         self.status_container = st.empty()
     
-    def update_progress(self, chunk_index: int, status: str = None) -> None:
+    def update_progress(self, current_chunk: int, status: str = None) -> None:
         """
         Update chunk processing progress.
         
         Args:
-            chunk_index: Current chunk index (0-based)
+            current_chunk: Current chunk number (1-based from callback)
             status: Optional status message
         """
-        self.current_chunk = chunk_index + 1
-        progress = self.current_chunk / self.total_chunks if self.total_chunks > 0 else 0
+        self.current_chunk = current_chunk
+        # Ensure progress never exceeds 1.0
+        progress = min(self.current_chunk / self.total_chunks, 1.0) if self.total_chunks > 0 else 0
         
         progress_text = f"Chunk {self.current_chunk} of {self.total_chunks}"
         if status:
