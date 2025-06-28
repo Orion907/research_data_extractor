@@ -320,6 +320,156 @@ class ResultsDownloadComponent:
             
         except Exception as e:
             st.error(f"Error creating TXT download: {str(e)}")
+    
+    @staticmethod
+    def create_enhanced_batch_download(
+        structured_results: List[Dict[str, Any]],
+        filename_base: str,
+        picots_enhanced: bool = False
+    ) -> None:
+        """
+        Create enhanced download section for batch results with PICOTS-aware formatting.
+        
+        Args:
+            structured_results: Structured batch results data
+            filename_base: Base filename for downloads
+            picots_enhanced: Whether PICOTS criteria were used
+        """
+        if not structured_results:
+            st.warning("No results to download")
+            return
+        
+        # Create enhanced DataFrame with better column organization
+        df = pd.DataFrame(structured_results)
+        
+        # Reorder columns for better CSV structure
+        base_columns = ['source_file', 'chunk_index']
+        metadata_columns = ['processing_time', 'chunk_count', 'character_count', 'successful_chunks', 'failed_chunks']
+        
+        # PICOTS-specific columns if available
+        picots_columns = [col for col in df.columns if col.startswith('extracted_')]
+        picots_flag_columns = [col for col in df.columns if 'picots' in col.lower()]
+        
+        # Main content column
+        content_columns = ['extraction_text']
+        
+        # Reorder columns for logical flow
+        ordered_columns = base_columns + picots_columns + picots_flag_columns + content_columns + metadata_columns
+        
+        # Only include columns that exist in the DataFrame
+        final_columns = [col for col in ordered_columns if col in df.columns]
+        df = df[final_columns]
+        
+        # Create download buttons
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            # Enhanced CSV with structured columns
+            csv_data = df.to_csv(index=False)
+            
+            filename_suffix = "_picots_enhanced" if picots_enhanced else "_standard"
+            
+            st.download_button(
+                label="📊 Download Enhanced CSV",
+                data=csv_data,
+                file_name=f"{filename_base}{filename_suffix}.csv",
+                mime="text/csv",
+                help="CSV with structured columns and PICOTS-aware organization"
+            )
+        
+        with col2:
+            # JSON export
+            json_data = df.to_json(orient='records', indent=2)
+            
+            st.download_button(
+                label="📋 Download JSON",
+                data=json_data,
+                file_name=f"{filename_base}{filename_suffix}.json",
+                mime="application/json",
+                help="JSON format with full structured data"
+            )
+        
+        with col3:
+            # Summary statistics CSV
+            summary_df = ResultsDownloadComponent._create_batch_summary_csv(structured_results, picots_enhanced)
+            summary_csv = summary_df.to_csv(index=False)
+            
+            st.download_button(
+                label="📈 Download Summary",
+                data=summary_csv,
+                file_name=f"{filename_base}_summary{filename_suffix}.csv",
+                mime="text/csv",
+                help="Summary statistics and metadata across all files"
+            )
+        
+        # Display column information
+        with st.expander("📋 CSV Column Information", expanded=False):
+            st.write("**File Information:**")
+            st.write("- `source_file`: Original filename")
+            st.write("- `chunk_index`: Text chunk number within file")
+            
+            if picots_columns:
+                st.write("**PICOTS-Extracted Fields:**")
+                for col in picots_columns:
+                    field_name = col.replace('extracted_', '').replace('_', ' ').title()
+                    st.write(f"- `{col}`: {field_name}")
+            
+            st.write("**Content:**")
+            st.write("- `extraction_text`: Full extracted text")
+            
+            st.write("**Processing Metadata:**")
+            st.write("- `processing_time`: When extraction was completed")
+            st.write("- `chunk_count`: Total chunks in file")
+            st.write("- `character_count`: Total characters processed")
+    
+    @staticmethod
+    def _create_batch_summary_csv(
+        structured_results: List[Dict[str, Any]], 
+        picots_enhanced: bool = False
+    ) -> pd.DataFrame:
+        """
+        Create summary CSV with aggregate statistics.
+        
+        Args:
+            structured_results: Structured batch results data
+            picots_enhanced: Whether PICOTS criteria were used
+            
+        Returns:
+            DataFrame with summary statistics
+        """
+        # Group by source file
+        files_summary = {}
+        
+        for result in structured_results:
+            filename = result.get('source_file', 'unknown')
+            
+            if filename not in files_summary:
+                files_summary[filename] = {
+                    'filename': filename,
+                    'total_chunks': 0,
+                    'total_characters': result.get('character_count', 0),
+                    'successful_chunks': result.get('successful_chunks', 0),
+                    'failed_chunks': result.get('failed_chunks', 0),
+                    'picots_enhanced': picots_enhanced,
+                    'extracted_fields_count': 0
+                }
+            
+            # Count extracted fields (PICOTS-structured data)
+            extracted_fields = sum(1 for key in result.keys() if key.startswith('extracted_'))
+            files_summary[filename]['extracted_fields_count'] = max(
+                files_summary[filename]['extracted_fields_count'], 
+                extracted_fields
+            )
+            files_summary[filename]['total_chunks'] += 1
+        
+        # Calculate success rates
+        for file_data in files_summary.values():
+            total_chunks = file_data['successful_chunks'] + file_data['failed_chunks']
+            file_data['success_rate'] = (
+                file_data['successful_chunks'] / total_chunks if total_chunks > 0 else 0
+            )
+        
+        return pd.DataFrame(list(files_summary.values()))
 
 
 class ResultsDisplaySection:
@@ -389,7 +539,7 @@ class ResultsDisplaySection:
         show_download: bool = True
     ) -> None:
         """
-        Create a complete batch results display section.
+        Create a complete batch results display section with enhanced PICOTS-aware CSV export.
         
         Args:
             batch_results: List of batch processing results
@@ -405,23 +555,145 @@ class ResultsDisplaySection:
             show_details=True
         )
         
-        # Download section for batch results
+        # Enhanced download section for batch results with PICOTS support
         if show_download:
-            # Combine all successful results
-            all_results = []
-            for result in batch_results:
-                if result.get('status') == 'success':
-                    file_results = result.get('results', [])
-                    for item in file_results:
-                        item['source_file'] = result.get('filename', 'unknown')
-                        all_results.append(item)
+            # Check if PICOTS was used
+            picots_enhanced = any(
+                result.get('metadata', {}).get('picots_enhanced', False) 
+                for result in batch_results
+            )
             
-            if all_results:
-                ResultsDownloadComponent.create_download_section(
-                    all_results,
+            # Combine all successful results with enhanced structure
+            structured_results = ResultsDisplaySection._create_structured_batch_data(
+                batch_results, 
+                picots_enhanced=picots_enhanced
+            )
+            
+            if structured_results:
+                st.subheader("💾 Download Enhanced Results")
+                
+                # Show PICOTS enhancement status
+                if picots_enhanced:
+                    st.info("🎯 **PICOTS-Enhanced Export**: Results include targeted extraction based on your research criteria")
+                
+                # Enhanced download options
+                ResultsDownloadComponent.create_enhanced_batch_download(
+                    structured_results,
                     "batch_extraction_results",
-                    formats=["CSV", "JSON"]
+                    picots_enhanced=picots_enhanced
                 )
+    
+    @staticmethod
+    def _create_structured_batch_data(
+        batch_results: List[Dict[str, Any]], 
+        picots_enhanced: bool = False
+    ) -> List[Dict[str, Any]]:
+        """
+        Create structured data for batch export with PICOTS awareness.
+        
+        Args:
+            batch_results: List of batch processing results
+            picots_enhanced: Whether PICOTS criteria were used
+            
+        Returns:
+            Structured data suitable for CSV export
+        """
+        structured_data = []
+        
+        for result in batch_results:
+            if result.get('status') == 'success':
+                file_results = result.get('results', [])
+                filename = result.get('filename', 'unknown')
+                metadata = result.get('metadata', {})
+                
+                for item in file_results:
+                    # Base structure
+                    row_data = {
+                        'source_file': filename,
+                        'chunk_index': item.get('chunk_index', 0),
+                        'extraction_text': item.get('extraction', ''),
+                        'processing_time': metadata.get('processing_time', ''),
+                        'picots_enhanced': picots_enhanced
+                    }
+                    
+                    # Add metadata
+                    if metadata:
+                        row_data.update({
+                            'chunk_count': metadata.get('chunk_count', 0),
+                            'character_count': metadata.get('character_count', 0),
+                            'successful_chunks': metadata.get('successful_chunks', 0),
+                            'failed_chunks': metadata.get('failed_chunks', 0)
+                        })
+                    
+                    # Try to parse structured extraction if available
+                    try:
+                        extraction_text = item.get('extraction', '')
+                        if extraction_text:
+                            # Parse into structured fields for better CSV organization
+                            parsed_data = ResultsDisplaySection._parse_extraction_for_csv(
+                                extraction_text, picots_enhanced
+                            )
+                            row_data.update(parsed_data)
+                    except Exception:
+                        # Fallback to raw text if parsing fails
+                        pass
+                    
+                    structured_data.append(row_data)
+        
+        return structured_data
+    
+    @staticmethod
+    def _parse_extraction_for_csv(extraction_text: str, picots_enhanced: bool = False) -> Dict[str, Any]:
+        """
+        Parse extraction text into structured fields for CSV export.
+        
+        Args:
+            extraction_text: Raw extraction text
+            picots_enhanced: Whether PICOTS criteria were used
+            
+        Returns:
+            Dictionary of parsed fields
+        """
+        parsed_fields = {}
+        
+        # Common patterns to extract
+        field_patterns = {
+            'population': ['population', 'participants', 'subjects', 'patients'],
+            'intervention': ['intervention', 'treatment', 'therapy', 'medication'],
+            'comparison': ['comparison', 'control', 'placebo', 'comparator'],
+            'outcomes': ['outcomes', 'results', 'endpoints', 'measures'],
+            'timing': ['timing', 'duration', 'follow-up', 'period'],
+            'setting': ['setting', 'location', 'context', 'environment'],
+            'sample_size': ['sample size', 'n =', 'participants', 'subjects'],
+            'age': ['age', 'years old', 'mean age'],
+            'gender': ['gender', 'sex', 'male', 'female'],
+            'conditions': ['condition', 'disease', 'diagnosis', 'disorder']
+        }
+        
+        # Simple text parsing - look for key information
+        lines = extraction_text.lower().split('\n')
+        
+        for field, keywords in field_patterns.items():
+            field_value = ""
+            for line in lines:
+                for keyword in keywords:
+                    if keyword in line:
+                        # Extract the line containing the keyword
+                        field_value = line.strip()
+                        break
+                if field_value:
+                    break
+            
+            # Clean up and store
+            if field_value:
+                parsed_fields[f'extracted_{field}'] = field_value[:200]  # Limit length
+        
+        # Add PICOTS-specific fields if enhanced
+        if picots_enhanced:
+            parsed_fields['picots_structured'] = True
+            # Could add more PICOTS-specific parsing here
+        
+        return parsed_fields
 
 
 class ResultsComparisonComponent:

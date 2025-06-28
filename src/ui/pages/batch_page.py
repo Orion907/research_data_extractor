@@ -52,9 +52,12 @@ class BatchPage:
         # File upload section
         upload_result = self._render_file_upload_section()
         
+        # PICOTS input section (Phase 3 enhancement)
+        picots_result = self._render_picots_section()
+        
         # Processing section
         if st.session_state.batch_files:
-            self._render_processing_section(settings)
+            self._render_processing_section(settings, picots_result)
     
     def _initialize_session_state(self) -> None:
         """Initialize session state for batch processing."""
@@ -64,6 +67,11 @@ class BatchPage:
             st.session_state.batch_processing_complete = False
         if 'batch_results' not in st.session_state:
             st.session_state.batch_results = []
+        # Phase 3: PICOTS persistence
+        if 'batch_picots_text' not in st.session_state:
+            st.session_state.batch_picots_text = ""
+        if 'batch_picots_data' not in st.session_state:
+            st.session_state.batch_picots_data = None
     
     def _render_provider_selection(self) -> None:
         """Render LLM provider and model selection."""
@@ -127,25 +135,128 @@ class BatchPage:
         
         return settings
     
+    def _render_picots_section(self) -> Dict[str, Any]:
+        """
+        Render PICOTS input section for batch processing (Phase 3 enhancement).
+        
+        Returns:
+            Dictionary containing PICOTS text and parsed data
+        """
+        result = {
+            'picots_text': None,
+            'picots_data': None
+        }
+        
+        st.markdown("---")
+        st.subheader("📊 PICOTS Criteria (Enhanced for Batch)")
+        st.markdown("Define your research criteria to improve extraction accuracy across all uploaded files.")
+        
+        # PICOTS explanation with batch-specific benefits
+        with st.expander("📋 Why use PICOTS for Batch Processing?", expanded=False):
+            st.markdown("""
+            **PICOTS enhances batch extraction by:**
+            - **P**opulation: Identifies consistent patient demographics across studies
+            - **I**ntervention: Focuses on specific treatments/exposures 
+            - **C**omparison: Standardizes control group extraction
+            - **O**utcomes: Targets relevant outcome measures
+            - **T**iming: Captures temporal aspects consistently
+            - **S**etting: Maintains setting context across articles
+            
+            **Batch Benefits:** PICOTS criteria are applied to ALL uploaded files, 
+            ensuring consistent extraction focus and better data compilation.
+            """)
+        
+        # Enhanced PICOTS text input with persistence
+        picots_text = st.text_area(
+            "Enter your PICOTS criteria:",
+            value=st.session_state.batch_picots_text,
+            height=200,
+            placeholder="""Example format:
+Population: Adults aged 18-65 with type 2 diabetes
+Intervention: Metformin therapy 500mg twice daily
+Comparison: Placebo or standard care
+Outcomes: HbA1c reduction, weight loss, cardiovascular events
+Timing: 12-week treatment period with 6-month follow-up
+Setting: Outpatient diabetes clinics
+
+Key Questions: What is the efficacy of metformin vs placebo?
+Abbreviations: HbA1c = Hemoglobin A1c; BMI = Body Mass Index""",
+            help="PICOTS criteria will be applied to ALL files in your batch for consistent extraction.",
+            key="batch_picots_input"
+        )
+        
+        # Update session state for persistence
+        if picots_text != st.session_state.batch_picots_text:
+            st.session_state.batch_picots_text = picots_text
+        
+        if picots_text:
+            result['picots_text'] = picots_text
+            
+            # Parse PICOTS data if parser is available
+            try:
+                from src.utils.picots_parser import PicotsParser
+                parser = PicotsParser()
+                picots_data = parser.parse_picots_text(picots_text)
+                result['picots_data'] = picots_data
+                st.session_state.batch_picots_data = picots_data
+                
+                # Display parsed PICOTS with batch context
+                if picots_data:
+                    with st.expander("📋 Parsed PICOTS (Applied to Batch)", expanded=False):
+                        st.success(f"✅ PICOTS criteria ready for batch processing of {len(st.session_state.batch_files)} files")
+                        
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            for key, value in list(picots_data.items())[:3]:
+                                if value:
+                                    st.write(f"**{key.title()}:** {value}")
+                        with col2:
+                            for key, value in list(picots_data.items())[3:6]:
+                                if value:
+                                    st.write(f"**{key.title()}:** {value}")
+                        
+                        # Show domain integration status if available
+                        if (st.session_state.get('active_domain_profile') or 
+                            st.session_state.get('domain_profile_ready')):
+                            st.info("🗺️ **Enhanced mode**: PICOTS + Domain profile will provide optimal extraction accuracy")
+                
+            except ImportError:
+                st.warning("⚠️ Advanced PICOTS parsing not available. Using basic text processing.")
+                # Simple fallback parsing
+                result['picots_data'] = self._simple_picots_parse(picots_text)
+                st.session_state.batch_picots_data = result['picots_data']
+            except Exception as e:
+                st.error(f"Error parsing PICOTS: {str(e)}")
+        
+        return result
+    
+    def _simple_picots_parse(self, picots_text: str) -> Dict[str, str]:
+        """Simple PICOTS parsing fallback for batch processing."""
+        lines = picots_text.strip().split('\n')
+        picots_data = {}
+        
+        for line in lines:
+            if ':' in line:
+                key, value = line.split(':', 1)
+                key = key.strip().lower()
+                value = value.strip()
+                if key and value:
+                    picots_data[key] = value
+        
+        return picots_data
+    
     def _render_file_upload_section(self) -> Dict[str, Any]:
         """
-        Render file upload section.
+        Render enhanced unified file upload section (Phase 3 improvement).
         
         Returns:
             Upload results
         """
         st.markdown("---")
+        st.subheader("📁 Upload Research Articles")
         
-        # Use the batch upload section
-        upload_result = FileUploadSection.batch_upload_section()
-        
-        # Handle ZIP extraction if needed
-        if upload_result['upload_type'] == 'zip' and upload_result['zip_file']:
-            self._handle_zip_extraction(upload_result['zip_file'])
-        elif upload_result['upload_type'] == 'multiple_files' and upload_result['uploaded_files']:
-            st.session_state.batch_files = upload_result['uploaded_files']
-        
-        return upload_result
+        # Phase 3: Unified upload interface that handles 1 or many files gracefully
+        return BatchFileUploadComponent._render_unified_upload_interface()
     
     def _handle_zip_extraction(self, zip_file) -> None:
         """Handle ZIP file extraction."""
@@ -246,7 +357,7 @@ class BatchPage:
         
         return file_objects
     
-    def _render_processing_section(self, settings: Dict[str, Any]) -> None:
+    def _render_processing_section(self, settings: Dict[str, Any], picots_result: Dict[str, Any] = None) -> None:
         """Render the batch processing section."""
         st.markdown("---")
         st.subheader("🚀 Start Batch Processing")
@@ -263,13 +374,13 @@ class BatchPage:
         ) or st.session_state.batch_processing_complete:
             
             if not st.session_state.batch_processing_complete:
-                self._perform_batch_processing(settings)
+                self._perform_batch_processing(settings, picots_result)
             
             # Display results if processing is complete
             if st.session_state.batch_processing_complete:
                 self._display_batch_results()
     
-    def _perform_batch_processing(self, settings: Dict[str, Any]) -> None:
+    def _perform_batch_processing(self, settings: Dict[str, Any], picots_result: Dict[str, Any] = None) -> None:
         """Perform batch processing with progress tracking."""
         # Validate API key
         is_valid, error_msg = self.extraction_engine.validate_api_key(
@@ -280,20 +391,35 @@ class BatchPage:
             st.error(error_msg)
             return
         
-        # Setup batch progress display
-        batch_display = BatchProgressDisplay(len(st.session_state.batch_files))
+        # Setup enhanced batch progress display (Phase 3)
+        picots_enhanced = picots_result and picots_result.get('picots_data') is not None
+        domain_enhanced = (st.session_state.get('active_domain_profile') or 
+                          st.session_state.get('domain_profile_ready'))
+        
+        batch_display = BatchProgressDisplay(
+            len(st.session_state.batch_files),
+            picots_enhanced=picots_enhanced,
+            domain_enhanced=domain_enhanced
+        )
         
         # Create progress callback
         progress_callback = ProgressCallbackHandler.create_batch_callback(batch_display)
         
         try:
+            # Prepare PICOTS context for enhanced extraction (Phase 3)
+            picots_context = None
+            if picots_result and picots_result.get('picots_data'):
+                picots_context = picots_result['picots_data']
+                st.info(f"🎯 Processing with PICOTS context: {len(picots_context)} criteria defined")
+            
             # Process files using batch coordinator
             batch_results = self.batch_coordinator.process_batch(
                 files=st.session_state.batch_files,
                 provider=st.session_state.batch_provider,
                 model_name=st.session_state.batch_model,
                 settings=settings,
-                progress_callback=progress_callback
+                progress_callback=progress_callback,
+                picots_context=picots_context  # Phase 3: PICOTS integration
             )
             
             # Store results
@@ -303,8 +429,51 @@ class BatchPage:
             st.success("🎉 Batch processing completed!")
             
         except Exception as e:
-            st.error(f"Error during batch processing: {str(e)}")
-            batch_display.add_file_status("Processing", "error", str(e))
+            # Enhanced error reporting (Phase 3)
+            error_msg = str(e)
+            st.error(f"🚨 **Batch Processing Error**: {error_msg}")
+            
+            # Provide context-specific recovery suggestions
+            recovery_suggestions = []
+            
+            if "api" in error_msg.lower() or "key" in error_msg.lower():
+                recovery_suggestions.append("Check your API key configuration")
+                recovery_suggestions.append("Verify network connectivity")
+            elif "memory" in error_msg.lower() or "timeout" in error_msg.lower():
+                recovery_suggestions.append("Try reducing batch size or file chunk size")
+                recovery_suggestions.append("Check advanced settings for timeout values")
+            elif "file" in error_msg.lower() or "pdf" in error_msg.lower():
+                recovery_suggestions.append("Verify uploaded files are valid PDFs")
+                recovery_suggestions.append("Try uploading files individually to identify problematic files")
+            elif "picots" in error_msg.lower():
+                recovery_suggestions.append("Check PICOTS criteria format")
+                recovery_suggestions.append("Try processing without PICOTS first")
+            
+            if recovery_suggestions:
+                st.warning("**💡 Suggested Recovery Actions:**")
+                for suggestion in recovery_suggestions:
+                    st.write(f"• {suggestion}")
+            
+            # Recovery options
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                if st.button("🔄 Retry Batch", key="retry_batch_button"):
+                    st.session_state.batch_processing_complete = False
+                    st.rerun()
+            
+            with col2:
+                if st.button("📋 View Error Details", key="error_details_button"):
+                    st.code(f"Error Type: {type(e).__name__}\nMessage: {str(e)}")
+            
+            with col3:
+                if st.button("🆕 Start Fresh", key="fresh_start_button"):
+                    self._reset_batch_state()
+                    st.rerun()
+            
+            # Log error for debugging if batch display is available
+            if 'batch_display' in locals():
+                batch_display.add_file_status("Processing", "error", str(e))
     
     def _display_batch_results(self) -> None:
         """Display batch processing results."""
@@ -390,6 +559,173 @@ class BatchSettingsComponent:
         )
         
         return settings
+
+
+class BatchFileUploadComponent:
+    """Enhanced file upload component for batch processing (Phase 3)."""
+    
+    @staticmethod
+    def _render_unified_upload_interface() -> Dict[str, Any]:
+        """
+        Phase 3: Unified upload interface that gracefully handles 1 or many files.
+        Eliminates the artificial distinction between upload methods.
+        """
+        result = {
+            'upload_type': 'unified',
+            'uploaded_files': [],
+            'zip_files': [],
+            'total_files': 0
+        }
+        
+        # Enhanced upload description
+        st.markdown("""
+        **📤 Flexible Upload Options:**
+        - Upload **single** or **multiple** PDF files at once
+        - Upload **ZIP archives** containing PDFs (auto-detected and extracted)
+        - Mix and match: Upload some PDFs directly + ZIP files in the same session
+        """)
+        
+        # Single unified upload widget that accepts everything
+        st.markdown("#### Drop your files here or click to browse:")
+        uploaded_items = st.file_uploader(
+            "Upload PDF files or ZIP archives",
+            type=['pdf', 'zip'],
+            accept_multiple_files=True,
+            help="Select one or more PDF files, or ZIP files containing PDFs. All will be processed together.",
+            key="unified_batch_uploader"
+        )
+        
+        if uploaded_items:
+            # Process all uploaded items automatically
+            pdf_files = []
+            zip_files = []
+            
+            # Categorize uploads automatically
+            for item in uploaded_items:
+                if item.name.lower().endswith('.pdf'):
+                    pdf_files.append(item)
+                elif item.name.lower().endswith('.zip'):
+                    zip_files.append(item)
+            
+            # Enhanced visual feedback
+            BatchFileUploadComponent._display_upload_summary(pdf_files, zip_files)
+            
+            # Auto-process ZIP files (Phase 3: streamlined workflow)
+            all_pdf_files = pdf_files.copy()
+            if zip_files:
+                extracted_pdfs = BatchFileUploadComponent._auto_extract_zip_files(zip_files)
+                all_pdf_files.extend(extracted_pdfs)
+            
+            # Update session state
+            if all_pdf_files:
+                st.session_state.batch_files = all_pdf_files
+                result['uploaded_files'] = all_pdf_files
+                result['total_files'] = len(all_pdf_files)
+                
+                # Success feedback with batch context
+                st.success(f"✅ **Ready for processing:** {len(all_pdf_files)} PDF files loaded")
+                
+                # Show file list in expandable section
+                with st.expander(f"📋 View {len(all_pdf_files)} uploaded files", expanded=False):
+                    for i, file in enumerate(all_pdf_files[:10]):  # Show max 10
+                        file_size = len(file.getvalue()) / 1024 / 1024  # MB
+                        st.write(f"{i+1}. **{file.name}** ({file_size:.1f} MB)")
+                    if len(all_pdf_files) > 10:
+                        st.write(f"... and {len(all_pdf_files) - 10} more files")
+        
+        else:
+            # Empty state with helpful guidance
+            st.info("📁 **No files uploaded yet.** Select PDF files or ZIP archives to get started.")
+        
+        return result
+    
+    @staticmethod
+    def _display_upload_summary(pdf_files: List, zip_files: List) -> None:
+        """Display enhanced upload summary with visual feedback."""
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            if pdf_files:
+                st.metric("📄 PDF Files", len(pdf_files))
+                total_pdf_size = sum(len(f.getvalue()) for f in pdf_files) / 1024 / 1024
+                st.caption(f"Total size: {total_pdf_size:.1f} MB")
+        
+        with col2:
+            if zip_files:
+                st.metric("📦 ZIP Archives", len(zip_files))
+                total_zip_size = sum(len(f.getvalue()) for f in zip_files) / 1024 / 1024
+                st.caption(f"Total size: {total_zip_size:.1f} MB")
+        
+        with col3:
+            total_items = len(pdf_files) + len(zip_files)
+            st.metric("📁 Total Items", total_items)
+            st.caption("Mixed upload detected" if pdf_files and zip_files else "Single type upload")
+    
+    @staticmethod
+    def _auto_extract_zip_files(zip_files: List) -> List:
+        """
+        Phase 3: Automatic ZIP extraction with progress feedback.
+        Streamlined workflow without manual confirmation steps.
+        """
+        extracted_pdfs = []
+        
+        for zip_file in zip_files:
+            with st.spinner(f"🔄 Extracting {zip_file.name}..."):
+                try:
+                    # Auto-extract without confirmation (Phase 3 improvement)
+                    from src.utils.zip_processor import ZipProcessor
+                    zip_processor = ZipProcessor(max_files=50, max_file_size_mb=100)
+                    
+                    # Validate and extract in one step
+                    is_valid, validation_errors, zip_info = zip_processor.validate_zip_file(
+                        zip_file.getvalue()
+                    )
+                    
+                    if is_valid:
+                        # Extract directly to temporary files
+                        with tempfile.TemporaryDirectory() as temp_dir:
+                            extracted_files = zip_processor.extract_zip_file(
+                                zip_file.getvalue(),
+                                temp_dir
+                            )
+                            
+                            # Convert to file objects
+                            file_objects = BatchFileUploadComponent._convert_extracted_files_to_objects(extracted_files)
+                            extracted_pdfs.extend(file_objects)
+                            
+                            st.success(f"✅ Extracted {len(file_objects)} PDFs from {zip_file.name}")
+                    else:
+                        st.error(f"❌ Invalid ZIP file: {zip_file.name}")
+                        for error in validation_errors:
+                            st.error(f"  • {error}")
+                
+                except Exception as e:
+                    st.error(f"❌ Error extracting {zip_file.name}: {str(e)}")
+        
+        return extracted_pdfs
+    
+    @staticmethod
+    def _convert_extracted_files_to_objects(extracted_files: List[Dict[str, Any]]) -> List:
+        """Convert extracted files to file-like objects."""
+        file_objects = []
+        
+        for file_info in extracted_files:
+            class FileObject:
+                def __init__(self, name, path):
+                    self.name = name
+                    self.path = path
+                    with open(path, 'rb') as f:
+                        self._content = f.read()
+                
+                def getbuffer(self):
+                    return self._content
+                
+                def getvalue(self):
+                    return self._content
+            
+            file_objects.append(FileObject(file_info['name'], file_info['path']))
+        
+        return file_objects
 
 
 class BatchResultsComponent:

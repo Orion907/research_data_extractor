@@ -92,55 +92,94 @@ class ProgressDisplayComponent:
         filename: str,
         text_length: int,
         chunk_count: int,
-        status: str = "success"
+        status: str = "success",
+        picots_enhanced: bool = False,
+        domain_enhanced: bool = False
     ) -> None:
         """
-        Display file processing status with standard format.
+        Display file processing status with enhanced format (Phase 3).
         
         Args:
-            filename: Name of the processed file
+            filename: Name of the file being processed
             text_length: Length of extracted text
-            chunk_count: Number of chunks created
-            status: Status type ('success', 'error', 'warning')
+            chunk_count: Number of chunks processed
+            status: Processing status
+            picots_enhanced: Whether PICOTS criteria were used
+            domain_enhanced: Whether domain profile was used
         """
+        # Build enhancement indicators
+        enhancements = []
+        if picots_enhanced:
+            enhancements.append("🎯 PICOTS")
+        if domain_enhanced:
+            enhancements.append("🗺️ Domain")
+        
+        enhancement_text = f" ({', '.join(enhancements)})" if enhancements else ""
+        
+        # Status icon
         if status == "success":
-            ProgressDisplayComponent.show_status_message(
-                f"File {filename} processed successfully!", 
-                "success",
-                "✅"
-            )
-            ProgressDisplayComponent.show_status_message(
-                f"Extracted {text_length:,} characters of text and created {chunk_count} chunks",
-                "info",
-                "📄"
-            )
+            icon = "✅"
+            status_func = st.success
         elif status == "error":
-            ProgressDisplayComponent.show_status_message(
-                f"Error processing file {filename}",
-                "error",
-                "❌"
-            )
+            icon = "❌"
+            status_func = st.error
+        elif status == "warning":
+            icon = "⚠️"
+            status_func = st.warning
+        else:
+            icon = "ℹ️"
+            status_func = st.info
+        
+        # Format message with enhancements
+        message = f"{icon} **{filename}** - {chunk_count} chunks, {text_length:,} characters{enhancement_text}"
+        status_func(message)
 
 
 class BatchProgressDisplay:
-    """Specialized progress display for batch processing operations."""
+    """Specialized progress display for batch processing operations with enhancement tracking."""
     
-    def __init__(self, total_files: int):
+    def __init__(self, total_files: int, picots_enhanced: bool = False, domain_enhanced: bool = False):
         """
-        Initialize batch progress display.
+        Initialize batch progress display with enhancement tracking (Phase 3).
         
         Args:
             total_files: Total number of files to process
+            picots_enhanced: Whether PICOTS criteria are being used
+            domain_enhanced: Whether domain profile is being used
         """
         self.total_files = total_files
         self.current_file = 0
+        self.picots_enhanced = picots_enhanced
+        self.domain_enhanced = domain_enhanced
         self.progress_bar = None
         self.status_container = None
+        self.file_statuses = []
         self.setup_display()
     
     def setup_display(self) -> None:
-        """Setup the batch progress display elements."""
-        st.subheader("📊 Batch Processing Progress")
+        """Setup the batch progress display elements with enhancement indicators."""
+        # Enhancement indicators in header
+        enhancement_badges = []
+        if self.picots_enhanced:
+            enhancement_badges.append("🎯 PICOTS-Enhanced")
+        if self.domain_enhanced:
+            enhancement_badges.append("🗺️ Domain-Enhanced")
+        
+        header_text = "📊 Batch Processing Progress"
+        if enhancement_badges:
+            header_text += f" ({', '.join(enhancement_badges)})"
+        
+        st.subheader(header_text)
+        
+        # Show batch enhancement summary
+        if self.picots_enhanced or self.domain_enhanced:
+            enhancement_info = []
+            if self.picots_enhanced:
+                enhancement_info.append("**PICOTS**: Targeted extraction based on research criteria")
+            if self.domain_enhanced:
+                enhancement_info.append("**Domain Profile**: Enhanced vocabulary and synonym recognition")
+            
+            st.info(" • ".join(enhancement_info))
         
         # Overall progress
         self.progress_bar = st.progress(0.0)

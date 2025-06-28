@@ -165,18 +165,80 @@ User lands on app → Sees 2 clear options:
 
 **Status**: **COMPLETED** - All Phase 1 objectives achieved
 
-### 🔄 Phase 2 (NEXT): Enhance Domain Setup Page
-- **Current status**: Using unified_extraction_page domain priming section
-- **Next steps**:
-  - Improve skip/default workflow
-  - Better onboarding guidance
-  - Domain profile management improvements
+### ✅ Phase 2 (COMPLETED): Enhance Domain Setup Page
+**Status**: ✅ **COMPLETED** - All Phase 2 objectives achieved
 
-### 📋 Phase 3 (PLANNED): Enhance Batch Extraction Page  
-- Merge best features from previous pages
-- Improve upload interface for 1 or many files
-- Enhanced PICOTS persistence and CSV export
-- Better progress tracking
+**Accomplished**:
+1. **✅ Skip/Default Workflow Enhancement**:
+   - ✅ Improved "Skip to Extraction" functionality with prominent placement
+   - ✅ Clear guidance explaining domain setup vs immediate extraction benefits
+   - ✅ Two-path workflow: "Set Up Domain Profile" vs "Skip to Batch Extraction"
+  
+2. **✅ Simple Domain Profile Management**:
+   - ✅ Streamlined workflow: upload → create → save profile
+   - ✅ Simple view/load/delete options for existing profiles  
+   - ✅ Added `delete_domain_profile()` method to DomainPrimingEngine
+   - ✅ Profile list shows 5 most recent with key metadata
+  
+3. **✅ Clear Value Proposition**:
+   - ✅ **Domain profiles**: Recognize synonym equivalency ('hypertension' = 'high blood pressure') 
+   - ✅ **PICOTS input**: Makes LLM prompts more targeted and accurate
+   - ✅ Added purpose explanations at top of both pages
+  
+4. **✅ UI Improvements**:
+   - ✅ Moved workflow overview from bottom to top of Domain Setup page
+   - ✅ Better onboarding guidance with clear workflow steps
+   - ✅ Enhanced both Domain Setup and Batch Extraction pages with explanatory content
+   - ✅ Domain status awareness across pages (shows active profile or quick mode)
+
+### ✅ Phase 3 (COMPLETED): Enhance Batch Extraction Page  
+**Status**: ✅ **COMPLETED** - All Phase 3 objectives achieved
+
+**✅ Completed Enhancements**:
+1. **✅ PICOTS Integration (Priority 1 - COMPLETED)**:
+   - ✅ Ported comprehensive PICOTS input system from ExtractionPage
+   - ✅ Added session persistence (`batch_picots_text`, `batch_picots_data`)
+   - ✅ Integrated advanced parsing with fallback handling
+   - ✅ Domain profile integration with enhanced mode indicators
+   - ✅ Batch-specific PICOTS context passed to extraction engine
+   - ✅ Fixed missing `process_batch()` method in BatchCoordinator with PICOTS support
+   
+2. **✅ Upload Interface Enhancement (Priority 2 - COMPLETED)**:
+   - ✅ **Unified upload interface** - handles 1 or many files gracefully
+   - ✅ **Automatic file type detection** - PDFs and ZIPs processed seamlessly
+   - ✅ **Mixed upload support** - combine direct PDFs + ZIP files in same session
+   - ✅ **Streamlined ZIP processing** - auto-extract without manual confirmation
+   - ✅ **Enhanced visual feedback** - metrics, progress indicators, file previews
+   - ✅ **Eliminated decision paralysis** - no more forced binary upload choices
+
+3. **✅ Enhanced CSV Export (Priority 3 - COMPLETED)**:
+   - ✅ **PICOTS-structured CSV output format** with organized columns
+   - ✅ **Better column organization and labeling** for research workflows
+   - ✅ **Batch-wide PICOTS analysis and compilation** with structured fields
+   - ✅ **Multiple export formats**: Enhanced CSV, JSON, and Summary CSV
+   - ✅ **Field extraction parsing** for Population, Intervention, Comparison, Outcomes, etc.
+   - ✅ **PICOTS enhancement indicators** in CSV metadata columns
+   
+4. **✅ Advanced Progress Tracking (Priority 4 - COMPLETED)**:
+   - ✅ **PICOTS-aware progress indicators** showing enhancement status
+   - ✅ **Domain enhancement status tracking** in UI and progress displays
+   - ✅ **Better error reporting and recovery options** with context-specific suggestions
+   - ✅ **Enhanced BatchProgressDisplay** with PICOTS/Domain badges
+   - ✅ **Recovery actions**: Retry, View Details, Start Fresh options
+
+**Phase 3 Key Achievements**:
+- **Complete PICOTS Integration**: Full end-to-end PICOTS support from input → processing → structured export
+- **Research-Ready CSV Export**: Organized columns with extracted PICOTS fields (Population, Intervention, etc.)
+- **Enhanced User Experience**: PICOTS/Domain status indicators throughout the workflow
+- **Robust Error Handling**: Context-aware error messages with recovery suggestions
+- **Unified File Processing**: Single interface handles 1 file or 100+ files seamlessly
+
+**Technical Implementations**:
+- Added missing `BatchCoordinator.process_batch()` method with PICOTS context parameter
+- Enhanced `ResultsDisplaySection` with PICOTS-aware CSV export functionality  
+- Updated `BatchProgressDisplay` to show enhancement status (PICOTS + Domain)
+- Improved error handling with recovery options and detailed suggestions
+- Structured CSV export with organized columns: file info → PICOTS fields → content → metadata
 
 ### 🧪 Phase 4 (PLANNED): Testing and Refinement
 - User testing with researchers

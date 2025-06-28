@@ -454,3 +454,274 @@ class BatchCoordinator:
             'files_remaining': total_files - current_file,
             'status_message': f"Processing file {current_file}/{total_files}: {current_file_name}"
         }
+    
+    def process_batch(
+        self,
+        files: List[Any],
+        provider: str,
+        model_name: str,
+        settings: Dict[str, Any],
+        progress_callback: Optional[Callable] = None,
+        picots_context: Optional[Dict[str, Any]] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        Process a batch of files with PICOTS context support (Phase 3 enhancement).
+        
+        Args:
+            files: List of file objects to process
+            provider: LLM provider name
+            model_name: Model name to use
+            settings: Processing settings
+            progress_callback: Optional progress callback function
+            picots_context: Optional PICOTS criteria for enhanced extraction
+            
+        Returns:
+            List of processing results for each file
+        """
+        logger.info(f"Starting batch processing of {len(files)} files with PICOTS context: {picots_context is not None}")
+        
+        # Validate files
+        valid_files, validation_errors = self.validate_batch_files(files)
+        
+        if validation_errors:
+            logger.warning(f"File validation issues: {validation_errors}")
+        
+        if not valid_files:
+            logger.error("No valid files to process")
+            return []
+        
+        # Prepare files for processing
+        prepared_files, preparation_errors = self.prepare_batch_files(valid_files)
+        
+        if preparation_errors:
+            logger.warning(f"File preparation issues: {preparation_errors}")
+        
+        if not prepared_files:
+            logger.error("No files could be prepared for processing")
+            return []
+        
+        # Process files with PICOTS context
+        temperature = settings.get('temperature', 0.0)
+        use_parallel = settings.get('max_parallel', 1) > 1
+        
+        # Enhanced processing with PICOTS context
+        successful_results, failed_files, batch_stats = self._execute_batch_with_picots(
+            prepared_files=prepared_files,
+            provider=provider,
+            model_name=model_name,
+            temperature=temperature,
+            use_parallel=use_parallel,
+            progress_callback=progress_callback,
+            picots_context=picots_context
+        )
+        
+        # Convert to standardized batch result format
+        batch_results = []
+        
+        # Add successful results
+        for result in successful_results:
+            batch_results.append({
+                'filename': result['file_name'],
+                'status': 'success',
+                'results': [{
+                    'chunk_index': 0,
+                    'extraction': result['extraction_result']
+                }],
+                'metadata': {
+                    'chunk_count': result['chunk_count'],
+                    'successful_chunks': result['successful_chunks'],
+                    'failed_chunks': result['failed_chunks'],
+                    'character_count': result['character_count'],
+                    'processing_time': result['processing_time'],
+                    'picots_enhanced': picots_context is not None
+                }
+            })
+        
+        # Add failed results
+        for result in failed_files:
+            batch_results.append({
+                'filename': result['file_name'],
+                'status': 'error',
+                'error': result.get('error', 'Unknown error'),
+                'metadata': {
+                    'picots_enhanced': picots_context is not None
+                }
+            })
+        
+        # Cleanup temporary files
+        all_results = successful_results + failed_files
+        self.cleanup_batch_files(all_results)
+        
+        logger.info(f"Batch processing complete: {len(successful_results)} successful, {len(failed_files)} failed")
+        return batch_results
+    
+    def _execute_batch_with_picots(
+        self,
+        prepared_files: List[Dict[str, Any]],
+        provider: str,
+        model_name: str,
+        temperature: float,
+        use_parallel: bool,
+        progress_callback: Optional[Callable] = None,
+        picots_context: Optional[Dict[str, Any]] = None
+    ) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], Dict[str, Any]]:
+        """
+        Execute batch processing with PICOTS context integration.
+        
+        Args:
+            prepared_files: List of prepared file dictionaries
+            provider: LLM provider name
+            model_name: Model name to use
+            temperature: Temperature setting
+            use_parallel: Whether to use parallel processing
+            progress_callback: Optional progress callback function
+            picots_context: Optional PICOTS criteria for enhanced extraction
+            
+        Returns:
+            Tuple of (successful_results, failed_files, batch_stats)
+        """
+        logger.info(f"Executing batch with PICOTS context: {picots_context is not None}")
+        start_time = datetime.now()
+        
+        successful_results = []
+        failed_files = []
+        
+        if use_parallel and len(prepared_files) > 1:
+            # Parallel processing with PICOTS
+            with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+                future_to_file = {
+                    executor.submit(
+                        self._process_single_file_with_picots,
+                        prepared_file,
+                        provider,
+                        model_name,
+                        temperature,
+                        progress_callback,
+                        picots_context
+                    ): prepared_file for prepared_file in prepared_files
+                }
+                
+                for future in as_completed(future_to_file):
+                    prepared_file = future_to_file[future]
+                    try:
+                        result = future.result()
+                        if result['status'] == 'success':
+                            successful_results.append(result)
+                        else:
+                            failed_files.append(result)
+                    except Exception as e:
+                        error_result = {
+                            'file_name': prepared_file['file_name'],
+                            'error': str(e),
+                            'status': 'failed'
+                        }
+                        failed_files.append(error_result)
+        else:
+            # Sequential processing with PICOTS
+            for i, prepared_file in enumerate(prepared_files):
+                if progress_callback:
+                    progress_callback(f"Processing file {i+1}/{len(prepared_files)}: {prepared_file['file_name']}")
+                
+                result = self._process_single_file_with_picots(
+                    prepared_file, provider, model_name, temperature, progress_callback, picots_context
+                )
+                
+                if result['status'] == 'success':
+                    successful_results.append(result)
+                else:
+                    failed_files.append(result)
+        
+        end_time = datetime.now()
+        processing_duration = (end_time - start_time).total_seconds()
+        
+        batch_stats = self._calculate_batch_stats(
+            successful_results, failed_files, processing_duration
+        )
+        
+        return successful_results, failed_files, batch_stats
+    
+    def _process_single_file_with_picots(
+        self,
+        prepared_file: Dict[str, Any],
+        provider: str,
+        model_name: str,
+        temperature: float,
+        progress_callback: Optional[Callable] = None,
+        picots_context: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        Process a single file with PICOTS context integration.
+        
+        Args:
+            prepared_file: Prepared file dictionary with chunks
+            provider: LLM provider name
+            model_name: Model name to use
+            temperature: Temperature setting
+            progress_callback: Optional progress callback function
+            picots_context: Optional PICOTS criteria for enhanced extraction
+            
+        Returns:
+            Processing result dictionary
+        """
+        file_name = prepared_file['file_name']
+        chunks = prepared_file['chunks']
+        
+        logger.info(f"Processing {file_name} with {len(chunks)} chunks, PICOTS: {picots_context is not None}")
+        
+        if progress_callback:
+            progress_callback(f"Processing {file_name}")
+        
+        try:
+            # Process chunks with PICOTS context using extraction engine
+            successful_results, failed_chunks = self.extraction_engine.process_chunks_batch(
+                chunks=chunks,
+                provider=provider,
+                model_name=model_name,
+                temperature=temperature,
+                source_file=file_name,  # Required parameter
+                picots_context=picots_context  # Phase 3: PICOTS integration
+            )
+            
+            # Aggregate results
+            all_extractions = []
+            for result in successful_results:
+                all_extractions.append(result['extraction'])
+            
+            combined_extraction = '\n\n'.join(all_extractions) if all_extractions else ""
+            
+            result = {
+                'file_name': file_name,
+                'extraction_result': combined_extraction,
+                'chunk_count': len(chunks),
+                'successful_chunks': len(successful_results),
+                'failed_chunks': len(failed_chunks),
+                'character_count': prepared_file['character_count'],
+                'processing_time': datetime.now().isoformat(),
+                'temp_path': prepared_file['temp_path'],
+                'status': 'success',
+                'picots_enhanced': picots_context is not None
+            }
+            
+            if failed_chunks:
+                result['chunk_errors'] = failed_chunks
+            
+            logger.info(f"Completed {file_name}: {len(successful_results)}/{len(chunks)} chunks successful")
+            return result
+            
+        except Exception as e:
+            error_msg = str(e)
+            logger.error(f"Failed to process {file_name}: {error_msg}")
+            
+            return {
+                'file_name': file_name,
+                'extraction_result': "",
+                'chunk_count': len(chunks),
+                'successful_chunks': 0,
+                'failed_chunks': len(chunks),
+                'character_count': prepared_file['character_count'],
+                'processing_time': datetime.now().isoformat(),
+                'temp_path': prepared_file['temp_path'],
+                'status': 'failed',
+                'error': error_msg,
+                'picots_enhanced': picots_context is not None
+            }
