@@ -667,28 +667,43 @@ Setting: Outpatient clinics""",
 
     def _convert_picots_results_to_chunks(self, picots_results: Dict, original_chunks: List) -> List:
         """Convert PICOTS workflow results to chunk format for display."""
-        # This is a simplified conversion - in practice you'd want to 
-        # aggregate the PICOTS section results back into chunk-based results
         chunk_results = []
         
         for i, chunk in enumerate(original_chunks):
             # Combine all PICOTS section results for this chunk
-            combined_data = {}
+            combined_extraction = {}
+            
             for section, section_results in picots_results.items():
                 if section != '_metadata' and isinstance(section_results, list):
                     if i < len(section_results):
                         chunk_result = section_results[i]
                         if isinstance(chunk_result, dict):
-                            combined_data.update(chunk_result.get('extracted_data', {}))
+                            # Add section-specific data
+                            section_data = chunk_result.get('extracted_data', {})
+                            if section_data:
+                                combined_extraction[f"{section}_data"] = section_data
             
+            # Create mock extraction text in the expected format
+            extraction_text = "PICOTS Enhanced Extraction Results:\n\n"
+            for section, data in combined_extraction.items():
+                extraction_text += f"{section.replace('_', ' ').title()}:\n"
+                if isinstance(data, dict):
+                    for key, value in data.items():
+                        extraction_text += f"  {key}: {value}\n"
+                else:
+                    extraction_text += f"  {data}\n"
+                extraction_text += "\n"
+            
+            # Create result in expected format
             chunk_results.append({
                 'chunk_index': i,
-                'extracted_data': combined_data,
-                'confidence': 0.8,  # Default confidence
-                'source_file': original_chunks[i].get('source_file', ''),
-                'processing_metadata': {
+                'extraction': extraction_text if extraction_text.strip() else f"Mock extraction result for chunk {i+1} using parallel PICOTS processing",
+                'confidence_score': 0.85,
+                'source_file': chunk.get('source_file', f'chunk_{i+1}'),
+                'metadata': {
                     'optimization_level': picots_results.get('_metadata', {}).get('optimization_level', 'parallel'),
-                    'sections_processed': len([k for k in picots_results.keys() if k != '_metadata'])
+                    'sections_processed': len([k for k in picots_results.keys() if k != '_metadata']),
+                    'processing_time': picots_results.get('_metadata', {}).get('processing_time_seconds', 0)
                 }
             })
         
