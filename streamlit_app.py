@@ -11,9 +11,8 @@ import logging
 from src.app import SessionStateManager, ConfigurationLoader
 from src.processing import DocumentProcessor, ExtractionEngine, BatchCoordinator
 
-# Import UI components and pages
-from src.ui import ExtractionPage, BatchPage, AnnotationPage, AnalyticsPage
-from src.ui.pages.domain_priming_page import DomainPrimingPage
+# Import UI components and pages (streamlined for Phase 1)
+from src.ui import BatchPage
 from src.ui.pages.unified_extraction_page import UnifiedExtractionPage
 
 
@@ -42,40 +41,57 @@ if init_result['errors']:
     st.warning("Some features may not work properly due to configuration errors.")
 
 # App title and description
-st.title("Research Article Data Extractor")
+st.title("🔬 Research Data Extractor")
+st.markdown("**Streamlined workflow for systematic reviews and meta-analyses**")
 
-# Navigation
-page = st.sidebar.selectbox("Navigate", ["Unified Extraction (Phase 1)", "Extract Data", "Batch Processing", "Manual Annotation", "Domain Priming", "Analytics Dashboard"])
+# Streamlined Navigation - Phase 1 Simplification
+st.sidebar.markdown("## 🔬 Research Data Extraction")
+st.sidebar.markdown("**Streamlined workflow for systematic reviews**")
 
-if page == "Unified Extraction (Phase 1)":
-    # Phase 1 unified page with Domain Priming + Extraction side-by-side
+page = st.sidebar.selectbox(
+    "Choose your workflow:", 
+    ["🗺️ Domain Setup", "📚 Batch Extraction"],
+    help="Domain Setup: Create vocabulary maps for better extraction (recommended first step)\nBatch Extraction: Extract PICOTS data from research articles (1 or many files)"
+)
+
+if page == "🗺️ Domain Setup":
+    # Domain vocabulary creation (enhanced from Unified Extraction domain features)
+    st.header("🗺️ Domain Setup")
+    st.markdown("""
+    **Recommended first step**: Create a domain vocabulary map for enhanced extraction accuracy.
+    
+    Upload 3-5 sample articles from your research area to build specialized vocabulary mappings.
+    This improves extraction quality for all subsequent articles in your systematic review.
+    """)
+    
+    # Skip option for immediate processing
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        st.info("💡 **Tip**: Domain setup significantly improves extraction accuracy for specialized research areas")
+    with col2:
+        if st.button("⏭️ Skip to Extraction", key="skip_domain_setup"):
+            st.session_state.skip_domain_setup = True
+            st.info("👆 Use the navigation above to go to 'Batch Extraction'")
+    
+    # Use the domain priming features from UnifiedExtractionPage
     unified_page = UnifiedExtractionPage(extraction_engine, document_processor, config)
-    unified_page.render()
+    # Only render the domain priming section
+    unified_page._render_domain_priming_window()
 
-elif page == "Extract Data":
-    # Use the new extraction page component
-    extraction_page = ExtractionPage(extraction_engine, document_processor, config)
-    extraction_page.render()
-
-elif page == "Batch Processing":
-    # Use the new batch processing page component
+elif page == "📚 Batch Extraction":
+    # Main extraction workflow (enhanced batch processing)
+    st.header("📚 Batch Extraction")
+    st.markdown("""
+    **Main research workflow**: Upload research articles and extract structured PICOTS data.
+    
+    - Upload single articles or batches (works the same way)
+    - Enter your PICOTS research criteria  
+    - Get structured CSV data ready for analysis
+    """)
+    
+    # Use the enhanced batch processing page
     batch_page = BatchPage(extraction_engine, document_processor, batch_coordinator, config)
     batch_page.render()
-
-elif page == "Manual Annotation":
-    # Use the new annotation page component
-    annotation_page = AnnotationPage()
-    annotation_page.render()
-
-elif page == "Domain Priming":
-    # Use the new domain priming page component
-    domain_priming_page = DomainPrimingPage()
-    domain_priming_page.render()
-
-elif page == "Analytics Dashboard":
-    # Use the new analytics page component
-    analytics_page = AnalyticsPage(analytics)
-    analytics_page.render()
 
 # Run the app properly if executed directly
 if __name__ == "__main__":
