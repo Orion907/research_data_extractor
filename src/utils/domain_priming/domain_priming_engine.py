@@ -582,8 +582,21 @@ Extract all relevant {section_name.lower()} data from the provided text, using t
             
             for chunk_idx, text_chunk in enumerate(text_chunks, 1):
                 try:
-                    chunk_result = extraction_engine.extract_from_chunk(
-                        text_chunk, section_prompt, section_context=section_name
+                    # Create chunk dict format expected by ExtractionEngine
+                    chunk_dict = {
+                        'content': text_chunk,
+                        'index': chunk_idx,
+                        'source_file': f'chunk_{chunk_idx}'
+                    }
+                    
+                    chunk_result = extraction_engine.process_single_chunk(
+                        chunk=chunk_dict,
+                        provider='mock',  # Use mock provider for domain priming
+                        model_name='mock-model',
+                        temperature=0.0,
+                        source_file=f'domain_priming_chunk_{chunk_idx}',
+                        picots_context={section_name: enhanced_prompts[section_name]},
+                        prompt_version='v1.0'
                     )
                     if chunk_result:
                         chunk_result['section'] = section_name
@@ -805,8 +818,21 @@ Extract all relevant {section_name.lower()} data from the provided text, using t
                 # Process each chunk for this section
                 for chunk_idx, text_chunk in enumerate(text_chunks, 1):
                     try:
-                        chunk_result = extraction_engine.extract_from_chunk(
-                            text_chunk, section_prompt, section_context=section_name
+                        # Create chunk dict format expected by ExtractionEngine
+                        chunk_dict = {
+                            'content': text_chunk,
+                            'index': chunk_idx,
+                            'source_file': f'parallel_chunk_{chunk_idx}'
+                        }
+                        
+                        chunk_result = extraction_engine.process_single_chunk(
+                            chunk=chunk_dict,
+                            provider='mock',
+                            model_name='mock-model',
+                            temperature=0.0,
+                            source_file=f'parallel_chunk_{chunk_idx}_{section_name}',
+                            picots_context={section_name: section_prompt},
+                            prompt_version='v1.0'
                         )
                         
                         if chunk_result:
@@ -868,8 +894,21 @@ Extract all relevant {section_name.lower()} data from the provided text, using t
             # Process each chunk with the batched prompt
             for chunk_idx, text_chunk in enumerate(text_chunks, 1):
                 try:
-                    chunk_result = extraction_engine.extract_from_chunk(
-                        text_chunk, batch_prompt, section_context=f"batch_{batch_idx}"
+                    # Create chunk dict format expected by ExtractionEngine
+                    chunk_dict = {
+                        'content': text_chunk,
+                        'index': chunk_idx,
+                        'source_file': f'batch_chunk_{chunk_idx}'
+                    }
+                    
+                    chunk_result = extraction_engine.process_single_chunk(
+                        chunk=chunk_dict,
+                        provider='mock',
+                        model_name='mock-model',
+                        temperature=0.0,
+                        source_file=f'batch_chunk_{chunk_idx}_batch_{batch_idx}',
+                        picots_context=batch_sections,
+                        prompt_version='v1.0'
                     )
                     
                     if chunk_result:
