@@ -1,0 +1,8 @@
+r all task trials and times, including pre-
+test. The Go/Nogo task we used (Albert et al.,2013) allowed us to
+analyze attention-related effects with frequent versus infrequent go
+trials and inhibition-related effects with infrequent go trials versus
+nogo trials (infrequent go and nogo trials have the same proportion).
+As the effects were observed in all task trials, this result may reflect
+increased global attention rather than a specific effect of inhibitory
+control. 

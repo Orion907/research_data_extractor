@@ -1,0 +1,7 @@
+peated after the intervention period (post
+time). EEG signals were recorded using a Biosemi Active-Two ampli-
+fier system and 32 scalp Ag/AgCl electrodes mounted in an elastic cap
+according to the 10–20 system. Four additional electrodes were fixed
+on the left and right mastoids and below and above the left eye (VEOG).
+All signals were digitized with a sampling rate of 2048 Hz and 24-
+bit A/D conversion. 

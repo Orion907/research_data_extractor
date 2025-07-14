@@ -1,0 +1,8 @@
+Nogo), participant (46),
+and time (pre and post). Then, ERP data across participants was decom-
+posed by ICA (3 conditions×46 participants×2 times ERPs for each
+electrode). The resulting independent components were explored by
+means of visual inspection, identifying a meaningful component as P3
+based on its scalp topography and time course. For the analysis, the
+average of amplitude of the P3 maximum amplitude time point±10 ms
+was used.

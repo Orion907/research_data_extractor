@@ -1,0 +1,7 @@
+were computed using the partial eta-square (ƞ2p). For
+interpreting effect sizes, Cohen’s (1988) cutoff criteria were followed:
+ƞ2p =0.01 as small effect size,ƞ2p =0.06 as medium effect size, and
+ƞ2p =0.14 as large effect size.
+2.5.2 Questionnaires data analysis
+Relative to self-reports completed by children, there was no attrition
+from pre to post-interventions (Nexp=24; Ncon=22). 

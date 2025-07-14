@@ -1,0 +1,12 @@
+.
+Mindfulness Control
+Pre Post Pre Post
+Go frequent
+Error 6.29 (4.40) 8.72 (7.60) 9.90 (6.50) 14.02 (12.70)
+RT 384.35 (43.78) 361.67 (43.53) 382.75 (49.53) 362.35 (43.79)
+Go infrequent
+Error 8.44 (6.01) 10.52 (8.07) 11.99 (8.11) 16.52 (13.08)
+RT 395.17 (56.67) 365.85 (48.10) 386.80 (56.37) 373.37 (55.79)
+Nogo infrequent
+Error 57.30 (12.63) 49.72 (14.76) 56.39 (15.00) 52.23 (10.64)
+Data shown represent means of error rates (omission errors in percentages), mean reaction times for the Go trials (f

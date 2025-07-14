@@ -1,0 +1,7 @@
+cks of 150 trials, with rest
+time between blocks. Each trial began with the presentation of the let-
+ter (400 ms), followed by a black screen (700 or 900 ms). Both letter
+and fixation cross were superimposed at the center of the black back-
+ground. The letters “M” (infrequent-Go) and “W” (infrequent-Nogo)
+were presented with the same probability of occurrence (20%) in order
+to equalize both types of trials with respect to novelty processing. 

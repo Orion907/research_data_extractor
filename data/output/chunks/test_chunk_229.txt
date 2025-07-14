@@ -1,0 +1,7 @@
+ could consider that data were missing at
+random.
+We examined the baseline differences between groups (i.e., mind-
+fulness and control group) for dependent variables of children’s self-
+reports and teachers’ reports byt-test. Repeated-measures ANOVAs
+were used with Group (mindfulness vs. active control group) and Time
+(pre, post) in all analyses as factors. 

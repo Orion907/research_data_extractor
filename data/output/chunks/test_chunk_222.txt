@@ -1,0 +1,6 @@
+ frequent and infrequent-go trials were analyzed. Repeated-
+measures ANOVAs on each behavioral measure were carried out using
+Trial type (frequent-Go, infrequent-Go, infrequent-Nogo), Group and
+Time as factors. To examine the effects of mindfulness training on Nogo
+P3, we conducted repeated-measures ANOVA, with Group and Time as
+factors. 

@@ -1,0 +1,10 @@
+8o f1 4 ANDREU ET AL.
+(a) (b)
+(c) (d)
+(e) (f)
+FIGURE 2 Panel A and B show the scalp topographical map and the grand-average waveform for P3 independent component—ERP,
+respectively. Panel C, D, E, and F show the mean waveforms for each trial, group and time in Cz.
+data (χ2 [769]=13,548, p =1.000) and for teacher reports data (χ2
+[1749] =6370, p =1.000), indicating that the missing data did not show
+a significant pattern and we could consider that data were missing at
+random.

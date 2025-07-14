@@ -1,0 +1,8 @@
+udy of neural corre-
+lates of inhibitory control. Behavioral indices in a Go/Nogo task include
+the omission errors in Go trials and the commission errors in Nogo
+trials, which require inhibitory control ability, as well as the reaction
+times (RTs) to different types of trials. One proposed ERPs neural cor-
+relate of inhibitory control that reflect changes in brain activity needed
+to inhibit response in a Go/Nogo task is the P3 component (Huster
+et al.,2013). 

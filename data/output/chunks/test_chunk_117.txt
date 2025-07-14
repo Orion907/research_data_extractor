@@ -1,0 +1,6 @@
+ive control group,
+after participant elimination. As recommended in the literature, only
+correct trials were analyzed for Go/Nogo EEG activity, and to ensure
+an appropriate signal to noise ratio, a minimum of 15 artifact-free trials
+per condition was set as a criterion for inclusion in the analysis (Hus-
+ter et al.,2013; Rietdijk et al.,2014). 

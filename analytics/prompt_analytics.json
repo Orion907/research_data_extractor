@@ -656,5 +656,25 @@
       "format": "json"
     },
     "logged_at": "2025-06-21T16:44:19.118513"
+  },
+  {
+    "template_id": "comprehensive_research",
+    "version_id": "v1.0",
+    "source_file": "parallel_chunk_1_Population",
+    "characteristics_found": 33,
+    "start_time": "2025-06-27T17:13:08.413661",
+    "end_time": "2025-06-27T17:13:08.417690",
+    "duration_seconds": 0.004029,
+    "success": true,
+    "error": null,
+    "metadata": {
+      "provider": "mock",
+      "model": "mock-model",
+      "chunk_index": 1,
+      "temperature": 0.0,
+      "text_chunk_length": 1000
+    },
+    "logged_at": "2025-06-27T17:13:08.417727"
   }
+]
 ]

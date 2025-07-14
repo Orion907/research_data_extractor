@@ -1,0 +1,8 @@
+served (F(2,88) = 379.6, p < 0.001, ƞ2p = 0.896).
+Percentage error rates were higher for Nogo trials (i.e., commis-
+sion errors) than for frequent- and infrequent- Go trials (omis-
+sion errors), as expected. Also, group difference (F(1,44) = 4.356,
+p = 0.043, ƞ2p = 0.09) and time-by-trial type interaction were sig-
+nificant (F(2,88) = 10.712, p < 0.001, ƞ2p = 0.196), indicated higher
+error rates among students in the active control group compared
+to students in the mindfulness group. 

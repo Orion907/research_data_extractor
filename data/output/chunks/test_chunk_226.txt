@@ -1,0 +1,5 @@
+ the teacher reports analysis (Nexp=22; Ncon=21).
+We used the SPSS Missing Value Analysis package to estimate the
+patterns of missing data for children and teachers. Little’s MCAR
+test (Little & Rubin,1989) was not significant for child self-report
+ 14677687, 2023, 6, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/desc.13403 by Oregon Health & Science Univer, Wiley Online Library on [08/05/2024]. 

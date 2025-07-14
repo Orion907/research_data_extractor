@@ -1,0 +1,7 @@
+go task is the P3 component (Huster
+et al.,2013). Indeed, the P3 is thought to reflect represent a tempo-
+rally precise neural marker of the response inhibition process (Albert
+et al.,2013; Dykstra et al.,2020; Sánchez-Carmona et al.,2016;W e s -
+sel & Aron,2015). Differential amplitudes of P3 are described both
+on several EF disorders in adults and children (Luijten et al.,2014;
+Lopez-Martin et al.,2015).

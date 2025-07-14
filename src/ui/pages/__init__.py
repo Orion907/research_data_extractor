@@ -8,7 +8,6 @@ from .extraction_page import ExtractionPage, ExtractionSettingsComponent
 from .batch_page import BatchPage, BatchSettingsComponent, BatchResultsComponent
 from .annotation_page import AnnotationPage
 from .analytics_page import AnalyticsPage
-from .domain_setup_page import DomainSetupPage
 from .batch_extraction_page import BatchExtractionPage
 
 __all__ = [
@@ -19,6 +18,5 @@ __all__ = [
     'BatchResultsComponent',
     'AnnotationPage',
     'AnalyticsPage',
-    'DomainSetupPage',
     'BatchExtractionPage'
 ]

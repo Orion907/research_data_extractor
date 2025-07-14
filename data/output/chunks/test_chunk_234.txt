@@ -1,0 +1,10 @@
+ase from pre to
+post in the active control group. No other significant interactions were
+found (Figure2).
+3.2 Behavioral data
+Performance on the Go/Nogo task is shown in Table2. For the Go trials
+(frequent and infrequent-go), it shows means of error rates (omission
+errors in percentages), and means RTs. For the Nogo trials, it shows
+means of error rates (commission errors in percentage). Preliminary
+analyses were conducted to examine pre-intervention group differ-
+ences in behavioral data. 

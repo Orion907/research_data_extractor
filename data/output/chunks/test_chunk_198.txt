@@ -1,0 +1,6 @@
+pes of trials with respect to novelty processing. The
+letter “N” (frequent-Go) was presented in the rest of the trials (60%)
+to increase the subjects’ tendency to respond. The three types of trials
+(frequent-Go, infrequent- Go, and infrequent-Nogo) were presented
+in semi-random order (i.e., avoiding the consecutive presentation of
+two infrequent-trials). 

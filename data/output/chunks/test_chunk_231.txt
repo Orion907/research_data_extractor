@@ -1,0 +1,10 @@
+were computed using the partial
+eta-square (ƞ2p). For interpreting effect sizes, Cohen’s (1988) cutoff
+criteria were followed:ƞ2p = 0.01 as small effect size,ƞ2p = 0.06 as
+medium effect size, andƞ2p =0.14 as large effect size.
+3 RESULTS
+3.1 ERP data
+The ICA applied on the previous computed ERPs revealed a fronto-
+central P3 component between 377 and 434 ms after stimulus onset.
+Figure 2 shows its topography and waveforms for both times and
+groups and all different trials of the Go/Nogo task. 

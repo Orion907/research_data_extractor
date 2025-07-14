@@ -1,0 +1,6 @@
+l.,2000; Jung,
+Makeig, Westerfield, et al.,2000). Then, noisy channels were interpo-
+lated using data of adjacent electrodes (mean± SD of interpolated
+electrodes per participant and time: 2.2±1.9). Finally, trials in which
+the EEG signal exceeded±150 mV after baseline correction (−200 to
+0 ms) were automatically excluded. 

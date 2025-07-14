@@ -1,0 +1,8 @@
+wn, M. J., Iragui, V.,
+& Sejnowski, T. J. (2000). Removing electroencephalographic artifacts
+by blind source separation.Psychophysiology, 37(2), 163–178.https://doi.
+org/10.1111/1469-8986.3720163
+Jung, T. P., Makeig, S., Westerfield, M., Townsend, J., Courchesne, E.,
+& Sejnowski, T. J. (2000). Removal of eye activity artifacts from
+visual event-related potentials in normal and clinical subjects.Clinical
+neurophysiology, 111(10), 1745–1758. 

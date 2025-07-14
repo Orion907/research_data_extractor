@@ -1,0 +1,4 @@
+sed EEG or ERP methodology. Siripornpanich et al. (2018) assessed
+children who have been studied in two schools with different types
+of school curriculum: mindfulness-based curriculum (i.e., mindfulness
+practices for all levels of education) versus usual curriculum. 

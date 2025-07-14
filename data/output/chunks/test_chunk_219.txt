@@ -1,0 +1,8 @@
+ction (−200 to
+0 ms) were automatically excluded. Only participants with at least 15
+error-free trials per condition were analyzed, yielding a final sample
+of 46 participants (see Participants section for a detailed description;
+the number of trials did not differ between groups in any condition at
+either pre or post-test, allps >0.05). ERP waves were computed for
+each condition (Go frequent, Go infrequent and Nogo), participant (46),
+and time (pre and post). 

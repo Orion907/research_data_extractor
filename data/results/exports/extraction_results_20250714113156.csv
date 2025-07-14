@@ -1,0 +1,5 @@
+meta_result_id,meta_source_file,meta_extraction_time,meta_model_info_provider,meta_model_info_model_name,meta_prompt_id,meta_metadata_test_run,sample_size,condition,age_range,mean_age,gender_distribution,blood_pressure
+sample_article_1_20250714113156,sample_article_1.pdf,2025-07-14T11:31:56.667227,mock,test-model-1,test-prompt-1,True,75 patients,type 2 diabetes mellitus,45-70 years,58.3 years,"60% male, 40% female",
+sample_article_2_20250714113156,sample_article_2.pdf,2025-07-14T11:31:56.667446,mock,test-model-2,test-prompt-2,True,150 patients,hypertension,35-65 years,52.7 years,"55% female, 45% male",systolic > 140 mmHg
+sample_article_2_20250621151735,sample_article_2.pdf,2025-06-21T15:17:35.712371,mock,test-model-2,test-prompt-2,True,150 patients,hypertension,35-65 years,52.7 years,"55% female, 45% male",systolic > 140 mmHg
+sample_article_1_20250621151735,sample_article_1.pdf,2025-06-21T15:17:35.712239,mock,test-model-1,test-prompt-1,True,75 patients,type 2 diabetes mellitus,45-70 years,58.3 years,"60% male, 40% female",

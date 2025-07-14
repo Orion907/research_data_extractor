@@ -1,0 +1,8 @@
+e P3 maximum amplitude time point±10 ms
+was used.
+Repeated-measures ANOVAs were used with Group (mindfulness-
+training vs. active control group) and Time (pre, post) in all analyses
+as factors. For behavioral data, percentage error rates (both omis-
+sions and commissions: no responses in Go trials and button presses
+in Nogo trials, respectively) and mean reaction times (RTs) for the
+correct frequent and infrequent-go trials were analyzed. 

@@ -1,0 +1,6 @@
+between groups in the case of frequent-go errors.
+Regarding EEG results, we expected increased amplitudes of P3 in
+the mindfulness group over time, particularly in Nogo-P3 which has
+been proposed as a reliable neural index of motor inhibition (Albert
+et al.,2013; Dykstra et al.,2020; Sánchez-Carmona et al.,2016;W e s -
+sel & Aron,2015). 

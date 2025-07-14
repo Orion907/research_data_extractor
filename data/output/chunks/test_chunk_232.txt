@@ -1,0 +1,6 @@
+ups and all different trials of the Go/Nogo task. No significant
+baseline difference in Nogo P3 amplitude was found (t (44) = 0.757,
+p =0.453). A 2×2 ANOVA with factors of Time (pre, post) and Group
+(mindfulness group, active control group) assessed possible changes
+across time in mean amplitudes of the frontocentral P3 on Nogo tri-
+als (Figure2). 

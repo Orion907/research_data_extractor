@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "result_id": "sample_article_2_20250714113156",
+    "source_file": "sample_article_2.pdf",
+    "extraction_time": "2025-07-14T11:31:56.667446",
+    "model_info": {
+      "provider": "mock",
+      "model_name": "test-model-2"
+    },
+    "prompt_id": "test-prompt-2",
+    "metadata": {
+      "test_run": true
+    }
+  },
+  "data": {
+    "sample_size": "150 patients",
+    "condition": "hypertension",
+    "age_range": "35-65 years",
+    "mean_age": "52.7 years",
+    "gender_distribution": "55% female, 45% male",
+    "blood_pressure": "systolic > 140 mmHg"
+  }
+}

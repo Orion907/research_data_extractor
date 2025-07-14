@@ -1,0 +1,10 @@
+ss/skills for
+life program?; 0=Never; 10=Always).
+2.5 Data analysis
+2.5.1 Behavioral and EEG data analysis
+For EEG, after acquisition, data were segmented in epochs of 1 s
+(200 ms before and 800 ms after stimulus onset) and only trials
+with valid responses were analyzed (correct go trials with responses
+between 150 and 1100 ms after onset, correct nogo trials without
+response). Data were low-pass filtered below 35 Hz and re-referenced
+to the average mastoids. 

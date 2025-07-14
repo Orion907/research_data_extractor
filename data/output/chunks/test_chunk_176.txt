@@ -1,0 +1,23 @@
+.
+Variable
+Mindfulness group
+(n =24)
+Control group
+(n =22)
+Age M =9.9; SD=0.71 M =9.7; SD=0.70
+Gender (%)
+Females 62.5 63.6
+Males 37.5 36.4
+Family structure (%)
+2 members 14.3 5.5
+3 members 28.6 22.2
+4 members 33.3 61.1
+5 members 9.5 5.6
+>5 members 14.3 5.6
+Family month income (%)
+<200 USD 0 11.8
+200–400 USD 40.9 41.2
+400–680 USD 45.5 41.2
+680–1000 USD 13.6 5.8
+secular mindfulness-based intervention for children ages 7–12 years
+and is specifically designed to be implemented in a school context. 

@@ -1,0 +1,7 @@
+ 35 Hz and re-referenced
+to the average mastoids. Artifact rejection was based on a three-step
+procedure. First, we used Independent Component Analysis (ICA) to
+remove eye-blinks or muscular activity, since it uses spatial filtering
+and preserves ERP contributions, in contrast to other methods such
+as filtering or regression (Jung, Makeig, Humphries, et al.,2000; Jung,
+Makeig, Westerfield, et al.,2000). 

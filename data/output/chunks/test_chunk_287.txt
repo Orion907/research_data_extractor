@@ -1,0 +1,6 @@
+entages), mean reaction times for the Go trials (frequent and infrequent-go), and means
+of error rates (commission errors in percentage) for the Nogo trials. Standard deviations in parentheses.
+in frequent-go trials (t(44) =2.219, p =0.032), where the control group
+showed higher error rate.
+With respect to percentage error rates, a significant main effect
+of trial type was observed (F(2,88) = 379.6, p < 0.001, ƞ2p = 0.896).

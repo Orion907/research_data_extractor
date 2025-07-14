@@ -1,0 +1,7 @@
+sis (Hus-
+ter et al.,2013; Rietdijk et al.,2014). Therefore, the main reasons for
+excluding participants were a high task error rate and/or a high number
+of trials with large artifacts that cannot be corrected by the Indepen-
+dent Component Analysis (ICA) procedure, leaving too few correct
+trials (less than 15) for analysis (please see Behavioral and EEG Data
+Analysis section for the complete procedure of data analysis). 

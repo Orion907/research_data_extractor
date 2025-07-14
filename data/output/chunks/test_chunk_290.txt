@@ -1,0 +1,7 @@
+was found (F(1,44) =9.277, p =0.004, ƞ2p =0.174).
+In general, correct responses to infrequent-go trials were larger
+(higher reaction times) than correct responses to frequent-go trials
+(slower reaction times). Additionally, a main effect of Time was found
+(F(1,44) =20.9, p <0.001, ƞ2p =0.322), showing a general decrease in
+frequent- and infrequent-go RTs at post-test compared to pre-test. No
+other significant effect or interaction was found.

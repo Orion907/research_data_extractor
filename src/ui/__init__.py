@@ -27,7 +27,6 @@ from .pages import (
     BatchResultsComponent,
     AnnotationPage,
     AnalyticsPage,
-    DomainSetupPage,
     BatchExtractionPage
 )
 

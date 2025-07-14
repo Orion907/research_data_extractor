@@ -1,0 +1,11 @@
+.
+control pre-post
+M SD M SD M SD M SD F η2
+Children self-reports
+CAMM- mindfulness 3.34 0.95 3.55 0.93 3.34 0.91 2.90 0.90 5.10 * 0.11
+EATQ- effortful control 3.39 0.41 3.62 0.47 3.22 0.35 3.10 0.43 6.14 * 0.12
+Teacher reports
+BRIEF- executive function 1.61 0.36 1.35 0.34 1.52 0.43 1.54 0.47 5.64* 0.12
+BRIEF- behavioral regulation 1.67 0.45 1.34 0.35 1.48 0.49 1.48 0.53 5.63* 0.12
+BRIEF—cognitive regulation 1.59 0.37 1.44 0.44 1.66 0.56 1.68 0.49 1.69 0.04
+BRIEF—emotional regulation 1.56 0.39 1

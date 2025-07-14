@@ -1,0 +1,7 @@
+d-measures ANOVA, with Group and Time as
+factors. The Greenhouse–Geisser (GG) epsilon correction was applied
+to adjust the degrees of freedom of the F ratios where necessary,
+and post hoc comparisons were also made in order to determine the
+significance of pair-wise contrasts applying the Bonferroni procedure
+(alpha 0.05). For all analyses, the level of significance employed was
+0.05. Effect sizes were computed using the partial eta-square (ƞ2p). 
