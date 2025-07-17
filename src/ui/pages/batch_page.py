@@ -32,32 +32,14 @@ class BatchPage:
         self.config = config
     
     def render(self) -> None:
-        """Render the complete batch processing page."""
-        # Page header
-        st.header("🔄 Batch Processing")
-        st.markdown("""
-        Process multiple research articles at once. Upload multiple PDF files or a ZIP archive 
-        containing PDFs to extract patient characteristics from all articles simultaneously.
-        """)
-        
+        """Render the complete single-screen batch processing page."""
         # Initialize session state
         self._initialize_session_state()
         
-        # Render provider and model selection
-        self._render_provider_selection()
-        
-        # Render advanced settings
-        settings = self._render_advanced_settings()
-        
-        # File upload section
-        upload_result = self._render_file_upload_section()
-        
-        # PICOTS input section (Phase 3 enhancement)
-        picots_result = self._render_picots_section()
-        
-        # Processing section
-        if st.session_state.batch_files:
-            self._render_processing_section(settings, picots_result)
+        # Single-screen layout with three main sections
+        self._render_tool_configuration_panel()
+        self._render_picots_and_upload_section()
+        self._render_results_section()
     
     def _initialize_session_state(self) -> None:
         """Initialize session state for batch processing."""
@@ -73,8 +55,11 @@ class BatchPage:
         if 'batch_picots_data' not in st.session_state:
             st.session_state.batch_picots_data = None
     
-    def _render_provider_selection(self) -> None:
-        """Render LLM provider and model selection."""
+    def _render_tool_configuration_panel(self) -> None:
+        """Render consolidated tool configuration panel (25% of screen)."""
+        st.markdown("### 🛠️ Tool Configuration")
+        
+        # Model selection in a more compact layout
         col1, col2 = st.columns(2)
         
         with col1:
@@ -82,7 +67,7 @@ class BatchPage:
                 st.session_state.batch_provider = "anthropic"
             
             st.session_state.batch_provider = st.selectbox(
-                "LLM Provider",
+                "Provider",
                 ["anthropic", "openai", "mock"],
                 index=["anthropic", "openai", "mock"].index(st.session_state.batch_provider),
                 key="batch_provider_select"
@@ -94,46 +79,95 @@ class BatchPage:
             if 'batch_model' not in st.session_state:
                 st.session_state.batch_model = models[0]
             
-            st.session_state.batch_model = st.selectbox(
-                "Model", 
-                models, 
-                key="batch_model_select"
-            )
+            # Show model with brief description
+            model_options = models
+            if st.session_state.batch_provider == "anthropic":
+                model_display = {
+                    "claude-3-5-sonnet-20241022": "Claude 3.5 Sonnet (Latest)",
+                    "claude-3-opus-20240229": "Claude 3 Opus (Most Capable)",
+                    "claude-3-haiku-20240307": "Claude 3 Haiku (Fastest)"
+                }
+                display_names = [model_display.get(m, m) for m in models]
+                selected_idx = st.selectbox(
+                    "Model",
+                    range(len(models)),
+                    format_func=lambda x: display_names[x],
+                    key="batch_model_select"
+                )
+                st.session_state.batch_model = models[selected_idx]
+            else:
+                st.session_state.batch_model = st.selectbox(
+                    "Model", 
+                    models, 
+                    key="batch_model_select"
+                )
+        
+        # Advanced settings in collapsible section
+        self._render_advanced_settings_compact()
     
-    def _render_advanced_settings(self) -> Dict[str, Any]:
+    def _render_advanced_settings_compact(self) -> Dict[str, Any]:
         """
-        Render advanced settings.
+        Render compact advanced settings.
         
         Returns:
             Dictionary of setting values
         """
-        with st.expander("⚙️ Advanced Settings"):
-            settings = ExtractionSettingsComponent.render_processing_settings(
-                self.config,
-                self.extraction_engine,
-                key_prefix="batch"
-            )
+        settings = {}
+        
+        with st.expander("⚙️ Advanced Settings", expanded=False):
+            # Compact two-column layout for settings
+            col1, col2 = st.columns(2)
             
-            # Add batch-specific settings
-            settings['max_parallel'] = st.number_input(
-                "Max Parallel Processing",
-                min_value=1,
-                max_value=5,
-                value=2,
-                help="Number of files to process simultaneously",
-                key="batch_max_parallel"
-            )
+            with col1:
+                settings['temperature'] = st.slider(
+                    "Temperature", 0.0, 1.0, 0.3, 0.1,
+                    help="Higher values = more creative",
+                    key="batch_temperature"
+                )
+                
+                settings['max_parallel'] = st.number_input(
+                    "Parallel Files", 1, 5, 2,
+                    help="Files processed simultaneously",
+                    key="batch_max_parallel"
+                )
             
-            settings['timeout_per_file'] = st.number_input(
-                "Timeout per File (minutes)",
-                min_value=5,
-                max_value=60,
-                value=15,
-                help="Maximum time to spend on each file",
-                key="batch_timeout"
-            )
+            with col2:
+                settings['chunk_size'] = st.number_input(
+                    "Chunk Size", 1000, 8000, 4000,
+                    help="Text chunk size for processing",
+                    key="batch_chunk_size"
+                )
+                
+                settings['timeout_per_file'] = st.number_input(
+                    "Timeout (min)", 5, 60, 15,
+                    help="Max time per file",
+                    key="batch_timeout"
+                )
         
         return settings
+    
+    def _render_picots_and_upload_section(self) -> None:
+        """Render combined PICOTS and upload section."""
+        # Render PICOTS section
+        picots_result = self._render_picots_section()
+        
+        # Render file upload section
+        upload_result = self._render_file_upload_section()
+        
+        # If files are uploaded, show processing section
+        if st.session_state.batch_files:
+            # Get advanced settings
+            settings = self._render_advanced_settings_compact()
+            
+            # Show processing section
+            self._render_processing_section(settings, picots_result)
+    
+    def _render_results_section(self) -> None:
+        """Render the results section."""
+        if st.session_state.batch_processing_complete and st.session_state.batch_results:
+            st.markdown("---")
+            st.subheader("📊 Processing Results")
+            self._display_batch_results()
     
     def _render_picots_section(self) -> Dict[str, Any]:
         """

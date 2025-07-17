@@ -41,7 +41,7 @@ if init_result['errors']:
 
 # App title and description
 st.title("🔬 Research Data Extractor")
-st.markdown("**Streamlined workflow for systematic reviews and meta-analyses**")
+st.markdown("**Streamlined workflow for research reviews**")
 
 # Streamlined Navigation - Phase 1 Simplification
 st.sidebar.markdown("## 🔬 Research Data Extraction")

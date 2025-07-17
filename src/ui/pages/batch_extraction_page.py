@@ -39,9 +39,6 @@ class BatchExtractionPage:
         # Pro tip
         st.info("🎯 **Pro tip**: Define your PICOTS criteria to get more focused and accurate extraction results")
         
-        # Domain status awareness
-        self._render_domain_status()
-        
         # Core batch processing functionality
         self.batch_page.render()
     
@@ -68,14 +65,5 @@ class BatchExtractionPage:
     
     def _render_domain_status(self) -> None:
         """Render domain status awareness section."""
-        if st.session_state.get('active_domain_profile') or st.session_state.get('domain_profile_ready'):
-            profile_name = st.session_state.get('domain_profile_name', 'Active Profile')
-            st.success(f"✅ **Enhanced mode**: Using domain profile '{profile_name}' for better synonym recognition")
-        
-        elif st.session_state.get('skip_domain_setup'):
-            st.info("⚡ **Quick mode**: Using general extraction (no domain enhancement)")
-        
-        else:
-            st.warning("🗺️ **Recommendation**: Create a domain profile first for enhanced accuracy")
-            if st.button("🔗 Go to Domain Setup", key="goto_domain_setup"):
-                st.markdown("👆 Use the navigation above to go to '🗺️ Domain Setup'")
+        # Domain setup has been removed - using PICOTS-enhanced extraction
+        pass
